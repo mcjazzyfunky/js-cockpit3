@@ -1,8 +1,9 @@
 // external imports
 import React, { FormEvent } from 'react'
 import { component, isNode } from 'js-react-utils'
-import { Select } from 'baseui/select'
 import * as Spec from 'js-spec/validators'
+
+import { Dropdown } from "office-ui-fabric-react"
 
 // internal import
 import defineBaseUIStyles from '../tools/defineBaseUIStyles'
@@ -31,7 +32,6 @@ type SelectBoxProps = {
   label?: string,
   required?: boolean,
   disabled?: boolean,
-  size?: 'compact' | 'default' | 'large',
   messageOnError?: string,
 
   options?: Array<{
@@ -48,7 +48,6 @@ const validateSelectBoxProps = Spec.checkProps({
     label: Spec.string,
     disabled: Spec.boolean,
     required: Spec.boolean,
-    size: Spec.oneOf('compact', 'default', 'large'),
     messageOnError: Spec.string
   }
 })
@@ -69,7 +68,6 @@ function SelectBoxView({
   label,
   disabled,
   required = false,
-  size = 'default',
   messageOnError,
   options
 }: SelectBoxProps) {
@@ -130,16 +128,17 @@ function SelectBoxView({
 
   return (
     <FieldWrapper label={label} required={required} error={error}>
-      <Select
-        searchable={false}
+      <Dropdown
         disabled={disabled}
-        error={!!error}
-        value={value ? [{ key: value }]: []}
-        onChange={(ev: any) => setValue(ev.value[0] && ev.value[0].key)}
-        options={options}
-        labelKey="text"
-        valueKey="value"
-        size={size}
+        //error={!!error}
+        //value={value ? [{ key: value }]: []}
+        //onChange={(ev: any) => setValue(ev.value[0] && ev.value[0].key)}
+        options={
+          !options ? [] : options.map(option => ({
+            key: option.value,
+            text: option.text
+          }))
+        }
       />
     </FieldWrapper>
   )

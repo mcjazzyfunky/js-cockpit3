@@ -6,7 +6,7 @@ import * as Spec from 'js-spec/validators'
 import { Checkbox } from 'office-ui-fabric-react'
 
 // internal import
-import defineBaseUIStyles from '../tools/defineBaseUIStyles'
+import defineStyles from '../tools/defineStyles'
 import useFormCtrl from '../hooks/useFormCtrl'
 
 // derived import
@@ -49,7 +49,7 @@ const validateCheckBoxProps = Spec.checkProps({
 
 // --- styles --------------------------------------------------------
 
-const useCheckBoxStyles = defineBaseUIStyles(theme => {
+const useCheckBoxStyles = defineStyles(theme => {
   return {
     root: {
     },
@@ -152,4 +152,4 @@ function validate(value: boolean, required: boolean, messageOnError?: string) {
 
 // --- exports -------------------------------------------------------
 
-export default CheckBox 
+export default CheckBox

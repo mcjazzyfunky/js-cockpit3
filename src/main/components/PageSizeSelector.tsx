@@ -1,8 +1,8 @@
 import React, { ReactNode } from 'react'
 import { component, isNode } from 'js-react-utils'
-import { Select, SIZE } from 'baseui/select'
-import { Label3 } from 'baseui/typography'
 import * as Spec from 'js-spec/validators'
+
+import { Dropdown, Label } from 'office-ui-fabric-react'
 
 // internal import
 import defineBaseUIStyles from '../tools/defineBaseUIStyles'
@@ -56,6 +56,9 @@ const usePaginatorStyles = defineBaseUIStyles(theme => {
       whiteSpace: 'nowrap'
     },
 
+    dropdown: {
+      minWidth: '55px'
+    }
   }
 })
 
@@ -70,23 +73,18 @@ function PaginatorView({
   return (
     <div className={classes.pageSizeSelector}>
       <div className={classes.pageSizeLabel}>
-        <Label3>Items/page:</Label3>
+        <Label>Items/page:</Label>
       </div>
-      <Select
-        id="select-id"
-        size={SIZE.compact}
-        clearable={false}
-        value={[{id: 10}]}
-        searchable={false}
+      <Dropdown
+        selectedKey="50"
+        className={classes.dropdown}
 
         options={
           PAGE_SIZE_OPTIONS.map(pageSize => ({
-            id: pageSize
+            key: String(pageSize),
+            text: String(pageSize)
           }))
         }
-
-        labelKey="id"
-        valueKey="id"
       />
     </div>
   )

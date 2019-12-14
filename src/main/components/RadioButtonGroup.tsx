@@ -1,13 +1,12 @@
 // external imports
 import React, { FormEvent } from 'react'
 import { component, isNode } from 'js-react-utils'
-import { Input } from 'baseui/input'
 import * as Spec from 'js-spec/validators'
 
-import { Radio, RadioGroup } from 'baseui/radio'
+import { ChoiceGroup } from 'office-ui-fabric-react'
 
 // internal import
-import defineBaseUIStyles from '../tools/defineBaseUIStyles'
+import defineStyles from '../tools/defineStyles'
 import FieldWrapper from './FieldWrapper'
 import useFormCtrl from '../hooks/useFormCtrl'
 import useDefaultSize from '../hooks/useDefaultSize'
@@ -67,10 +66,14 @@ const validateOption = Spec.exact({
 
 // --- styles --------------------------------------------------------
 
-const useRadioButtonGroupStyles = defineBaseUIStyles(theme => {
+const useRadioButtonGroupStyles = defineStyles(theme => {
   return {
     root: {
     },
+
+    gapRight: {
+      marginRight: '10px'
+    }
   }
 })
 
@@ -141,22 +144,29 @@ function RadioButtonGroupView({
     }
   }, [formCtrl])
 
+  const styles: any = align !== 'horizontal' ? null : {
+    flexContainer: { display: 'flex' }
+  }
+
   return (
     <FieldWrapper label={label} required={required} error={error}>
-      <RadioGroup
-        align={align}
-        value={value}
-      >
-        {
-          !options ? null : options.map(option => {
-            return (
-              <Radio value={option.value} name={name}>
-                {option.text}
-              </Radio>
-            )
-          })
+      <ChoiceGroup
+   //     align={align}
+       value={value}
+
+        styles={styles}
+
+        options={
+          !options ? [] : options.map(option => ({
+            key: option.value,
+            
+            text:
+              align === 'horizontal'
+                ? <div className={classes.gapRight}>{option.text}</div> as any
+                : option.text
+          }))
         }
-      </RadioGroup>
+      />
     </FieldWrapper> 
   )
 }

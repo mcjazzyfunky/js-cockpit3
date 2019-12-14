@@ -1,10 +1,9 @@
 // external imports
 import React, { FormEvent } from 'react'
 import { component, isNode } from 'js-react-utils'
-import { Input } from 'baseui/input'
 import * as Spec from 'js-spec/validators'
 
-import { Checkbox } from 'baseui/checkbox'
+import { Stack, Checkbox } from 'office-ui-fabric-react'
 
 // internal import
 import defineBaseUIStyles from '../tools/defineBaseUIStyles'
@@ -142,15 +141,18 @@ function CheckBoxGroupView({
   return (
     <FieldWrapper label={label} required={required} error={error}>
       <div className={classes.root}>
-      {
-        !options ? null : options.map(option => {
-          return (
-            <Checkbox>
-              {option.text}
-            </Checkbox>
-          )
-        })
-      }
+        <Stack tokens={{ childrenGap: 5 }}>
+          {
+            !options ? null : options.map(option => {
+              return (
+                <Checkbox
+                  key={option.key}
+                  label={option.text}
+                />
+              )
+            })
+          }
+        </Stack>
       </div>
     </FieldWrapper> 
   )

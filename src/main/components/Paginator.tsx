@@ -1,10 +1,11 @@
 import React, { ReactNode } from 'react'
 import { component, isNode } from 'js-react-utils'
-import { Input, SIZE } from 'baseui/input'
 import * as Spec from 'js-spec/validators'
 
+import { TextField } from 'office-ui-fabric-react'
+
 // internal import
-import defineBaseUIStyles from '../tools/defineBaseUIStyles'
+import defineStyles from '../tools/defineStyles'
 
 // --- components ----------------------------------------------------
 
@@ -35,7 +36,7 @@ const validatePaginatorProps = Spec.checkProps({
 
 // --- styles --------------------------------------------------------
 
-const usePaginatorStyles = defineBaseUIStyles(theme => {
+const usePaginatorStyles = defineStyles(theme => {
   return {
     root: {
     },
@@ -116,24 +117,10 @@ function PaginatorView({
       
       <div className={classes.pageInputContainer}>
         <div>Page</div>
-        <Input
-          size={SIZE.compact}
+        <TextField
+          className={classes.pageInput}
           value={"1"}
           disabled={disabled}
-
-          overrides={{
-            Root: {
-              props: {
-                className: classes.pageInput
-              }
-            },
-
-            Input: {
-              props: {
-                xxxclassName: classes.pageInput
-              }
-            }
-          }}
         />
         <div>of 125</div>
       </div>

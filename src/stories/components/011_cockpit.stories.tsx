@@ -454,4 +454,4 @@ const dataForm =
     </TabBox>
   </DataForm>
 */
-const mainContent = dataForm
+const mainContent = dataExplorer
