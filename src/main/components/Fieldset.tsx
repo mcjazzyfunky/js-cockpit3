@@ -5,7 +5,7 @@ import { FiLayers as DefaultLogo } from 'react-icons/fi'
 import * as Spec from 'js-spec/validators'
 
 // internal import
-import defineBaseUIStyles from '../tools/defineBaseUIStyles'
+import defineStyles from '../tools/defineStyles'
 
 // --- components ----------------------------------------------------
 
@@ -37,7 +37,7 @@ const validateFieldsetProps = Spec.checkProps({
 
 // --- styles --------------------------------------------------------
 
-const useFieldsetStyles = defineBaseUIStyles((theme, hasTitle: boolean) => {
+const useFieldsetStyles = defineStyles((theme, hasTitle: boolean) => {
   return {
     root: {
       display: 'inline-block',

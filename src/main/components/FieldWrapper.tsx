@@ -4,7 +4,7 @@ import { component, isNode, withChildren } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
 
 // internal import
-import defineBaseUIStyles from '../tools/defineBaseUIStyles'
+import defineStyles from '../tools/defineStyles'
 import LabelPosition from '../enums/LabelPosition'
 import useDefaultLabelPosition from '../hooks/useDefaultLabelPosition'
 
@@ -45,7 +45,7 @@ const validateFieldWrapperProps = Spec.checkProps({
 
 // --- styles --------------------------------------------------------
 
-const useFieldWrapperStyles = defineBaseUIStyles(
+const useFieldWrapperStyles = defineStyles(
   (theme, required: boolean, labelAbove: boolean) => {
   
   return {

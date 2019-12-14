@@ -5,7 +5,7 @@ import * as Spec from 'js-spec/validators'
 
 // internal import
 import classNames from '../tools/classNames'
-import defineBaseUIStyles from '../tools/defineBaseUIStyles'
+import defineStyles from '../tools/defineStyles'
 import { StatefulTooltip, PLACEMENT } from 'baseui/tooltip'
 
 // --- components ----------------------------------------------------
@@ -64,7 +64,7 @@ const validateWorkspaceSelectorItem = Spec.exact({
 
 // --- styles --------------------------------------------------------
 
-const useWorkspaceSelectorStyles = defineBaseUIStyles(theme => {
+const useWorkspaceSelectorStyles = defineStyles(theme => {
   return {
     root: {
       whiteSpace: 'nowrap'
@@ -86,9 +86,11 @@ const useWorkspaceSelectorStyles = defineBaseUIStyles(theme => {
       cursor: 'pointer',
       fontWeight: 'normal',
 
-      ':hover': {
-        backgroundColor: theme.colors.primary300,
-        borderRadius: '1px',
+      selectors: {
+        ':hover': {
+          backgroundColor: theme.colors.primary300,
+          borderRadius: '1px',
+        }
       }
     },
 

@@ -6,7 +6,7 @@ import * as Spec from 'js-spec/validators'
 import { Stack, Checkbox } from 'office-ui-fabric-react'
 
 // internal import
-import defineBaseUIStyles from '../tools/defineBaseUIStyles'
+import defineStyles from '../tools/defineStyles'
 import FieldWrapper from './FieldWrapper'
 import useFormCtrl from '../hooks/useFormCtrl'
 import useDefaultSize from '../hooks/useDefaultSize'
@@ -64,7 +64,7 @@ const validateOption = Spec.exact({
 
 // --- styles --------------------------------------------------------
 
-const useCheckBoxGroupStyles = defineBaseUIStyles(theme => {
+const useCheckBoxGroupStyles = defineStyles(theme => {
   return {
     root: {
       paddingTop: '3px'

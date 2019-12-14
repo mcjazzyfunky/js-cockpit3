@@ -7,7 +7,7 @@ import { Accordion, Panel } from 'baseui/accordion'
 import { Navigation } from 'baseui/side-navigation'
 
 // internal import
-import defineBaseUIStyles from '../tools/defineBaseUIStyles'
+import defineStyles from '../tools/defineStyles'
 import classNames from '../tools/classNames'
 
 // --- components ----------------------------------------------------
@@ -102,7 +102,7 @@ type SideMenuItem = {
 */
 // --- styles --------------------------------------------------------
 
-const useSideMenuStyles = defineBaseUIStyles(theme => {
+const useSideMenuStyles = defineStyles(theme => {
   return {
     root: {
       height: '100%',

@@ -7,7 +7,7 @@ import { CommandBar, CommandBarButton, ICommandBarItemProps, IComponentAs, IButt
   from 'office-ui-fabric-react'
 
 // internal import
-import defineStyles from '../tools/defineBaseUIStyles'
+import defineStyles from '../tools/defineStyles'
 
 // --- components ----------------------------------------------------
 

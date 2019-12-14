@@ -4,7 +4,7 @@ import { component, isNode } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
 
 // internal import
-import defineBaseUIStyles from '../tools/defineBaseUIStyles'
+import defineStyles from '../tools/defineStyles'
 import LabelPosition from '../enums/LabelPosition'
 import DefaultLabelPositionCtx from '../context/DefaultLabelPositionCtx'
 
@@ -38,7 +38,7 @@ const validateDataFormProps = Spec.checkProps({
 
 // --- styles --------------------------------------------------------
 
-const useDataFormStyles = defineBaseUIStyles(theme => {
+const useDataFormStyles = defineStyles(theme => {
   return {
     root: {
       margin: '5px'

@@ -5,10 +5,10 @@ import * as Spec from 'js-spec/validators'
 import { GoSearch as SearchIcon } from 'react-icons/go'
 import { MdFilterList as FilterIcon } from 'react-icons/md'
 
-import { Button } from 'baseui/button'
+import { PrimaryButton } from 'office-ui-fabric-react'
 
 // internal import
-import defineBaseUIStyles from '../tools/defineBaseUIStyles'
+import defineStyles from '../tools/defineStyles'
 import DefaultLabelPositionCtx from '../context/DefaultLabelPositionCtx'
 import LabelPosition from '../enums/LabelPosition'
 
@@ -40,7 +40,7 @@ const validateFilterBoxProps = Spec.checkProps({
 
 // --- styles --------------------------------------------------------
 
-const useFilterBoxStyles = defineBaseUIStyles(theme => {
+const useFilterBoxStyles = defineStyles(theme => {
   return {
     root: {
       display: 'flex',
@@ -85,9 +85,9 @@ function FilterBoxView({
         </DefaultLabelPositionCtx.Provider>
       </div>
       <div className={classes.column3}>
-        <Button type="submit" size="compact" startEnhancer={() => <SearchIcon/>}>
+        <PrimaryButton type="submit" onRenderIcon={() => <SearchIcon/>}>
           Search
-        </Button>
+        </PrimaryButton>
       </div>
     </div>
   )

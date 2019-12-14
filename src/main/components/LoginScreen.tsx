@@ -1,12 +1,13 @@
 // external imports
 import React, { ReactNode } from 'react'
 import { component, isNode } from 'js-react-utils'
-import { Button, SIZE } from 'baseui/button'
 import { IoIosUnlock as LoginIcon } from 'react-icons/io'
 import * as Spec from 'js-spec/validators'
 
+import { PrimaryButton } from 'office-ui-fabric-react'
+
 // internal import
-import defineBaseUIStyles from '../tools/defineBaseUIStyles'
+import defineStyles from '../tools/defineStyles'
 import createFormCtrl from '../control/createFormCtrl'
 import FormCtrlCtx from '../context/FormCtrlCtx'
 import TextInput from './TextInput'
@@ -58,7 +59,7 @@ const validateLoginScreenProps = Spec.checkProps({
 
 // --- styles --------------------------------------------------------
 
-const useLoginScreenStyles = defineBaseUIStyles(theme => {
+const useLoginScreenStyles = defineStyles(theme => {
   return {
     root: {
       display: 'flex',
@@ -291,20 +292,12 @@ function renderDefaultLoginFields(classes: Classes) {
 }
 
 function renderLoginActions(classes: Classes) {
-  const overrides = {
-    BaseButton: {
-      props: {
-        className: classes.loginButton
-      }
-    }
-  }
-
   return (
     <div className={classes.column2Bottom}>
       <CheckBox name="rememberLogin" label="Remember login"/>
-      <Button size={SIZE.compact} overrides={overrides}>
+      <PrimaryButton type="submit" className={classes.loginButton}>
         Log in
-      </Button>
+      </PrimaryButton>
     </div>
   )
 }

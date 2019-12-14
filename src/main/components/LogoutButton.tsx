@@ -6,7 +6,7 @@ import { StatefulTooltip, PLACEMENT } from 'baseui/tooltip'
 import { MdPowerSettingsNew as LogoutIcon } from 'react-icons/md'
 
 // internal imports
-import defineBaseUIStyles from '../tools/defineBaseUIStyles'
+import defineStyles from '../tools/defineStyles'
 
 
 // --- components ----------------------------------------------------
@@ -37,7 +37,7 @@ const validateLogoutButtonProps = Spec.checkProps({
 
 // --- styles --------------------------------------------------------
 
-const useLogoutButtonStyles = defineBaseUIStyles(theme => {
+const useLogoutButtonStyles = defineStyles(theme => {
   return {
     button: {
       width: '48px',
@@ -48,12 +48,14 @@ const useLogoutButtonStyles = defineBaseUIStyles(theme => {
       outline: 'none',
       cursor: 'pointer',
 
-      ':hover': {
-        backgroundColor: theme.colors.primary400,
-      },
+      selectors: {
+        ':hover': {
+          backgroundColor: theme.colors.primary400,
+        },
 
-      ':active': {
-        backgroundColor: theme.colors.primary300,
+        ':active': {
+          backgroundColor: theme.colors.primary300,
+        }
       }
     },
 

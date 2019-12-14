@@ -5,7 +5,7 @@ import * as Spec from 'js-spec/validators'
 import { Dropdown, Label } from 'office-ui-fabric-react'
 
 // internal import
-import defineBaseUIStyles from '../tools/defineBaseUIStyles'
+import defineStyles from '../tools/defineStyles'
 
 // --- constants -----------------------------------------------------
 
@@ -39,7 +39,7 @@ const validatePaginatorProps = Spec.checkProps({
 
 // --- styles --------------------------------------------------------
 
-const usePaginatorStyles = defineBaseUIStyles(theme => {
+const usePaginatorStyles = defineStyles(theme => {
   return {
     root: {
     },

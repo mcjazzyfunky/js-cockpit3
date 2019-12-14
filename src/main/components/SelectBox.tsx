@@ -6,7 +6,7 @@ import * as Spec from 'js-spec/validators'
 import { Dropdown } from "office-ui-fabric-react"
 
 // internal import
-import defineBaseUIStyles from '../tools/defineBaseUIStyles'
+import defineStyles from '../tools/defineStyles'
 import FieldWrapper from './FieldWrapper'
 import useFormCtrl from '../hooks/useFormCtrl'
 
@@ -54,7 +54,7 @@ const validateSelectBoxProps = Spec.checkProps({
 
 // --- styles --------------------------------------------------------
 
-const useSelectBoxStyles = defineBaseUIStyles(theme => {
+const useSelectBoxStyles = defineStyles(theme => {
   return {
     root: {
     },

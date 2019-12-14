@@ -2,15 +2,16 @@
 import React, { ReactNode } from 'react'
 import { component, isNode } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
-import { Button, KIND, SIZE } from 'baseui/button'
 
 import { GoPlus as NewIcon } from 'react-icons/go'
 import { FiEdit as EditIcon } from 'react-icons/fi'
 import { FiTrash as DeleteIcon } from 'react-icons/fi'
 import { MdFileDownload as DownloadIcon } from 'react-icons/md'
 
+import { ActionButton, PrimaryButton } from 'office-ui-fabric-react'
+
 // internal imports
-import defineBaseUIStyles from '../tools/defineBaseUIStyles'
+import defineStyles from '../tools/defineStyles'
 import DataTable from './DataTable'
 import Paginator from './Paginator'
 import PageSizeSelector from './PageSizeSelector'
@@ -52,7 +53,7 @@ const validateDataExplorerProps = Spec.checkProps({
 
 // --- styles --------------------------------------------------------
 
-const useDataExplorerStyles = defineBaseUIStyles(theme => {
+const useDataExplorerStyles = defineStyles(theme => {
   return {
     root: {
       position: 'absolute',
@@ -140,10 +141,10 @@ function renderHeader(
         {title}
       </div>
       <div className={classes.actionButtons}>
-        <Button size={SIZE.compact} kind="tertiary"><NewIcon/> &nbsp; New</Button>
-        <Button size={SIZE.compact} kind="tertiary"><EditIcon/> &nbsp; Edit</Button>
-        <Button size={SIZE.compact} kind="tertiary"><DeleteIcon/> &nbsp; Delete</Button>
-        <Button size={SIZE.compact} kind="tertiary"><DownloadIcon/> &nbsp; Export</Button>
+        <ActionButton onRenderIcon={() => <NewIcon/>}>New</ActionButton>
+        <ActionButton onRenderIcon={() => <EditIcon/>}>Edit</ActionButton>
+        <ActionButton onRenderIcon={() => <DeleteIcon/>}>Delete</ActionButton>
+        <ActionButton onRenderIcon={() => <DownloadIcon/>}>Export</ActionButton>
       </div>
     </div>
   ) 

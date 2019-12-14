@@ -32,7 +32,7 @@ export { default as useDefaultSize } from './hooks/useDefaultSize'
 
 // tools
 export { default as classNames } from './tools/classNames'
-export { default as defineBaseUIStyles } from './tools/defineBaseUIStyles'
+export { default as defineStyles } from './tools/defineStyles'
 
 // enums
 export { default as LabelPosition } from './enums/LabelPosition'

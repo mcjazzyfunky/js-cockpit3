@@ -5,7 +5,7 @@ import { StatefulTabs as Tabs, Tab } from 'baseui/tabs'
 import * as Spec from 'js-spec/validators'
 
 // internal import
-import defineBaseUIStyles from '../tools/defineBaseUIStyles'
+import defineStyles from '../tools/defineStyles'
 import TabPage from './TabPage'
 
 // derived imports
@@ -39,7 +39,7 @@ const validateTabBoxProps = Spec.checkProps({
 
 // --- styles --------------------------------------------------------
 
-const useTabBoxStyles = defineBaseUIStyles(theme => {
+const useTabBoxStyles = defineStyles(theme => {
   return {
     root: {
     },

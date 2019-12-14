@@ -5,10 +5,10 @@ import { VariableSizeGrid } from 'react-window'
 import useResizeAware from 'react-resize-aware'
 import * as Spec from 'js-spec/validators'
 
-import { Checkbox } from 'baseui/checkbox'
+import { Checkbox } from 'office-ui-fabric-react'
 
 // internal imports
-import defineBaseUIStyles from '../tools/defineBaseUIStyles'
+import defineStyles from '../tools/defineStyles'
 import classNames from '../tools/classNames'
 
 // derived imports
@@ -70,7 +70,7 @@ const validateDataTableProps = Spec.checkProps({
 
 // --- styles --------------------------------------------------------
 
-const useDataTableStyles = defineBaseUIStyles(theme => {
+const useDataTableStyles = defineStyles(theme => {
   return {
     root: {
       position: 'relative',

@@ -2,10 +2,9 @@
 import React, { ReactNode } from 'react'
 import { component, isNode } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
-import { ThemeProvider, DarkThemeMove as DarkTheme } from 'baseui'
 
 // internal import
-import defineBaseUIStyles from '../tools/defineBaseUIStyles'
+import defineStyles from '../tools/defineStyles'
 import DefaultSizeCtx from '../context/DefaultSizeCtx'
 import Size from '../enums/Size'
 
@@ -49,9 +48,7 @@ const validateCockpitProps = Spec.checkProps({
 
 // --- styles --------------------------------------------------------
 
-const useCockpitStyles = defineBaseUIStyles(theme => {
-  theme = DarkTheme
-
+const useCockpitStyles = defineStyles(theme => {
   return {
     root: {
       display: 'flex',

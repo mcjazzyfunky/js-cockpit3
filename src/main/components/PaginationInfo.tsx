@@ -4,7 +4,7 @@ import { LabelSmall } from 'baseui/typography'
 import * as Spec from 'js-spec/validators'
 
 // internal import
-import defineBaseUIStyles from '../tools/defineBaseUIStyles'
+import defineStyles from '../tools/defineStyles'
 
 // --- components ----------------------------------------------------
 
@@ -33,7 +33,7 @@ const validatePaginationInfoProps = Spec.checkProps({
 
 // --- styles --------------------------------------------------------
 
-const usePaginationInfoStyles = defineBaseUIStyles(theme => {
+const usePaginationInfoStyles = defineStyles(theme => {
   return {
     root: {
       flexGrow: 1,
