@@ -1,0 +1,6 @@
+/*.log
+/.project
+/.settings
+/nbproject
+/node_modules
+/build/*
