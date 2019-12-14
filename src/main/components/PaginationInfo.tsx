@@ -1,7 +1,8 @@
 import React, { ReactNode } from 'react'
 import { component, isNode } from 'js-react-utils'
-import { LabelSmall } from 'baseui/typography'
 import * as Spec from 'js-spec/validators'
+
+import { Text } from 'office-ui-fabric-react'
 
 // internal import
 import defineStyles from '../tools/defineStyles'
@@ -52,7 +53,7 @@ function PaginationInfoView({
 
   return (
     <div className={classes.root}>
-      <LabelSmall>Items 1-50 from 2.143</LabelSmall>
+      <Text>Items 1-50 from 2.143</Text>
     </div>
   )
 }

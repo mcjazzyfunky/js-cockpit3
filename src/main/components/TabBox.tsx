@@ -1,8 +1,9 @@
 // external imports
 import React, { ReactNode } from 'react'
 import { component, isNode, isElementOfType, withChildren } from 'js-react-utils'
-import { StatefulTabs as Tabs, Tab } from 'baseui/tabs'
 import * as Spec from 'js-spec/validators'
+
+import { Pivot, PivotItem } from 'office-ui-fabric-react'
 
 // internal import
 import defineStyles from '../tools/defineStyles'
@@ -87,16 +88,16 @@ function TabBoxView({
 
   Children.forEach(children, (page: any, idx) => {
     pages.push(
-      <Tab title={page.props.title} key={idx} overrides={tabOverrides}>
+      <PivotItem key={idx} headerText={page.props.title}>
         {page.props.children}
-      </Tab>
+      </PivotItem>
     )
   })
 
   return (
-    <Tabs overrides={tabsOverrides} renderAll={true}>
+    <Pivot>
       {pages}
-    </Tabs>
+    </Pivot>
   )
 }
 

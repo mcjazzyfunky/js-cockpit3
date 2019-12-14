@@ -2,7 +2,6 @@
 import React, { ReactNode } from 'react'
 import { component, isNode } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
-import { StatefulTooltip, PLACEMENT } from 'baseui/tooltip'
 import { MdPowerSettingsNew as LogoutIcon } from 'react-icons/md'
 
 // internal imports
@@ -75,11 +74,9 @@ function LogoutButtonView({
   const classes = useLogoutButtonStyles()
 
   return (
-    <StatefulTooltip showArrow content={() => 'Log out'} placement={PLACEMENT.bottom}>
-      <button className={classes.button}>
-        <LogoutIcon className={classes.icon}/>
-      </button>
-    </StatefulTooltip>
+    <button className={classes.button}>
+      <LogoutIcon className={classes.icon}/>
+    </button>
   )
 }
 

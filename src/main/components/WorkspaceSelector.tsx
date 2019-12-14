@@ -6,7 +6,6 @@ import * as Spec from 'js-spec/validators'
 // internal import
 import classNames from '../tools/classNames'
 import defineStyles from '../tools/defineStyles'
-import { StatefulTooltip, PLACEMENT } from 'baseui/tooltip'
 
 // --- components ----------------------------------------------------
 
@@ -145,11 +144,7 @@ function renderWorkspaceLink(
       {item.text}
     </a>
   
-  return item.description
-    ? <StatefulTooltip  onMouseEnterDelay={800} showArrow content={() => item.description} placement={PLACEMENT.bottom}>
-        {link}
-      </StatefulTooltip>
-    : link
+  return link
 }
 
 function WorkspaceSelectorIcon() {

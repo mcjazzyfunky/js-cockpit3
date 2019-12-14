@@ -3,8 +3,6 @@
 import React, { Key } from 'react'
 import { component } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
-import { Accordion, Panel } from 'baseui/accordion'
-import { Navigation } from 'baseui/side-navigation'
 
 // internal import
 import defineStyles from '../tools/defineStyles'
