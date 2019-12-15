@@ -54,22 +54,8 @@ const useDateInputStyles = defineStyles(theme => {
   return {
     root: {
     },
-
-    dateInputWrapper: {
-      paddingRight: '34px',
-    },
-
-    container: {
-      position: 'relative'
-    },
-
-    calendarIcon: {
-      position: 'absolute',
-      width: '20px',
-      height: '20px',
-      right: '10px',
-      top: '6px',
-      cursor: 'pointer'
+    xxx: {
+      border: '1px solid red'
     }
   }
 })
@@ -140,14 +126,17 @@ function DateInputView({
 
   return (
     <FieldWrapper label={label} required={required} error={error}>
-      <div className={classes.container}>
-        <DatePicker
-          disabled={disabled}
-          //error={!!error}
-          onChange={onChange}
-        />
-        <CalendarIcon className={classes.calendarIcon}/>
-      </div>
+      <DatePicker
+        disabled={disabled}
+        //error={!!error}
+        onChange={onChange}
+      
+        textField={{
+          iconProps: {
+            iconName: 'jsc:calendar'
+          }
+        }}
+      />
     </FieldWrapper> 
   )
 }

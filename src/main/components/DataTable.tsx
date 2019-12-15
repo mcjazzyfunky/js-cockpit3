@@ -413,12 +413,22 @@ function renderSelectAllRowsCheckbox(
     }
 
   return (
-    <Checkbox/> // TODO
+    <Checkbox
+      checkmarkIconProps={{
+        iconName: 'jsc:checkmark'
+      }}
+    /> // TODO
   )
 }
 
 function renderSelectRowCheckbox() {
-  return <Checkbox/>
+  return (
+    <Checkbox
+      checkmarkIconProps={{
+        iconName: 'jsc:checkmark'
+      }}
+    />
+  )
 }
 
 

@@ -40,14 +40,24 @@ export { default as LabelPosition } from './enums/LabelPosition'
 // register general icons
 import React from 'react'
 import { registerIcons } from 'office-ui-fabric-react'
+import CalendarIcon from './icons/CalendarIcon'
+import CheckmarkIcon from './icons/CheckmarkIcon'
 import ChevronDownIcon from './icons/ChevronDownIcon'
 import ChevronRightIcon from './icons/ChevronRightIcon'
 
 const h = React.createElement
 
-registerIcons({
+let iconsRegistered = false
+
+if (!iconsRegistered) {
+  iconsRegistered = true
+
+  registerIcons({
     icons: {
+      'jsc:calendar': h(CalendarIcon),
+      'jsc:checkmark': h(CheckmarkIcon),
       'jsc:chevronDown': h(ChevronDownIcon),
       'jsc:chevronRight': h(ChevronRightIcon)
     }
-})
+  })
+}

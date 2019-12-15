@@ -131,8 +131,12 @@ function CheckBoxView({
         disabled={disabled}
         name={name}
         label={label}
-        onChange={onInput}>
-      </Checkbox>
+        onChange={onInput}
+        
+        checkmarkIconProps={{
+          iconName: 'jsc:checkmark'
+        }}
+      />
   )
 }
 

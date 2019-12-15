@@ -177,7 +177,7 @@ function getItemProps(
           text: child.text,
 
           subMenuProps: {
-            items: getItemProps(child.items, baseOnAction)
+            items: getItemProps(child.items, baseOnAction),
           },
 
           submenuIconProps: {
@@ -214,7 +214,6 @@ function getItemProps(
         item = {
           key: child.id,
           text: child.text,
-          onRenderIcon: () => <div>x</div>,
           onClick
         }
 
