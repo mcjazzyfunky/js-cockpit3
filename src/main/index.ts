@@ -36,3 +36,18 @@ export { default as loadThemeByName } from './tools/loadThemeByName'
 
 // enums
 export { default as LabelPosition } from './enums/LabelPosition'
+
+// register general icons
+import React from 'react'
+import { registerIcons } from 'office-ui-fabric-react'
+import ChevronDownIcon from './icons/ChevronDownIcon'
+import ChevronRightIcon from './icons/ChevronRightIcon'
+
+const h = React.createElement
+
+registerIcons({
+    icons: {
+      'jsc:chevronDown': h(ChevronDownIcon),
+      'jsc:chevronRight': h(ChevronRightIcon)
+    }
+})

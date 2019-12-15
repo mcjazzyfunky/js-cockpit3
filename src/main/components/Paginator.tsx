@@ -135,7 +135,7 @@ function PaginatorView({
         </svg>
       </a>
       <a className={classes.pageButton}>
-        <svg width="24x" height="24px" viewBox="0 0 64 64">
+        <svg width="24px" height="24px" viewBox="0 0 64 64">
           <g>
             <polyline fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="bevel" strokeMiterlimit="10" points="31,15 48,32 
               31,49"/>

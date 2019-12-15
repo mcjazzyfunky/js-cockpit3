@@ -1,11 +1,21 @@
 import { createTheme, loadTheme, ITheme } from 'office-ui-fabric-react'
 
+const
+  DEFAULT_FONT_FAMILY =
+    '"Metropolis", "Selawik", "Segoe UI", Tahoma, Lato, Roboto, "Open Sans", "Liberation Sans", Arial, Helvetica, sans-serif',
+  
+  DEFAULT_FONT_WEIGHT = "normal" as "normal"
+
 const themes = {
   default: {
   },
 
-
   blue: {
+    defaultFontStyle: {
+      fontFamily: DEFAULT_FONT_FAMILY,
+      fontWeight: DEFAULT_FONT_WEIGHT 
+    },
+
     palette: {
       themePrimary: '#4972c1',
       themeLighterAlt: '#f6f8fd',
@@ -33,6 +43,11 @@ const themes = {
   },
 
   __blue: {
+    defaultFontStyle: {
+      fontFamily: DEFAULT_FONT_FAMILY,
+      fontWeight: DEFAULT_FONT_WEIGHT 
+    },
+
     palette: {
       themePrimary: '#0078d4',
       themeLighterAlt: '#eff6fc',
@@ -60,6 +75,11 @@ const themes = {
   },
 
   orange: {
+    defaultFontStyle: {
+      fontFamily: DEFAULT_FONT_FAMILY,
+      fontWeight: DEFAULT_FONT_WEIGHT 
+    },
+
     palette: {
       themePrimary: '#d75d30',
       themeLighterAlt: '#fdf8f5',
@@ -87,6 +107,11 @@ const themes = {
   },
 
   violet: {
+    defaultFontStyle: {
+      fontFamily: DEFAULT_FONT_FAMILY,
+      fontWeight: DEFAULT_FONT_WEIGHT 
+    },
+
     palette: {
       themePrimary: '#b14dc2',
       themeLighterAlt: '#fcf6fd',
@@ -114,6 +139,11 @@ const themes = {
   },
 
   green: {
+    defaultFontStyle: {
+      fontFamily: DEFAULT_FONT_FAMILY,
+      fontWeight: DEFAULT_FONT_WEIGHT 
+    },
+
     palette: {
       themePrimary: '#47b367',
       themeLighterAlt: '#f6fcf8',
@@ -141,6 +171,11 @@ const themes = {
   },
 
   teal: {
+    defaultFontStyle: {
+      fontFamily: DEFAULT_FONT_FAMILY,
+      fontWeight: DEFAULT_FONT_WEIGHT 
+    },
+
     palette: {
       themePrimary: '#03a1a1',
       themeLighterAlt: '#f1fbfb',
@@ -170,32 +205,12 @@ const themes = {
 
 type ThemeName = keyof typeof themes
 
-function loadThemeByName(name: ThemeName, fontFamily?: string): void
-function loadThemeByName(name: ThemeName, substituteFontFamily?: boolean): void
-function loadThemeByName(name: ThemeName, fontFamilySubstitution: boolean | string | undefined): void {
+function loadThemeByName(name: ThemeName): void {
   if (!themes[name]) {
     throw new TypeError('[loadThemeByName] Illegal first argument "name" - unkown theme')
   }
 
-  const theme: ITheme = createTheme(themes[name])
-  
-  let fontFamily: string | null = null
-  
-  if (fontFamilySubstitution === true) {
-    fontFamily = '"Segoe UI", "Liberation Sans", Lato, Roboto, Arial, Helvetica, sans-serif'
-  } else if (typeof fontFamilySubstitution === 'string') {
-    fontFamily = fontFamilySubstitution
-  }
-
-  if (fontFamily) {
-    let fonts: any = theme.fonts
-
-    Object.keys(fonts).forEach(fontSize => {
-      fonts[fontSize].fontFamily = fontFamily 
-    })
-  }
-
-  loadTheme(theme)
+  loadTheme(createTheme(themes[name]))
 }
 
 // --- exports -------------------------------------------------------

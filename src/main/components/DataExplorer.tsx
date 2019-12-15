@@ -76,7 +76,8 @@ const useDataExplorerStyles = defineStyles(theme => {
     },
 
     body: {
-      flexGrow: 1
+      flexGrow: 1,
+      position: 'relative',
     },
 
     footer: {

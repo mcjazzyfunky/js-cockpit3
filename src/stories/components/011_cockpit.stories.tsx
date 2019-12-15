@@ -10,7 +10,7 @@ export default {
   title: 'Cockpit'
 }
 
-loadThemeByName('teal')
+loadThemeByName('blue')
 
 // TODO!!!!!
 /*
@@ -91,8 +91,16 @@ const menuBar =
             text: 'Item-2-4',
           }, {
             id: '2-5',
-            type: 'item',
-            text: 'Item-1-2',
+            type: 'menu',
+            text: 'Item-2-5',
+
+            items: [
+              {
+                id: '2-5-1',
+                type: 'item',
+                text: 'Item 2-5-1'
+              }
+            ]
           },
         ]
       }, {

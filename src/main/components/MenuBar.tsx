@@ -8,6 +8,7 @@ import { CommandBar, CommandBarButton, ICommandBarItemProps, IComponentAs, IButt
 
 // internal import
 import defineStyles from '../tools/defineStyles'
+import { icons } from 'react-icons/lib/cjs'
 
 // --- components ----------------------------------------------------
 
@@ -122,12 +123,14 @@ function MenuBarView({
       menuProps={{
         ...props.menuProps,
         isBeakVisible: true,
-        gapSpace: -6
+        gapSpace: -6,
+        submenuIconProps: {
+          iconName: 'jsc:chevronDown'
+        }
       } as any}
     />
 
   if (itemCount > 0) {
-
     ret =
       <div data-component="MenuBar" className={classes.root}>
         <div className={classes.inner}>
@@ -175,6 +178,10 @@ function getItemProps(
 
           subMenuProps: {
             items: getItemProps(child.items, baseOnAction)
+          },
+
+          submenuIconProps: {
+            iconName: 'jsc:chevronRight'
           }
         }
         break
@@ -207,6 +214,7 @@ function getItemProps(
         item = {
           key: child.id,
           text: child.text,
+          onRenderIcon: () => <div>x</div>,
           onClick
         }
 
@@ -214,7 +222,7 @@ function getItemProps(
       }
 
       default:
-        throw new Error('This should never happen')
+        throw new Error('[MenuBar] This should never happen')
     }
 
     ret.push(item)

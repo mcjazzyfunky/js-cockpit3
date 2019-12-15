@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react'
 import { component, isNode } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
 
-import { Dropdown, Text } from 'office-ui-fabric-react'
+import { Dropdown, Icon, Text } from 'office-ui-fabric-react'
 
 // internal import
 import defineStyles from '../tools/defineStyles'
@@ -79,6 +79,8 @@ function PaginatorView({
         selectedKey="50"
         className={classes.dropdown}
 
+        onRenderCaretDown={renderChevronDownIcon}
+
         options={
           PAGE_SIZE_OPTIONS.map(pageSize => ({
             key: String(pageSize),
@@ -88,6 +90,10 @@ function PaginatorView({
       />
     </div>
   )
+}
+
+function renderChevronDownIcon() {
+  return <Icon iconName="jsc:chevronDown"/>
 }
 
 // --- exports -------------------------------------------------------
