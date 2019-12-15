@@ -39,15 +39,15 @@ const validateTextProps = Spec.checkProps({
 const useTextStyles = defineStyles(theme => {
   return {
     small: {
-      ...theme.typography.font100
+//      ...theme.typography.font100
     },
 
     medium: {
-      ...theme.typography.font200
+//      ...theme.typography.font200
     },
 
     large: {
-      ...theme.typography.font400
+//      ...theme.typography.font400
     }
   }
 })

@@ -57,7 +57,7 @@ const useFieldWrapperStyles = defineStyles(
 
     label: {
       display: labelAbove ? 'block' : 'table-cell',
-      ...theme.typography.font250,
+//      ...theme.typography.font250,
       fontWeight: 500,
       textAlign: labelAbove ? 'inherit' : 'right',
       whiteSpace: labelAbove ? 'normal' : 'nowrap',
@@ -68,10 +68,10 @@ const useFieldWrapperStyles = defineStyles(
     asterisk: {
       position: 'relative',
       display: 'inline-block',
-      fontSize: '15px',
+//      fontSize: '15px',
       marginLeft: '2px',
       bottom: '1px',
-      color: theme.colors.warning400
+//      color: theme.colors.warning400
     },
 
     field: {
@@ -81,7 +81,7 @@ const useFieldWrapperStyles = defineStyles(
 
     error: {
       padding: '3px 0',
-      color: theme.colors.warning
+//      color: theme.colors.warning
     }
   }
 })

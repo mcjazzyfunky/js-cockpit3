@@ -3,11 +3,6 @@ import React, { ReactNode } from 'react'
 import { component, isNode } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
 
-import {Client as Styletron} from 'styletron-engine-atomic'
-import {Provider as StyletronProvider} from 'styletron-react'
-
-import { LightTheme, BaseProvider } from 'baseui'
-
 // --- components ----------------------------------------------------
 
 const App = component<AppProps>({
@@ -49,18 +44,10 @@ function AppView({
           }
         `}
       </style>
-      <StyletronProvider value={engine}>
-        <BaseProvider theme={LightTheme}>
-          {children}
-        </BaseProvider>
-      </StyletronProvider>
+      {children}
     </>
   )
 }
-
-// --- misc ----------------------------------------------------------
-
-const engine = new Styletron();
 
 // --- exports -------------------------------------------------------
 

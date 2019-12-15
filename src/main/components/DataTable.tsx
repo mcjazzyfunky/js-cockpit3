@@ -89,7 +89,7 @@ const useDataTableStyles = defineStyles(theme => {
 
     tableHead: {
       display: 'flex',
-      ...theme.borders.border500,
+//      ...theme.borders.border500,
     },
   
     tableHeadCell: {
@@ -97,11 +97,11 @@ const useDataTableStyles = defineStyles(theme => {
       alignItems: 'center',
       justifyContent: 'center',
       padding: '5px',
-      borderColor: theme.borders.border500.borderColor,
+//      borderColor: theme.borders.border500.borderColor,
       borderStyle: 'solid',
       borderWidth: '0 0 0 1px',
-      ...theme.typography.font200,
-      fontSize: '14px',
+//      ...theme.typography.font200,
+//      fontSize: '14px',
       fontWeight: 500,
       borderSizing: 'border-box',
 
@@ -116,13 +116,13 @@ const useDataTableStyles = defineStyles(theme => {
     },
 
     tableBodyCell: {
-      ...theme.typography.font200,
+//      ...theme.typography.font200,
       padding: '3px 8px',
       boxSizing: 'border-box'
     },
 
     evenRow: {
-      backgroundColor: theme.colors.mono200
+//      backgroundColor: theme.colors.mono200
     },
 
     allRowsSelectionCell: {

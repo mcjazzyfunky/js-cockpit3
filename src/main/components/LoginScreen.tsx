@@ -69,7 +69,6 @@ const useLoginScreenStyles = defineStyles(theme => {
       minWidth: '100%',
       minHeight: '100%',
       backgroundColor: '#f3f3f2',
-      ...theme.typography.font200
     },
 
     topSpacer: {
@@ -81,7 +80,9 @@ const useLoginScreenStyles = defineStyles(theme => {
     },
 
     header: {
-      color: '#888'
+      fontFamily: theme.fonts.large.fontFamily,
+      fontSize: theme.fonts.large.fontSize,
+      color: theme.palette.neutralSecondaryAlt
     },
 
     body: {
@@ -89,24 +90,23 @@ const useLoginScreenStyles = defineStyles(theme => {
       width: '560px',
       display: 'flex',
       margin: '16px',
-      boxShadow: theme.lighting.shadow600
+      boxShadow: '5px 5px 25px silver'
     },
 
     footer: {
-      color: '#888'
+      fontFamily: theme.fonts.mediumPlus.fontFamily,
+      fontSize: theme.fonts.mediumPlus.fontSize,
+      color: theme.palette.neutralSecondaryAlt
     },
     
     column1: {
       flexGrow: 5,
       display: 'flex',
       flexDirection: 'column',
-      minWidth: '280px',
-      maxWidth: '280px',
       padding: '24px 20px',
       boxSizing: 'border-box',
-      color: 'white',
-      //backgroundColor: 'rgb(0, 195, 154)',
-      backgroundColor: theme.colors.primary,
+      color: theme.palette.white,
+      backgroundColor: theme.palette.themePrimary,
       borderRadius: '6px 0 0 6px',
       textAlign: 'center',
 
@@ -132,7 +132,7 @@ const useLoginScreenStyles = defineStyles(theme => {
       maxWidth: '300px',
       padding: '24px 20px',
       flexGrow: 7,
-      backgroundColor: 'white',
+      backgroundColor: theme.palette.white,
       borderRadius: '0 6px 6px 0'
     },
 
@@ -144,17 +144,18 @@ const useLoginScreenStyles = defineStyles(theme => {
     },
 
     headline: {
-      ...theme.typography.font200,
+      fontFamily: theme.fonts.large.fontFamily,
       fontSize: '32px',
-      fontWeight: 100,
+      fontWeight: 200,
       marginTop: '10px',
       height: '40px'
     },
     
     subheadline: {
-      ...theme.typography.font200,
+      fontFamily: theme.fonts.medium.fontFamily,
       fontSize: '17px',
-      fontWeight: 100
+      fontWeight: 100,
+      marginTop: '6px'
     },
 
     column2Top: {
@@ -166,9 +167,12 @@ const useLoginScreenStyles = defineStyles(theme => {
 
     loginButton: {
       width: '100%',
-      //backgroundColor: 'rgb(0, 195, 154) !important',
-      backgroundColor: theme.colors.primary,
       margin: '16px 0 0 0 !important'
+    },
+
+    defaultIntro: {
+      width: '240px',
+      maxWidth: '240px'
     }
   }
 })
@@ -264,10 +268,10 @@ function renderFooter(
 
 function renderDefaultLoginIntro(classes: Classes) {
   return (
-    <>
+    <div className={classes.defaultIntro}>
       <div className={classes.headline}>Login</div>
-      <div className={classes.subheadline}>Please enter your credentials to log in</div>
-    </>
+      <div className={classes.subheadline}>Please enter your personal credentials to log in</div>
+    </div>
   )
 }
 

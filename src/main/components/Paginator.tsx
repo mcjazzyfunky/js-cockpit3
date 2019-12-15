@@ -50,7 +50,7 @@ const usePaginatorStyles = defineStyles(theme => {
       display: 'flex',
       alignItems: 'center',
       margin: '0 10px',
-      ...theme.typography.font200,
+//      ...theme.typography.font200,
       fontWeight: 600,
       whiteSpace: 'nowrap'
     },
@@ -71,11 +71,11 @@ const usePaginatorStyles = defineStyles(theme => {
       border: 'none',
       
       ':hover': {
-        backgroundColor: theme.colors.buttonTertiaryHover
+  //      backgroundColor: theme.colors.buttonTertiaryHover
       },
 
       ':active': {
-        backgroundColor: theme.colors.buttonTertiaryActive
+  //      backgroundColor: theme.colors.buttonTertiaryActive
       }
     },
 

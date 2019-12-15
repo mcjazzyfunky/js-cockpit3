@@ -42,18 +42,18 @@ const useLogoutButtonStyles = defineStyles(theme => {
       width: '48px',
       height: '48px',
       border: 'none',
-      color: theme.colors.foregroundInv,
-      backgroundColor: theme.colors.primary300, 
+//      color: theme.colors.foregroundInv,
+//      backgroundColor: theme.colors.primary300, 
       outline: 'none',
       cursor: 'pointer',
 
       selectors: {
         ':hover': {
-          backgroundColor: theme.colors.primary400,
+    //      backgroundColor: theme.colors.primary400,
         },
 
         ':active': {
-          backgroundColor: theme.colors.primary300,
+    //      backgroundColor: theme.colors.primary300,
         }
       }
     },

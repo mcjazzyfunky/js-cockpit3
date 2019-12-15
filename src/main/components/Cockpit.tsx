@@ -66,8 +66,8 @@ const useCockpitStyles = defineStyles(theme => {
       display: 'flex',
       flexWrap: 'nowrap',
       alignItems: 'center',
-      backgroundColor: '#484848',
-      color: theme.colors.white,
+//      backgroundColor: '#484848',
+//      color: theme.colors.white,
       minHeight: '48px'
     },
 
@@ -100,7 +100,7 @@ const useCockpitStyles = defineStyles(theme => {
 
     sidebar: {
       position: 'relative',
-      backgroundColor: '#f8f8f8',
+//      backgroundColor: '#f8f8f8',
       width: '250px',
       overflow: 'auto'
     },
@@ -108,7 +108,7 @@ const useCockpitStyles = defineStyles(theme => {
     center: {
       position: 'relative',
       flexGrow: 1,
-      backgroundColor: 'white',
+//      backgroundColor: 'white',
       margin: '3px', // TODO
       boxSizing: 'border-box'
     }

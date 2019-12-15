@@ -47,12 +47,12 @@ const useDataFormStyles = defineStyles(theme => {
     header: {
       borderWidth: '0 0 0.5px 0',
       borderStyle: 'solid',
-      borderColor: theme.colors.mono500
+//      borderColor: theme.colors.mono500
     },
 
     title: {
       padding: '6px 16px 6px 16px',
-      ...theme.typography.font400,
+//      ...theme.typography.font400,
       fontWeight: 400,
     },
 

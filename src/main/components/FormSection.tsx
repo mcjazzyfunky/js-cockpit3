@@ -43,9 +43,9 @@ const useFormSectionStyles = defineStyles((theme, hasTitle: boolean) => {
     },
 
     title: {
-      ...theme.typography.font100,
+//      ...theme.typography.font100,
       fontWeight: 600,
-      color: theme.colors.mono800,
+//      color: theme.colors.mono800,
       textTransform: 'uppercase'
     },
 
@@ -53,7 +53,7 @@ const useFormSectionStyles = defineStyles((theme, hasTitle: boolean) => {
       padding: '1em 1em',
       borderWidth: '.5px 0 0 0',
       borderStyle: 'solid',
-      borderColor: theme.borders.border500.borderColor
+//      borderColor: theme.borders.border500.borderColor
     }
   }
 })

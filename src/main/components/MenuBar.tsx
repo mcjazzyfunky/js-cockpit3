@@ -63,17 +63,17 @@ const useMenuBarStyles = defineStyles(theme => {
     root: {
       position: 'relative',
       width: '100%',
-      backgroundColor: theme.colors.mono400,
+//      backgroundColor: theme.colors.mono400,
       borderWidth: '0 0 .5px 0',
-      borderColor: theme.colors.mono500,
+//      borderColor: theme.colors.mono500,
       borderStyle: 'solid',
       
       selectors: {
         '& *': {
-          backgroundColor: 'transparent !important',
+    //      backgroundColor: 'transparent !important',
           border: 'none !important',
-          ...theme.typography.font200,
-          fontFamily: theme.typography.font200.fontFamily + ' !important',
+    //      ...theme.typography.font200,
+//          fontFamily: theme.typography.font200.fontFamily + ' !important',
         },
 
         '& [role=menubar]': {
@@ -81,7 +81,7 @@ const useMenuBarStyles = defineStyles(theme => {
         },
 
         '& .ms-Button-flexContainer:hover': {
-          backgroundColor: theme.colors.mono500 + ' !important'
+    //      backgroundColor: theme.colors.mono500 + ' !important'
         },
 
         '& .ms-Icon': {
@@ -89,7 +89,7 @@ const useMenuBarStyles = defineStyles(theme => {
         },
 
         '& .ms-ContextualMenu *': {
-          backgroundColor: 'red'
+    //      backgroundColor: 'red'
         }
       },
     },
@@ -103,7 +103,7 @@ const useMenuBarStyles = defineStyles(theme => {
     commandBar: {
       borderWidth: '0 0 1px 0',
       borderStyle: 'solid',
-      borderColor:  '#888', 
+//      borderColor:  '#888', 
       flex: 1,
     }
   }
