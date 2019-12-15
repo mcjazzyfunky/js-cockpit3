@@ -9,7 +9,6 @@ import { ChoiceGroup } from 'office-ui-fabric-react'
 import defineStyles from '../tools/defineStyles'
 import FieldWrapper from './FieldWrapper'
 import useFormCtrl from '../hooks/useFormCtrl'
-import useDefaultSize from '../hooks/useDefaultSize'
 
 // derived import
 const { useCallback, useEffect, useState, useRef } = React
@@ -92,7 +91,6 @@ function RadioButtonGroupView({
   const
     [val, setVal] = useState(value),
     [error, setError] = useState(''),
-    defaultSize = useDefaultSize(),
     classes = useRadioButtonGroupStyles(),
     formCtrl = useFormCtrl(),
     nameRef = useRef(name),

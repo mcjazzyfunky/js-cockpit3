@@ -9,7 +9,6 @@ import { TextField } from 'office-ui-fabric-react'
 import defineStyles from '../tools/defineStyles'
 import FieldWrapper from './FieldWrapper'
 import useFormCtrl from '../hooks/useFormCtrl'
-import useDefaultSize from '../hooks/useDefaultSize'
 
 // derived imports
 const { useCallback, useEffect, useRef, useState } = React
@@ -76,7 +75,6 @@ function PasswordInputView({
     [value, setValue] = useState(''),
     [error, setError] = useState(''),
     classes = usePasswordInputStyles(),
-    defaultSize = useDefaultSize(),
     formCtrl = useFormCtrl(),
     nameRef = useRef(name),
     valueRef = useRef(value),

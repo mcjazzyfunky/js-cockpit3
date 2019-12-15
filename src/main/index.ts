@@ -28,12 +28,11 @@ export { default as WorkspaceSelector } from './components/WorkspaceSelector'
 export { default as useAdvancedFormCtrl } from './hooks/useAdvancedFormCtrl'
 export { default as useFormMgmt } from './hooks/useFormMgmt'
 export { default as useDefaultLabelPosition } from './hooks/useDefaultLabelPosition'
-export { default as useDefaultSize } from './hooks/useDefaultSize'
 
 // tools
 export { default as classNames } from './tools/classNames'
 export { default as defineStyles } from './tools/defineStyles'
+export { default as loadThemeByName } from './tools/loadThemeByName'
 
 // enums
 export { default as LabelPosition } from './enums/LabelPosition'
-export { default as Size } from './enums/Size'

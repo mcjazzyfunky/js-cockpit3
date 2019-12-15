@@ -2,15 +2,18 @@ import React from 'react'
 import { App, WorkspaceSelector, Brand, CheckBoxGroup, Cockpit,
   DataExplorer, DataForm, DateInput, FormSection, Fieldset, FilterBox, LogoutButton,
   MenuBar, RadioButtonGroup, TabBox, TabPage, TextInput,
-  SelectBox, SideMenu, UserMenu
+  SelectBox, SideMenu, UserMenu, loadThemeByName
 } from '../js-cockpit'
+
 
 export default {
   title: 'Cockpit'
 }
 
-// TODO!!!!!
+loadThemeByName('blue')
 
+// TODO!!!!!
+/*
 import { registerIcons } from '@uifabric/styling'
 
 registerIcons({
@@ -25,7 +28,7 @@ registerIcons({
     )
   }
 }, { disableWarnings: true})
-
+*/
 const menuBar = 
   <MenuBar
     items={[

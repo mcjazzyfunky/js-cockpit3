@@ -107,38 +107,39 @@ const useSideMenuStyles = defineStyles(theme => {
       padding: '10px 0 10px 1px',
       borderWidth: '0 .5px 0 0',
       borderStyle: 'solid',
-//      borderColor: theme.borders.border400.borderColor,
+      backgroundColor: theme.palette.neutralLighterAlt,
+      borderColor: theme.palette.neutralQuaternaryAlt,
       margin: '0',
       boxSizing: 'border-box'
     },
 
     groupTitle: {
       textTransform: 'uppercase',
-//      ...theme.typography.font250,
+      fontFamily: theme.fonts.large.fontFamily,
       fontWeight: 600,
       padding: '0 20px'
     },
     
     groupTitleLevel0: {
-//      fontSize: theme.typography.font250.fontSize + ' !important',
+      fontFamily: theme.fonts.large.fontFamily,
       paddingLeft: '20px',
       margin: '5px 0',
     },
     
     groupTitleLevel1: {
-//      fontSize: theme.typography.font250.fontSize + ' !important',
+      fontFamily: theme.fonts.large.fontFamily,
       padding: '3px 40px 0 40px',
     },
 
     itemList: {
-//      ...theme.typography.font100,
+      fontFamily: theme.fonts.medium.fontFamily,
       listStyle: 'none',
       margin: '0 0 6px 0',
       padding: 0 
     },
 
     item: {
-//      ...theme.typography.font250,
+      fontFamily: theme.fonts.medium.fontFamily,
       fontWeight: 'normal',
     },
     
@@ -153,19 +154,21 @@ const useSideMenuStyles = defineStyles(theme => {
     itemInactive: {
       cursor: 'pointer',
 
-      ':hover': {
-  //      backgroundColor: theme.colors.mono400
-      },
+      selectors: {
+        ':hover': {
+           backgroundColor: theme.palette.neutralQuaternaryAlt
+        },
 
       ':active': {
-  //      backgroundColor: theme.colors.mono500
+         backgroundColor: theme.palette.neutralQuaternary
+        }
       }
     },
 
     itemActive: {
-//      backgroundColor: theme.colors.mono400,
+      backgroundColor: theme.palette.neutralQuaternaryAlt,
       borderWidth: '0 0 0 4px',
-//      borderColor: theme.colors.primary,
+      borderColor: theme.palette.themePrimary,
       borderStyle: 'solid'
     }
   }

@@ -9,6 +9,6 @@ const { useContext } = React
 
 // --- hooks ---------------------------------------------------------
 
-export default function useDefaultSize() {
+export default function useDefaultLabelPosition() {
   return useContext(DefaultLabelPositionCtx)
 }

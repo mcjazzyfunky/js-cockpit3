@@ -5,8 +5,6 @@ import * as Spec from 'js-spec/validators'
 
 // internal import
 import defineStyles from '../tools/defineStyles'
-import DefaultSizeCtx from '../context/DefaultSizeCtx'
-import Size from '../enums/Size'
 
 // --- components ----------------------------------------------------
 
@@ -66,8 +64,8 @@ const useCockpitStyles = defineStyles(theme => {
       display: 'flex',
       flexWrap: 'nowrap',
       alignItems: 'center',
-//      backgroundColor: '#484848',
-//      color: theme.colors.white,
+      backgroundColor: '#484848',
+      color: 'white',
       minHeight: '48px'
     },
 
@@ -165,11 +163,9 @@ function renderHeader(
       : <div className={classes.actions}>{slotActions}</div>
 
   return (
-    <DefaultSizeCtx.Provider value={Size.Compact}>
-      <div className={classes.header}>
-        {col1}{col2}{col3}
-      </div>
-    </DefaultSizeCtx.Provider>
+    <div className={classes.header}>
+      {col1}{col2}{col3}
+    </div>
   )
 }
 
@@ -201,10 +197,8 @@ function renderBody(slotSidebar: ReactNode, slotCenter: ReactNode, classes: Clas
 
   return (
     <div className={classes.body}>
-      <DefaultSizeCtx.Provider value={Size.Compact}>
-        {col1}
-        {col2}
-      </DefaultSizeCtx.Provider>
+      {col1}
+      {col2}
     </div>
   )
 }

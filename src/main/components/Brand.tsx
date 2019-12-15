@@ -49,8 +49,7 @@ const useBrandStyles = defineStyles(theme => {
       display: 'flex',
       whiteSpace: 'nowrap',
       alignItems: 'center',
-//      fontSize: '18px',
-      //color: theme.colors.backgroundInv
+      fontSize: '18px',
     },
 
     column1: {
@@ -72,17 +71,19 @@ const useBrandStyles = defineStyles(theme => {
     },
 
     logoMulticolor: {
-//      color: theme.colors.primary300
+      color: theme.palette.themePrimary
     },
 
     vendor: {
-//      ...theme.typography.font200,
-//      fontSize: '90%',
+      fontFamily: theme.fonts.medium.fontFamily,
+      fontSize: '18px',
+      margin: '3px 0 -4px 0'
     },
   
     title: {
-//      ...theme.typography.font200,
-//      fontSize: '125%'
+      fontFamily: theme.fonts.large.fontFamily,
+      fontSize: '23px',
+      marginTop: '-1px'
     },
 
     scaleMedium: {

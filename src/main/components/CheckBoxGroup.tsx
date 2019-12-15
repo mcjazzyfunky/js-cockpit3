@@ -9,7 +9,6 @@ import { Stack, Checkbox } from 'office-ui-fabric-react'
 import defineStyles from '../tools/defineStyles'
 import FieldWrapper from './FieldWrapper'
 import useFormCtrl from '../hooks/useFormCtrl'
-import useDefaultSize from '../hooks/useDefaultSize'
 
 // derived import
 const { useCallback, useEffect, useState, useRef } = React
@@ -86,7 +85,6 @@ function CheckBoxGroupView({
   const
     [val, setVal] = useState(''),
     [error, setError] = useState(''),
-    defaultSize = useDefaultSize(),
     classes = useCheckBoxGroupStyles(),
     formCtrl = useFormCtrl(),
     nameRef = useRef(name),
