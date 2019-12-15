@@ -102,6 +102,22 @@ const useDataExplorerStyles = defineStyles(theme => {
     actionButtons: {
     },
 
+    actionButton: {
+      selectors: {
+        ':hover': {
+          borderRadius: 0,
+          color: theme.palette.black,
+          backgroundColor: theme.palette.neutralLight
+        },
+
+        ':active': {
+          borderRadius: 0,
+          color: theme.palette.black,
+          backgroundColor: theme.palette.neutralQuaternary,
+        }
+      }
+    },
+
     actionIcons: {
       //color: theme.palette.themePrimary
     },
@@ -149,24 +165,28 @@ function renderHeader(
       </div>
       <div className={classes.actionButtons}>
         <ActionButton
+          className={classes.actionButton}
           onRenderIcon={() =>
             <div className={classes.actionIcons}>
               <NewIcon/>
             </div>
          }>New</ActionButton>
         <ActionButton
+          className={classes.actionButton}
           onRenderIcon={() =>
             <div className={classes.actionIcons}>
               <EditIcon/>
             </div>
         }>Edit</ActionButton>
         <ActionButton
+          className={classes.actionButton}
           onRenderIcon={() =>
             <div className={classes.actionIcons}>
               <DeleteIcon/>
             </div>
         }>Delete</ActionButton>
         <ActionButton
+          className={classes.actionButton}
           onRenderIcon={() =>
             <div className={classes.actionIcons}>
               <DownloadIcon/>
