@@ -37,7 +37,8 @@ export { default as loadThemeByName } from './tools/loadThemeByName'
 // enums
 export { default as LabelPosition } from './enums/LabelPosition'
 
-// register general icons
+// --- register general icons ----------------------------------------
+
 import React from 'react'
 import { registerIcons } from 'office-ui-fabric-react'
 import CalendarIcon from './icons/CalendarIcon'
@@ -54,24 +55,20 @@ import ArrowDoubleRightIcon from './icons/ArrowDoubleRightIcon'
 
 const h = React.createElement
 
-let iconsRegistered = false
-
-if (!iconsRegistered) {
-  iconsRegistered = true
-
-  registerIcons({
-    icons: {
-      'jsc:calendar': h(CalendarIcon),
-      'jsc:checkmark': h(CheckmarkIcon),
-      'jsc:chevronDown': h(ChevronDownIcon),
-      'jsc:chevronRight': h(ChevronRightIcon),
-      'jsc:up': h(UpIcon),
-      'jsc:down': h(DownIcon),
-      'jsc:close': h(CloseIcon),
-      'jsc:arrowLeft': h(ArrowLeftIcon),
-      'jsc:arrowRight': h(ArrowRightIcon),
-      'jsc:arrowDoubleLeft': h(ArrowDoubleLeftIcon),
-      'jsc:arrowDoubleRight': h(ArrowDoubleRightIcon),
-    }
-  })
-}
+registerIcons({
+  icons: {
+    'jsc:calendar': h(CalendarIcon),
+    'jsc:checkmark': h(CheckmarkIcon),
+    'jsc:chevronDown': h(ChevronDownIcon),
+    'jsc:chevronRight': h(ChevronRightIcon),
+    'jsc:up': h(UpIcon),
+    'jsc:down': h(DownIcon),
+    'jsc:close': h(CloseIcon),
+    'jsc:arrowLeft': h(ArrowLeftIcon),
+    'jsc:arrowRight': h(ArrowRightIcon),
+    'jsc:arrowDoubleLeft': h(ArrowDoubleLeftIcon),
+    'jsc:arrowDoubleRight': h(ArrowDoubleRightIcon),
+    
+    'chevronDown': h(ChevronDownIcon), // TODO!!!!!!!!!!!!!!
+  }
+}, { disableWarnings: true })

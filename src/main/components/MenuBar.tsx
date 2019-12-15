@@ -8,7 +8,6 @@ import { CommandBar, CommandBarButton, ICommandBarItemProps, IComponentAs, IButt
 
 // internal import
 import defineStyles from '../tools/defineStyles'
-import { icons } from 'react-icons/lib/cjs'
 
 // --- components ----------------------------------------------------
 
@@ -123,10 +122,7 @@ function MenuBarView({
       menuProps={{
         ...props.menuProps,
         isBeakVisible: true,
-        gapSpace: -6,
-        submenuIconProps: {
-          iconName: 'jsc:chevronDown'
-        }
+        gapSpace: -6
       } as any}
     />
 
