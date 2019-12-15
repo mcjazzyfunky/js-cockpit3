@@ -46,6 +46,11 @@ import ChevronDownIcon from './icons/ChevronDownIcon'
 import ChevronRightIcon from './icons/ChevronRightIcon'
 import UpIcon from './icons/UpIcon'
 import DownIcon from './icons/DownIcon'
+import CloseIcon from './icons/CloseIcon'
+import ArrowLeftIcon from './icons/ArrowLeftIcon'
+import ArrowRightIcon from './icons/ArrowRightIcon'
+import ArrowDoubleLeftIcon from './icons/ArrowDoubleLeftIcon'
+import ArrowDoubleRightIcon from './icons/ArrowDoubleRightIcon'
 
 const h = React.createElement
 
@@ -62,6 +67,11 @@ if (!iconsRegistered) {
       'jsc:chevronRight': h(ChevronRightIcon),
       'jsc:up': h(UpIcon),
       'jsc:down': h(DownIcon),
+      'jsc:close': h(CloseIcon),
+      'jsc:arrowLeft': h(ArrowLeftIcon),
+      'jsc:arrowRight': h(ArrowRightIcon),
+      'jsc:arrowDoubleLeft': h(ArrowDoubleLeftIcon),
+      'jsc:arrowDoubleRight': h(ArrowDoubleRightIcon),
     }
   })
 }

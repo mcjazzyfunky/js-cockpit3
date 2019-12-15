@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react'
 import { component, isNode } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
 
-import { Text, TextField } from 'office-ui-fabric-react'
+import { Icon, Text, TextField } from 'office-ui-fabric-react'
 
 // internal import
 import defineStyles from '../tools/defineStyles'
@@ -96,27 +96,11 @@ function PaginatorView({
   return (
     <div className={classes.paginator}>
       <a className={classes.pageButton}>
-        <svg width="24px" height="24px" viewBox="0 0 64 64">
-          <g>
-            <polyline fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="bevel" strokeMiterlimit="10" points="32.936,48.936 
-              15.936,31.936 32.936,14.936"/>
-          </g>
-          <g>
-            <polyline fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="bevel" strokeMiterlimit="10" points="47.936,48.936 
-              30.936,31.936 47.936,14.936"/>
-          </g>
-        </svg>
+        <Icon iconName="jsc:arrowDoubleLeft"/>
       </a>
-
       <a className={classes.pageButton}>
-        <svg width="24px" height="24px" viewBox="0 0 64 64">
-          <g>
-            <polyline fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="bevel" strokeMiterlimit="10" points="37,15 20,32 
-              37,49"/>
-          </g>
-        </svg>
+        <Icon iconName="jsc:arrowLeft"/>
       </a>
-      
       <div className={classes.pageInputContainer}>
         <Text>Page</Text>
         <TextField
@@ -127,24 +111,10 @@ function PaginatorView({
         <Text>of 125</Text>
       </div>
       <a className={classes.pageButton}>
-        <svg width="24px" height="24px" viewBox="0 0 64 64">
-          <g>
-            <polyline fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="bevel" strokeMiterlimit="10" points="27,15 44,32 
-              27,49"/>
-          </g>
-        </svg>
+        <Icon iconName="jsc:arrowRight"/>
       </a>
       <a className={classes.pageButton}>
-        <svg width="24px" height="24px" viewBox="0 0 64 64">
-          <g>
-            <polyline fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="bevel" strokeMiterlimit="10" points="31,15 48,32 
-              31,49"/>
-          </g>
-          <g>
-            <polyline fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="bevel" strokeMiterlimit="10" points="16,15 33,32 
-              16,49"/>
-          </g>
-        </svg>
+        <Icon iconName="jsc:arrowDoubleRight"/>
       </a>
     </div>
   )
