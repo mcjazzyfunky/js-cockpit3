@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react'
 import { component, isNode } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
 
-import { Dropdown, Label } from 'office-ui-fabric-react'
+import { Dropdown, Text } from 'office-ui-fabric-react'
 
 // internal import
 import defineStyles from '../tools/defineStyles'
@@ -73,7 +73,7 @@ function PaginatorView({
   return (
     <div className={classes.pageSizeSelector}>
       <div className={classes.pageSizeLabel}>
-        <Label>Items/page:</Label>
+        <Text>Items/page:</Text>
       </div>
       <Dropdown
         selectedKey="50"

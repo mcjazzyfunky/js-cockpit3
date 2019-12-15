@@ -71,7 +71,7 @@ const useWorkspaceSelectorStyles = defineStyles(theme => {
 
     menuIcon: {
       display: 'inline-block',
-      color: theme.palette.themePrimary,
+      color: theme.palette.themeSecondary,
       margin: '0 8px'
     },
 

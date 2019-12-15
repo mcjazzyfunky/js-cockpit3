@@ -89,24 +89,37 @@ const useDataTableStyles = defineStyles(theme => {
 
     tableHead: {
       display: 'flex',
-//      ...theme.borders.border500,
+      border: '1px',
+      borderStyle: 'solid',
+      borderColor: theme.palette.neutralTertiary,
     },
   
     tableHeadCell: {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      padding: '5px',
+      padding: '4px',
 //      borderColor: theme.borders.border500.borderColor,
       borderStyle: 'solid',
       borderWidth: '0 0 0 1px',
+      borderColor: theme.palette.neutralTertiary,
 //      ...theme.typography.font200,
 //      fontSize: '14px',
       fontWeight: 500,
       borderSizing: 'border-box',
 
-     ':first-child': {
-        borderWidth: 0
+      selectors: {
+        '&:first-child': {
+          borderWidth: 0
+        },
+
+        '&:hover': {
+          backgroundColor: theme.palette.neutralLighter
+        },
+
+        '&:active': {
+          backgroundColor: theme.palette.neutralLight
+        }
       }
     },
 
@@ -116,13 +129,14 @@ const useDataTableStyles = defineStyles(theme => {
     },
 
     tableBodyCell: {
-//      ...theme.typography.font200,
+      fontFamily: theme.fonts.medium.fontFamily,
+      fontSize: theme.fonts.medium.fontSize,
       padding: '3px 8px',
       boxSizing: 'border-box'
     },
 
     evenRow: {
-//      backgroundColor: theme.colors.mono200
+      backgroundColor: theme.palette.neutralLighterAlt
     },
 
     allRowsSelectionCell: {

@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react'
 import { component, isNode } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
 
-import { TextField } from 'office-ui-fabric-react'
+import { Text, TextField } from 'office-ui-fabric-react'
 
 // internal import
 import defineStyles from '../tools/defineStyles'
@@ -70,12 +70,14 @@ const usePaginatorStyles = defineStyles(theme => {
       outline: 'none',
       border: 'none',
       
-      ':hover': {
-  //      backgroundColor: theme.colors.buttonTertiaryHover
-      },
+      selectors: {
+        ':hover': {
+          backgroundColor: theme.palette.neutralLight
+        },
 
-      ':active': {
-  //      backgroundColor: theme.colors.buttonTertiaryActive
+        ':active': {
+          backgroundColor: theme.palette.neutralQuaternaryAlt
+        }
       }
     },
 
@@ -116,13 +118,13 @@ function PaginatorView({
       </a>
       
       <div className={classes.pageInputContainer}>
-        <div>Page</div>
+        <Text>Page</Text>
         <TextField
           className={classes.pageInput}
           value={"1"}
           disabled={disabled}
         />
-        <div>of 125</div>
+        <Text>of 125</Text>
       </div>
       <a className={classes.pageButton}>
         <svg width="24px" height="24px" viewBox="0 0 64 64">

@@ -144,11 +144,11 @@ const useSideMenuStyles = defineStyles(theme => {
     },
     
     itemLevel0: {
-      padding: '5px 35px',
+      padding: '6px 35px',
     },
    
     itemLevel1: {
-      padding: '5px 60px',
+      padding: '6px 60px',
     },
 
     itemInactive: {

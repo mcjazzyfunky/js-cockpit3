@@ -78,8 +78,8 @@ const useLoginScreenStyles = defineStyles(theme => {
     },
 
     header: {
-      fontFamily: theme.fonts.large.fontFamily,
-      fontSize: theme.fonts.large.fontSize,
+      fontFamily: theme.fonts.mediumPlus.fontFamily,
+      fontSize: theme.fonts.mediumPlus.fontSize,
       color: theme.palette.neutralSecondaryAlt
     },
 
