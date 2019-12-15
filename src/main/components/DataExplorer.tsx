@@ -101,6 +101,10 @@ const useDataExplorerStyles = defineStyles(theme => {
     actionButtons: {
     },
 
+    actionIcons: {
+      //color: theme.palette.themePrimary
+    },
+
     filtering: {
       padding: '0.5em 1em 0.8em 1em',
     }
@@ -143,10 +147,30 @@ function renderHeader(
         {title}
       </div>
       <div className={classes.actionButtons}>
-        <ActionButton onRenderIcon={() => <NewIcon/>}>New</ActionButton>
-        <ActionButton onRenderIcon={() => <EditIcon/>}>Edit</ActionButton>
-        <ActionButton onRenderIcon={() => <DeleteIcon/>}>Delete</ActionButton>
-        <ActionButton onRenderIcon={() => <DownloadIcon/>}>Export</ActionButton>
+        <ActionButton
+          onRenderIcon={() =>
+            <div className={classes.actionIcons}>
+              <NewIcon/>
+            </div>
+         }>New</ActionButton>
+        <ActionButton
+          onRenderIcon={() =>
+            <div className={classes.actionIcons}>
+              <EditIcon/>
+            </div>
+        }>Edit</ActionButton>
+        <ActionButton
+          onRenderIcon={() =>
+            <div className={classes.actionIcons}>
+              <DeleteIcon/>
+            </div>
+        }>Delete</ActionButton>
+        <ActionButton
+          onRenderIcon={() =>
+            <div className={classes.actionIcons}>
+              <DownloadIcon/>
+            </div>
+         }>Export</ActionButton>
       </div>
     </div>
   ) 

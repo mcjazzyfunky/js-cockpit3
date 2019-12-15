@@ -62,7 +62,8 @@ const useFilterBoxStyles = defineStyles(theme => {
     filterIcon: {
       width: '24px',
       height: '24px',
-      opacity: '0.3'
+      opacity: '0.3',
+      color: theme.palette.black
     }
   }
 })

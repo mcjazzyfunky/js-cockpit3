@@ -71,7 +71,7 @@ const useBrandStyles = defineStyles(theme => {
     },
 
     logoMulticolor: {
-      color: theme.palette.themeSecondary
+      color: theme.palette.themePrimary
     },
 
     vendor: {

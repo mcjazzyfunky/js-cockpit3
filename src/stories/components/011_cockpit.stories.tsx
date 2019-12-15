@@ -10,7 +10,7 @@ export default {
   title: 'Cockpit'
 }
 
-loadThemeByName('blue')
+loadThemeByName('teal')
 
 // TODO!!!!!
 /*
