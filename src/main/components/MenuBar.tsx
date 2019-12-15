@@ -63,33 +63,24 @@ const useMenuBarStyles = defineStyles(theme => {
     root: {
       position: 'relative',
       width: '100%',
-//      backgroundColor: theme.colors.mono400,
       borderWidth: '0 0 .5px 0',
-//      borderColor: theme.colors.mono500,
+      borderColor: theme.palette.neutralTertiary,
+      backgroundColor: theme.palette.neutralQuaternaryAlt,
       borderStyle: 'solid',
       
       selectors: {
         '& *': {
-    //      backgroundColor: 'transparent !important',
+          backgroundColor: 'transparent !important',
           border: 'none !important',
-    //      ...theme.typography.font200,
-//          fontFamily: theme.typography.font200.fontFamily + ' !important',
+          fontFamily: theme.fonts.medium.fontFamily + ' !important'
         },
 
         '& [role=menubar]': {
-          height: '36px !important'
+          height: '34px !important'
         },
 
         '& .ms-Button-flexContainer:hover': {
-    //      backgroundColor: theme.colors.mono500 + ' !important'
-        },
-
-        '& .ms-Icon': {
-        //  color: theme.colors.primary + ' !important'
-        },
-
-        '& .ms-ContextualMenu *': {
-    //      backgroundColor: 'red'
+          backgroundColor: theme.palette.neutralTertiary + ' !important'
         }
       },
     },

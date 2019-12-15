@@ -12,7 +12,6 @@ export const loginScreen = () =>
         <Brand
           vendor="meet&amp;greet"
           title="Back Office"
-          size="medium"
         />}
 
       slotFooter={<Text>&copy; 2019, meet+greet</Text>}

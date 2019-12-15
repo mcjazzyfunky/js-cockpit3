@@ -129,7 +129,7 @@ export const cockpit = () =>
         <><UserMenu displayName="Jane Doe"/><LogoutButton/></>
       }
 
-      //slotMenu={menuBar}
+      slotMenu={menuBar}
 
       slotSidebar={
         <SideMenu

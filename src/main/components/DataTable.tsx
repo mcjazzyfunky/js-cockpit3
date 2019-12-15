@@ -91,7 +91,7 @@ const useDataTableStyles = defineStyles(theme => {
       display: 'flex',
       border: '1px',
       borderStyle: 'solid',
-      borderColor: theme.palette.neutralTertiary,
+      borderColor: theme.palette.neutralTertiary
     },
   
     tableHeadCell: {
@@ -99,12 +99,9 @@ const useDataTableStyles = defineStyles(theme => {
       alignItems: 'center',
       justifyContent: 'center',
       padding: '4px',
-//      borderColor: theme.borders.border500.borderColor,
       borderStyle: 'solid',
       borderWidth: '0 0 0 1px',
       borderColor: theme.palette.neutralTertiary,
-//      ...theme.typography.font200,
-//      fontSize: '14px',
       fontWeight: 500,
       borderSizing: 'border-box',
 
