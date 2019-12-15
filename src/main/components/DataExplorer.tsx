@@ -72,7 +72,7 @@ const useDataExplorerStyles = defineStyles(theme => {
       borderColor: theme.palette.neutralQuaternary,
       borderStyle: 'solid',
       marginBottom: '3px',
-      padding: '4px 10px'
+      padding: '4px 10px',
     },
 
     body: {

@@ -44,6 +44,8 @@ import CalendarIcon from './icons/CalendarIcon'
 import CheckmarkIcon from './icons/CheckmarkIcon'
 import ChevronDownIcon from './icons/ChevronDownIcon'
 import ChevronRightIcon from './icons/ChevronRightIcon'
+import UpIcon from './icons/UpIcon'
+import DownIcon from './icons/DownIcon'
 
 const h = React.createElement
 
@@ -57,7 +59,9 @@ if (!iconsRegistered) {
       'jsc:calendar': h(CalendarIcon),
       'jsc:checkmark': h(CheckmarkIcon),
       'jsc:chevronDown': h(ChevronDownIcon),
-      'jsc:chevronRight': h(ChevronRightIcon)
+      'jsc:chevronRight': h(ChevronRightIcon),
+      'jsc:up': h(UpIcon),
+      'jsc:down': h(DownIcon),
     }
   })
 }

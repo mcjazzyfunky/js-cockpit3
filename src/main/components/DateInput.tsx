@@ -4,7 +4,7 @@ import { component, isNode } from 'js-react-utils'
 import { AiOutlineCalendar as CalendarIcon } from 'react-icons/ai'
 import * as Spec from 'js-spec/validators'
 
-import { DatePicker } from 'office-ui-fabric-react'
+import { Calendar, DatePicker } from 'office-ui-fabric-react'
 
 // internal import
 import defineStyles from '../tools/defineStyles'
@@ -136,6 +136,22 @@ function DateInputView({
             iconName: 'jsc:calendar'
           }
         }}
+
+        calendarAs={
+          props => {
+            const newProps = {
+              ...props,
+            
+              navigationIcons: {
+                closeIcon: 'jsc:close',
+                leftNavigation: 'jsc:up',
+                rightNavigation: 'jsc:down'
+              }
+            }
+
+            return <Calendar {...newProps}/>
+          }
+        }
       />
     </FieldWrapper> 
   )
