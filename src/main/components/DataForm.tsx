@@ -41,7 +41,28 @@ const validateDataFormProps = Spec.checkProps({
 const useDataFormStyles = defineStyles(theme => {
   return {
     root: {
-      margin: '5px'
+      padding: '5px',
+      backgroundColor: '#fefefe',
+
+      selectors: {
+        '[data-component="jsc:Tabs"]': {
+          selectors: {
+            '.ms-Pivot': {
+              backgroundColor: theme.palette.neutralLight,
+              marginBottom: '1em',
+              maxHeight: '34px',
+            },
+
+            '.ms-Pivot *': {
+              height: '34px',
+            },
+
+            '.ms-Pivot-text': {
+              marginTop: '-6px',
+            }
+          }
+        }
+      }
     },
 
     header: {

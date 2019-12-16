@@ -43,17 +43,19 @@ const useFormSectionStyles = defineStyles((theme, hasTitle: boolean) => {
     },
 
     title: {
-//      ...theme.typography.font100,
+      fontFamily: theme.fonts.small.fontFamily,
+      fontSize: theme.fonts.small.fontSize,
       fontWeight: 600,
-//      color: theme.colors.mono800,
-      textTransform: 'uppercase'
+      color: theme.palette.neutralPrimary,
+      textTransform: 'uppercase',
+      paddingLeft: '1em'
     },
 
     content: {
       padding: '1em 1em',
       borderWidth: '.5px 0 0 0',
       borderStyle: 'solid',
-//      borderColor: theme.borders.border500.borderColor
+      borderColor: theme.palette.neutralQuaternaryAlt,
     }
   }
 })
@@ -75,7 +77,7 @@ function FormSectionView({
       : null
 
   return (
-    <div data-component="FormSection" className={`${classes.root}`}>
+    <div data-component="jsc:FormSection" className={`${classes.root}`}>
       {titleContent}
       <div className={classes.content}>
         {children}

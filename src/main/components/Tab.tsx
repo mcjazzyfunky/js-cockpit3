@@ -8,26 +8,26 @@ import defineStyles from '../tools/defineStyles'
 
 // --- components ----------------------------------------------------
 
-const TabPage = component<TabPageProps>({
-  displayName: 'TabPage',
+const Tab = component<TabProps>({
+  displayName: 'Tab',
 
   ...process.env.NODE_ENV === 'development' as any
-    ? { validate: Spec.lazy(() => validateTabPageProps) }
+    ? { validate: Spec.lazy(() => validateTabProps) }
     : null,
 
-  render: TabPageView
+  render: TabView
 })
 
 // --- types ---------------------------------------------------------
 
-type TabPageProps = {
+type TabProps = {
   title?: string,
   children?: ReactNode
 }
 
 // --- validation ----------------------------------------------------
 
-const validateTabPageProps = Spec.checkProps({
+const validateTabProps = Spec.checkProps({
   optional: {
     title: Spec.string,
     children: isNode
@@ -36,12 +36,12 @@ const validateTabPageProps = Spec.checkProps({
 
 // --- view ----------------------------------------------------------
 
-function TabPageView({
-}: TabPageProps): ReactNode {
-  throw new Error('Components of type "TabPage" can only be used as children '
-    + 'of "TabBox" components') 
+function TabView({
+}: TabProps): ReactNode {
+  throw new Error('Components of type "Tab" can only be used as children '
+    + 'of "Tabs" components') 
 }
 
 // --- exports -------------------------------------------------------
 
-export default TabPage
+export default Tab

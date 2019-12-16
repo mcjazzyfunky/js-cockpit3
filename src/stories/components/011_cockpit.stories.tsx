@@ -1,7 +1,7 @@
 import React from 'react'
 import { App, WorkspaceSelector, Brand, CheckBoxGroup, Cockpit,
   DataExplorer, DataForm, DateInput, FormSection, Fieldset, FilterBox, LogoutButton,
-  MenuBar, RadioButtonGroup, TabBox, TabPage, TextInput,
+  MenuBar, RadioButtonGroup, Tabs, Tab, TextInput,
   SelectBox, SideMenu, UserMenu, loadThemeByName
 } from '../js-cockpit'
 
@@ -283,8 +283,8 @@ const dataExplorer =
 
 const dataForm = 
   <DataForm title="Products">
-    <TabBox>
-      <TabPage title="Customer data">
+    <Tabs>
+      <Tab title="Customer data">
         <FormSection title="Address">
           <Fieldset title="Primary address">
             <RadioButtonGroup
@@ -361,17 +361,17 @@ const dataForm =
             <TextInput name="city" label="City" required/>
           </Fieldset>
         </FormSection>
-      </TabPage>
-      <TabPage title="Documents">
+      </Tab>
+      <Tab title="Documents">
         {dataExplorer}
-      </TabPage>
-      <TabPage title="Images">
-      </TabPage>
-      <TabPage title="Setting">
-      </TabPage>
-      <TabPage title="Permission">
-      </TabPage>
-    </TabBox>
+      </Tab>
+      <Tab title="Images">
+      </Tab>
+      <Tab title="Setting">
+      </Tab>
+      <Tab title="Permission">
+      </Tab>
+    </Tabs>
   </DataForm>
 
 /*
@@ -380,8 +380,8 @@ const dataForm =
     <Fieldset>
       <TextInput name="productId" label="Product no."/>
     </Fieldset>
-    <TabBox>
-      <TabPage title="Customer data">
+    <Tabs>
+      <Tab title="Customer data">
         <div>
           <Fieldset title="Primary contact">
             <RadioButtonGroup
@@ -453,16 +453,16 @@ const dataForm =
             <DateInput name="dayOfBirth" label="Day of Birth" required/>
           </Fieldset>
         </div>
-      </TabPage>
-      <TabPage title="Documents">
-      </TabPage>
-      <TabPage title="Images">
-      </TabPage>
-      <TabPage title="Setting">
-      </TabPage>
-      <TabPage title="Permission">
-      </TabPage>
-    </TabBox>
+      </Tab>
+      <Tab title="Documents">
+      </Tab>
+      <Tab title="Images">
+      </Tab>
+      <Tab title="Setting">
+      </Tab>
+      <Tab title="Permission">
+      </Tab>
+    </Tabs>
   </DataForm>
 */
-const mainContent = dataExplorer
+const mainContent = dataForm

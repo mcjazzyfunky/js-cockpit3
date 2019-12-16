@@ -128,7 +128,7 @@ function MenuBarView({
 
   if (itemCount > 0) {
     ret =
-      <div data-component="MenuBar" className={classes.root}>
+      <div data-component="jsc:MenuBar" className={classes.root}>
         <div className={classes.inner}>
           <CommandBar
             className={classes.commandBar}

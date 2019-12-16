@@ -105,7 +105,7 @@ function FieldWrapperView({
       : null
 
   return (
-    <label data-component="FieldWrapper" className={classes.root}>
+    <label data-component="jsc:FieldWrapper" className={classes.root}>
       <div className={classes.label}>
         {label}{maybeAsterisk}
       </div>

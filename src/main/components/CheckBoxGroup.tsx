@@ -146,6 +146,10 @@ function CheckBoxGroupView({
                 <Checkbox
                   key={option.key}
                   label={option.text}
+
+                  checkmarkIconProps={{
+                    iconName: 'jsc:checkmark'
+                  }}
                 />
               )
             })

@@ -7,40 +7,40 @@ import { Pivot, PivotItem } from 'office-ui-fabric-react'
 
 // internal import
 import defineStyles from '../tools/defineStyles'
-import TabPage from './TabPage'
+import Tab from './Tab'
 
 // derived imports
 const { Children } = React
 
 // --- components ----------------------------------------------------
 
-const TabBox = component<TabBoxProps>({
-  displayName: 'TabBox',
+const Tabs = component<TabsProps>({
+  displayName: 'Tabs',
   
   ...process.env.NODE_ENV === 'development' as any
-    ? { validate: Spec.lazy(() => validateTabBoxProps) }
+    ? { validate: Spec.lazy(() => validateTabsProps) }
     : null,
  
-  render: TabBoxView
+  render: TabsView
 })
 
 // --- types ---------------------------------------------------------
 
-type TabBoxProps = {
+type TabsProps = {
   children: ReactNode
 }
 
 // --- validation ----------------------------------------------------
 
-const validateTabBoxProps = Spec.checkProps({
+const validateTabsProps = Spec.checkProps({
   optional: {
-    children: withChildren(Spec.all(isElementOfType(TabPage)))
+    children: withChildren(Spec.all(isElementOfType(Tab)))
   }
 })
 
 // --- styles --------------------------------------------------------
 
-const useTabBoxStyles = defineStyles(theme => {
+const useTabsStyles = defineStyles(theme => {
   return {
     root: {
     },
@@ -49,39 +49,10 @@ const useTabBoxStyles = defineStyles(theme => {
 
 // --- view ----------------------------------------------------------
 
-function TabBoxView({
+function TabsView({
   children
-}: TabBoxProps) {
-  const classes = useTabBoxStyles()
-
-  const tabsOverrides: any = {
-    TabBar: {
-      style: ({ $theme }: any) => ({
-        //background: 'none',
-        //borderWidth: '0 0 .5px 0',
-        //borderStyle: 'solid',
-        //borderColor: $theme.borders.border300.borderColor
-      })
-    },
-
-    TabContent: {
-      style: {
-        paddingLeft: '8px',
-        paddingRight: '8px',
-      }
-    }
-  }
-
-  const tabOverrides: any = {
-    Tab: {
-      style: ({ $theme }: any) => ({
-        padding: 0,
-        margin: 0,
-        paddingTop: $theme.sizing.scale400,
-        paddingBottom: $theme.sizing.scale400
-      })
-    }
-  }
+}: TabsProps) {
+  const classes = useTabsStyles()
 
   // Children.map would modify keys
   const pages: ReactNode[] = []
@@ -95,12 +66,14 @@ function TabBoxView({
   })
 
   return (
-    <Pivot>
-      {pages}
-    </Pivot>
+    <div data-component="jsc:Tabs" className={classes.root}>
+      <Pivot>
+        {pages}
+      </Pivot>
+    </div>
   )
 }
 
 // --- exports -------------------------------------------------------
 
-export default TabBox
+export default Tabs
