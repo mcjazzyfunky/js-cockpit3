@@ -13,7 +13,7 @@ export default {
   title: 'Cockpit'
 }
 
-loadThemeByName('blue')
+loadThemeByName('teal')
 
 // TODO!!!!!
 /*
@@ -480,4 +480,4 @@ const dataForm =
     </Tabs>
   </DataForm>
 */
-const mainContent = dataForm
+const mainContent = dataExplorer

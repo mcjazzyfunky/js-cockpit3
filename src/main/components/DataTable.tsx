@@ -10,6 +10,7 @@ import { Checkbox } from 'office-ui-fabric-react'
 // internal imports
 import defineStyles from '../tools/defineStyles'
 import classNames from '../tools/classNames'
+import defineActions from '../tools/defineActions'
 
 // derived imports
 const { useState } = React
@@ -48,7 +49,7 @@ type DataTableProps = {
     sortable?: boolean
   }[],
 
-  data: object[],
+  data: Item[],
 
   onRowSelectionChange?: (event: RowSelectionChangeEvent) => void
   onSortChange?: (event: SortChangeEvent) => void,
@@ -56,10 +57,18 @@ type DataTableProps = {
   ref?: any // TODO
 }
 
+type DataTableState = {
+  selectedItems: Set<Item>
+}
+
+type DataTableActions = ReturnType<typeof useDataTableActions>[0]
+type Item = Record<string, any>
+type ColumnWidths = { selectionColumn: number, dataColumns: number[] }
+
 type RowSelectionChangeEvent = any // TODO
 type SortChangeEvent = any // TODO
 
-type Classes = ReturnType<typeof useDataTableStyles>
+type DataTableClasses = ReturnType<typeof useDataTableStyles>
 
 // --- validation ----------------------------------------------------
 
@@ -156,49 +165,37 @@ const useDataTableStyles = defineStyles(theme => {
 
 // --- view ----------------------------------------------------------
 
-function DataTableView({
-  columns,
-  sortBy,
-  sortDir,
-  rowSelectionMode,
-  data,
-}: DataTableProps) {
+function DataTableView(props: DataTableProps) {
   const
+    [actions, state] = useDataTableActions(),
     classes = useDataTableStyles(),
     [selectedRows] = useState(() => new Set<any>()), // TODO
     [resizeListener, size] = useResizeAware(),
     tableSizeIsKnown = size.width !== null,
 
     columnWidths = tableSizeIsKnown
-       ? calculateColumnWidths(columns, rowSelectionMode !== 'none', size.width)
+       ? calculateColumnWidths(props.columns, props.rowSelectionMode !== 'none', size.width)
        : null,
-
-    changeSelection =() => {}, // TODO,
-    changeSort = () => {}, // TODO,
 
     tableHead = !tableSizeIsKnown
       ? null
       : renderHead(
-        columns,
-        sortBy,
-        sortDir,
-        rowSelectionMode,
-        data,
-        selectedRows,
-        columnWidths,
+        props,
+        state,
+        actions,
         classes,
-        changeSelection,
-        changeSort
+        columnWidths
       ),
 
     table = !tableSizeIsKnown
       ? null
       : renderTableBody(
-          columns,
-          rowSelectionMode,
+          props,
+          state,
+          actions, 
+          classes,
           size.width,
-          size.height,
-          classes
+          size.height
         )
 
   return (
@@ -212,44 +209,177 @@ function DataTableView({
   )
 }
 
-function renderTableBody(
-  columns: DataTableProps['columns'],
-  rowSelectionMode: DataTableProps['rowSelectionMode'],
-  width: number,
-  height: number,
-  classes: Classes
-) {
+function renderHead(
+  props: DataTableProps,
+  state: DataTableState,
+  actions: DataTableActions, 
+  classes: DataTableClasses,
+  columnWidths: ColumnWidths | null 
+) { // TODO
   const
-    hasSelectorColumn =
-      rowSelectionMode === 'single' || rowSelectionMode === 'multi', 
-    
-    columnWidths = calculateColumnWidths(columns, hasSelectorColumn, width)
+    minWidth = columnWidths
+      ? columnWidths.selectionColumn
+      : SELECTION_COLUMN_WIDTH + 'px',
+
+    selectionColumn =
+      props.rowSelectionMode !== 'single' && props.rowSelectionMode !== 'multi'
+        ? null
+        : <div className={classes.rowSelectionColumn} style={{
+            minWidth
+          }}>
+            <div className={classes.allRowsSelectionCell}>
+              {
+                props.rowSelectionMode === 'multi'
+                  ? renderSelectAllRowsCheckbox(props, state, actions, classes)
+                  : null
+              }
+            </div>
+          </div>
 
   return (
-    <VariableSizeGrid key={Math.random()}
-      
-      columnCount={columns.length + Number(hasSelectorColumn)}
-      rowCount={1000} // TODO
+    <div className={classes.tableHead}>
+      {selectionColumn}
+      {
+        props.columns.map((column, columnIdx) =>
+          renderTableHeadCell(
+            props, state, actions, classes, columnIdx, columnWidths))
+      }
+    </div>
+  )
+}
+
+function renderTableHeadCell(
+  props: DataTableProps,
+  state: DataTableState,
+  actions: DataTableActions,
+  classes: DataTableClasses,
+  columnIdx: number,
+  columnWidths: ColumnWidths | null
+) {
+  const
+    column = props.columns[columnIdx],
+    sortable = props.columns[columnIdx].sortable,
+    isSorted = props.sortBy !== null && props.sortBy === column.field,
+    width = !columnWidths ? '' : columnWidths.dataColumns[columnIdx],
+
+    sortIcon = // TODO
+      <div style={{ width: '20px', height: '20px' }}>
+        {
+          sortable && isSorted
+            ? (props.sortDir === 'asc' ? '(asc)' : '(desc)') // TODO
+            : null
+        }
+      </div>,
+
+    onClick = 
+      !sortable && column.field
+        ? null
+        : () => {
+          /// TODO //changeSort(column.field!, isSorted ? sortDir !== 'desc' : false)
+        } 
+
+  return (
+    <div
+      key={columnIdx}
+      data-sortable={String(sortable)}
+      onClick={onClick || undefined}
+      style={{ width, minWidth: width, maxWidth: width }}
+      className={classes.tableHeadCell}
+    >
+      <div className={classes.tableHeadCellContent}>
+        {column.title}
+        {sortIcon}
+      </div>
+    </div>
+  )
+}
+
+function renderSelectAllRowsCheckbox(
+  props: DataTableProps,
+  state: DataTableState,
+  actions: DataTableActions,
+  classes: DataTableClasses
+) { // TODO
+  const
+    rowSelectionSize = state.selectedItems.size,
+    checked = rowSelectionSize > 0 && rowSelectionSize === props.data.length
+  
+  return (
+    <Checkbox
+      checked={checked}
+
+      checkmarkIconProps={{
+        iconName: 'jsc:checkmark'
+      }}
+
+      onChange={
+        () => checked
+          ? actions.unselectAllItems()
+          : actions.selectItems(props.data)
+      }
+    />
+  )
+}
+
+function renderTableBody(
+  props: DataTableProps,
+  state: DataTableState,
+  actions: DataTableActions, 
+  classes: DataTableClasses,
+  width: number,
+  height: number,
+) {
+  const
+    hasSelectionColumn =
+      props.rowSelectionMode === 'single' || props.rowSelectionMode === 'multi', 
+    
+    indexFirstDataColumn = Number(hasSelectionColumn),
+    columnWidths = calculateColumnWidths(props.columns, hasSelectionColumn, width)
+
+  return (
+    <VariableSizeGrid key={Math.random()} // TODO
+      columnCount={props.columns.length + indexFirstDataColumn}
+      rowCount={props.data.length}
       rowHeight={() => 28} // TODO
       width={width}
       height={height}
       columnWidth={idx =>
-        idx === 0 && hasSelectorColumn
-          ? columnWidths.selectorColumn
-          : columnWidths.dataColumns[idx - Number(hasSelectorColumn)]
+        idx === 0 && hasSelectionColumn
+          ? columnWidths.selectionColumn
+          : columnWidths.dataColumns[idx - indexFirstDataColumn]
       }
     >
       {({ columnIndex, rowIndex, style }) => {
-        const className = classNames(
-          classes.tableBodyCell,
-          rowIndex % 2 === 1 ? classes.evenRow : '')
+        const
+          className = classNames(
+            classes.tableBodyCell,
+            rowIndex % 2 === 1 ? classes.evenRow : ''),
+
+            field =
+              hasSelectionColumn && columnIndex === 0
+                ? null
+                : props.columns[columnIndex - indexFirstDataColumn].field || null,
+            
+            cellValue =
+              hasSelectionColumn && columnIndex === 0 || field == null
+                ? null
+                : props.data[rowIndex][field]
         
         return (
-          hasSelectorColumn && columnIndex === 0
-          ? <div style={style} className={classNames(className, classes.rowSelectionCell)}>{renderSelectRowCheckbox()}</div> 
-          : <div style={style} className={className}>
-              row {rowIndex}, column {columnIndex}
-            </div>
+          hasSelectionColumn && columnIndex === 0
+            ? <div style={style} className={
+                classNames(className, classes.rowSelectionCell)}>
+                  {renderSelectRowCheckbox(
+                    props,
+                    state,
+                    actions,
+                    classes,
+                    rowIndex
+                  )}
+              </div> 
+            : <div style={style} className={className}>
+                {cellValue}
+              </div>
         )
       }}
     </VariableSizeGrid>
@@ -260,18 +390,18 @@ function calculateColumnWidths(
   columns: DataTableProps['columns'],
   hasSelectorColumn: boolean,
   totalWidth: number
-) {
+): ColumnWidths {
   const
-    selectorColumnWidth = hasSelectorColumn ? SELECTION_COLUMN_WIDTH : 0,
+    selectionColumnWidth = hasSelectorColumn ? SELECTION_COLUMN_WIDTH : 0,
     columnCount = columns.length,
 
     ret = {
-      selectorColumn: selectorColumnWidth,
+      selectionColumn: selectionColumnWidth,
       dataColumns: [] as number[]
     }
 
     const
-      realTotal = totalWidth - selectorColumnWidth,
+      realTotal = totalWidth - selectionColumnWidth,
 
       ratioTotal = columns.reduce((sum, col) => {
         return sum + (col.width || 100)
@@ -296,134 +426,29 @@ function calculateColumnWidths(
     return ret
 }
 
-function renderHead(
-  columns: DataTableProps['columns'],
-  sortBy: DataTableProps['sortBy'],
-  sortDir: DataTableProps['sortDir'],
-  rowSelectionMode: DataTableProps['rowSelectionMode'],
-  data: DataTableProps['data'],
-  selectedRows: Set<number>,
-  columnWidths: ReturnType<typeof calculateColumnWidths> | null, 
-  classes: Classes,
-  changeSelection: (selection: any) => void,
-  changeSort: (field: string, sortDesc: boolean) => void
-) { // TODO
-  const
-    minWidth = columnWidths
-      ? columnWidths.selectorColumn
-      : SELECTION_COLUMN_WIDTH + 'px',
-
-    selectionColumn =
-      rowSelectionMode !== 'single' && rowSelectionMode !== 'multi'
-        ? null
-        : <div className={classes.rowSelectionColumn} style={{
-            minWidth
-          }}>
-            <div className={classes.allRowsSelectionCell}>
-              {
-                rowSelectionMode === 'multi'
-                  ? renderSelectAllRowsCheckbox(
-                    data, selectedRows, changeSelection, classes)
-                  : null
-              }
-            </div>
-          </div>
-
-  return (
-    <div className={classes.tableHead}>
-      {selectionColumn}
-      {
-        columns.map((column, columnIdx) =>
-          renderTableHeadCell(
-            columnIdx, columns, sortBy, sortDir,
-            
-            columnWidths
-              ? columnWidths.dataColumns[columnIdx]
-              : 10, // TODO
-              
-            classes, changeSort))
-      }
-    </div>
-  )
-}
-
-function renderTableHeadCell(
-  columnIdx: number,
-  columns: DataTableProps['columns'],
-  sortBy: DataTableProps['sortBy'],
-  sortDir: DataTableProps['sortDir'],
-  width: number,
-  classes: Classes,
-  changeSort: (field: string, sortDesc: boolean) => void
+function renderSelectRowCheckbox(
+  props: DataTableProps,
+  state: DataTableState,
+  actions: DataTableActions,
+  classes: DataTableClasses,
+  rowIndex: number
 ) {
   const
-    column = columns[columnIdx],
-    sortable = columns[columnIdx].sortable,
-    isSorted = sortBy !== null && sortBy === column.field,
+    item: Item =  props.data[rowIndex],
+    checked = state.selectedItems.has(item)
 
-    sortIcon = // TODO
-      <div style={{ width: '20px', height: '20px' }}>
-        {
-          sortable && isSorted
-            ? (sortDir === 'asc' ? '(asc)' : '(desc)') // TODO
-            : null
+  return (
+    <Checkbox
+      checked={checked}
+
+      onChange={
+        () => {
+          checked
+            ? actions.unselectItems([item])
+            : actions.selectItems([item])
         }
-      </div>,
+      }
 
-    onClick = 
-      !sortable && column.field
-        ? null
-        : () => {
-          changeSort(column.field!, isSorted ? sortDir !== 'desc' : false)
-        } 
-
-  return (
-    <div
-      key={columnIdx}
-      data-sortable={String(sortable)}
-      onClick={onClick || undefined}
-      style={{ width, minWidth: width, maxWidth: width }}
-      className={classes.tableHeadCell}
-    >
-      <div className={classes.tableHeadCellContent}>
-        {column.title}
-        {sortIcon}
-      </div>
-    </div>
-  )
-}
-
-function renderSelectAllRowsCheckbox(
-  data: DataTableProps['data'],
-  selectedRows: Set<number>,
-  changeRowSelection: (selection: Set<number>) => void,
-  classes: Classes
-) { // TODO
-  const
-    rowSelectionSize = selectedRows.size,
-    checked = rowSelectionSize > 0 && rowSelectionSize === data.length,
-
-    onChange =() => {
-      const selectedRows: Iterable<number> =
-        checked
-          ? []
-          : data.keys()
-
-      changeRowSelection(new Set(selectedRows))
-    }
-
-  return (
-    <Checkbox
-      checkmarkIconProps={{
-        iconName: 'jsc:checkmark'
-      }}
-    /> // TODO
-  )
-}
-
-function renderSelectRowCheckbox() {
-  return (
-    <Checkbox
       checkmarkIconProps={{
         iconName: 'jsc:checkmark'
       }}
@@ -431,6 +456,33 @@ function renderSelectRowCheckbox() {
   )
 }
 
+// --- actions -------------------------------------------------------
+
+function initDataTableState(): DataTableState {
+  return {
+    selectedItems: new Set<any>(), // TODO
+  }
+}
+
+const useDataTableActions = defineActions(update => ({
+  selectItems(state, items: Item[]) {
+    const selectedItems = new Set(state.selectedItems)
+    
+    items.forEach(item => selectedItems.add(item))
+    update({ selectedItems })
+  },
+  
+  unselectItems(state, items: Item[]) {
+    const selectedItems = new Set(state.selectedItems)
+    
+    items.forEach(item => selectedItems.delete(item))
+    update({ selectedItems })
+  },
+
+  unselectAllItems(state) {
+    update({ selectedItems: new Set() })
+  }
+}), initDataTableState)
 
 // --- exports -------------------------------------------------------
 

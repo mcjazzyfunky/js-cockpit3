@@ -205,19 +205,36 @@ function renderBody(classes: DataExplorerClasses) {
         rowSelectionMode="multi"
         columns={[
           {
-            title: 'Column1',
+            title: 'First name',
+            field: 'firstName',
             width: 50,
           },
           {
-            title: 'Column2',
+            title: 'Last name',
+            field: 'lastName',
             width: 200
           },
           {
-            title: 'Column3'
+            title: 'City',
+            field: 'city'
           }
         ]}
       
-        data={[]}
+        data={[{
+          id: 1,
+          firstName: 'Jane',
+          lastName: 'Doe',
+          city: 'London'
+        }, {
+          id: 2,
+          firstName: 'John',
+          lastName: 'Smith',
+          city: 'Brighton'
+        }, {
+          firstName: 'Mary',
+          lastName: 'Mason',
+          city: 'Bristol'
+        }]}
       />
     </div>
   ) 
