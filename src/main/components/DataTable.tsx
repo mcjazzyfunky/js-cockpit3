@@ -4,13 +4,16 @@ import { component, isNode } from 'js-react-utils'
 import { VariableSizeGrid } from 'react-window'
 import useResizeAware from 'react-resize-aware'
 import * as Spec from 'js-spec/validators'
+import Color from 'color'
 
-import { Checkbox } from 'office-ui-fabric-react'
+import { Checkbox, Icon } from 'office-ui-fabric-react'
 
 // internal imports
 import defineStyles from '../tools/defineStyles'
 import classNames from '../tools/classNames'
 import defineActions from '../tools/defineActions'
+import TableSortEvent from '../types/TableSortEvent'
+import TableRowSelection from '../types/TableRowSelectionEvent'
 
 // derived imports
 const { useState } = React
@@ -98,6 +101,7 @@ const useDataTableStyles = defineStyles(theme => {
 
     tableHead: {
       display: 'flex',
+      alignItems: 'center',
       border: '1px',
       borderStyle: 'solid',
       borderColor: theme.palette.neutralTertiary
@@ -117,8 +121,14 @@ const useDataTableStyles = defineStyles(theme => {
       selectors: {
         '&:first-child': {
           borderWidth: 0
-        },
+        }
+      }
+    },
 
+    tableHeadCellSortable: {
+      cursor: 'pointer',
+
+      selectors: {
         '&:hover': {
           backgroundColor: theme.palette.neutralLighter
         },
@@ -131,7 +141,8 @@ const useDataTableStyles = defineStyles(theme => {
 
     tableHeadCellContent: {
       display: 'flex',
-      flexWrap: 'nowrap'
+      alignItems: 'center',
+      flexWrap: 'nowrap',
     },
 
     tableBodyCell: {
@@ -141,8 +152,20 @@ const useDataTableStyles = defineStyles(theme => {
       boxSizing: 'border-box'
     },
 
-    evenRow: {
-      backgroundColor: theme.palette.neutralLighterAlt
+    unselectedOddRow: {
+      backgroundColor: theme.palette.white
+    },
+
+    unselectedEvenRow: {
+      backgroundColor: Color(theme.palette.white).darken(0.03) // TODO
+    },
+
+    selectedOddRow: {
+      backgroundColor: theme.palette.themeLight,
+    },
+    
+    selectedEvenRow: {
+      backgroundColor: Color(theme.palette.themeLight).darken(0.08) // TODO
     },
 
     allRowsSelectionCell: {
@@ -150,7 +173,7 @@ const useDataTableStyles = defineStyles(theme => {
       flexDirection: 'row',
       justifyContent: 'center',
       alignItems: 'center',
-      padding: '3px 0 0 8px'
+      padding: '1px 0 0 9px'
     },
 
     rowSelectionCell: {
@@ -258,21 +281,23 @@ function renderTableHeadCell(
 ) {
   const
     column = props.columns[columnIdx],
-    sortable = props.columns[columnIdx].sortable,
-    isSorted = props.sortBy !== null && props.sortBy === column.field,
+    isSortable = props.columns[columnIdx].sortable && !!column.field,
+    isSorted = !!props.sortBy && props.sortBy === column.field,
     width = !columnWidths ? '' : columnWidths.dataColumns[columnIdx],
 
-    sortIcon = // TODO
-      <div style={{ width: '20px', height: '20px' }}>
-        {
-          sortable && isSorted
-            ? (props.sortDir === 'asc' ? '(asc)' : '(desc)') // TODO
-            : null
-        }
-      </div>,
+    className = classNames(
+      classes.tableHeadCell,
+      isSortable ? classes.tableHeadCellSortable : null),
+
+
+    sortIcon = isSortable && isSorted
+        ? (props.sortDir === 'asc'
+          ? <Icon iconName="jsc:up"/>
+          : <Icon iconName="jsc:down"/>)
+        : null,
 
     onClick = 
-      !sortable && column.field
+      !isSortable
         ? null
         : () => {
           /// TODO //changeSort(column.field!, isSorted ? sortDir !== 'desc' : false)
@@ -281,10 +306,10 @@ function renderTableHeadCell(
   return (
     <div
       key={columnIdx}
-      data-sortable={String(sortable)}
+      data-sortable={String(isSortable)}
       onClick={onClick || undefined}
       style={{ width, minWidth: width, maxWidth: width }}
-      className={classes.tableHeadCell}
+      className={className}
     >
       <div className={classes.tableHeadCellContent}>
         {column.title}
@@ -351,19 +376,26 @@ function renderTableBody(
     >
       {({ columnIndex, rowIndex, style }) => {
         const
+          item = props.data[rowIndex],
+          isSelectedRow = state.selectedItems.has(item),
+          isEvenRow = rowIndex % 2 === 1,
+
           className = classNames(
             classes.tableBodyCell,
-            rowIndex % 2 === 1 ? classes.evenRow : ''),
+            !isSelectedRow && !isEvenRow ? classes.unselectedOddRow : '',
+            !isSelectedRow && isEvenRow ? classes.unselectedEvenRow : '',
+            isSelectedRow && !isEvenRow ? classes.selectedOddRow : '',
+            isSelectedRow && isEvenRow ? classes.selectedEvenRow : ''),
 
-            field =
-              hasSelectionColumn && columnIndex === 0
-                ? null
-                : props.columns[columnIndex - indexFirstDataColumn].field || null,
-            
-            cellValue =
-              hasSelectionColumn && columnIndex === 0 || field == null
-                ? null
-                : props.data[rowIndex][field]
+          field =
+            hasSelectionColumn && columnIndex === 0
+              ? null
+              : props.columns[columnIndex - indexFirstDataColumn].field || null,
+          
+          cellValue =
+            hasSelectionColumn && columnIndex === 0 || field == null
+              ? null
+              : props.data[rowIndex][field]
         
         return (
           hasSelectionColumn && columnIndex === 0

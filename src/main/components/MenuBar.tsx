@@ -119,6 +119,10 @@ function MenuBarView({
     <CommandBarButton 
       {...props}
 
+      menuIconProps={{
+        iconName: 'jsc:chevronDown'
+      }}
+
       menuProps={{
         ...props.menuProps,
         isBeakVisible: true,

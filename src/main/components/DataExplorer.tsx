@@ -203,6 +203,8 @@ function renderBody(classes: DataExplorerClasses) {
       <DataTable
         title="Contacts"
         rowSelectionMode="multi"
+        sortBy="lastName"
+        sortDir="desc"
         columns={[
           {
             title: 'First name',
@@ -212,6 +214,7 @@ function renderBody(classes: DataExplorerClasses) {
           {
             title: 'Last name',
             field: 'lastName',
+            sortable: true,
             width: 200
           },
           {
@@ -231,6 +234,17 @@ function renderBody(classes: DataExplorerClasses) {
           lastName: 'Smith',
           city: 'Brighton'
         }, {
+          id: 3,
+          firstName: 'Mary',
+          lastName: 'Mason',
+          city: 'Bristol'
+        }, {
+          id: 4,
+          firstName: 'Jane',
+          lastName: 'Doe',
+          city: 'London'
+        }, {
+          id: 5,
           firstName: 'Mary',
           lastName: 'Mason',
           city: 'Bristol'

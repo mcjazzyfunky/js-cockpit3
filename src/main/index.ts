@@ -69,7 +69,5 @@ registerIcons({
     'jsc:arrowRight': h(ArrowRightIcon),
     'jsc:arrowDoubleLeft': h(ArrowDoubleLeftIcon),
     'jsc:arrowDoubleRight': h(ArrowDoubleRightIcon),
-    
-    'chevronDown': h(ChevronDownIcon), // TODO!!!!!!!!!!!!!!
   }
 }, { disableWarnings: true })
