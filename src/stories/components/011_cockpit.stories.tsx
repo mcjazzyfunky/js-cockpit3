@@ -264,6 +264,21 @@ export const cockpit = () =>
 const dataExplorer =
   <DataExplorer
     title="Back-office users"
+
+    actions={[
+      {
+        type: 'general',
+        text: 'New'
+      },
+      {
+        type: 'singleRow',
+        text: 'Edit'
+      },
+      {
+        type: 'multiRow',
+        text: 'Delete'
+      }
+    ]}
     
     slotFiltering={
       <FilterBox>

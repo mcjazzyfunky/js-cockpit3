@@ -128,6 +128,7 @@ function DateInputView({
     <FieldWrapper label={label} required={required} error={error}>
       <DatePicker
         disabled={disabled}
+        formatDate={date => !date ? '' : date.toISOString().substr(0, 10)}
         //error={!!error}
         onChange={onChange}
       

@@ -3,15 +3,11 @@ import React, { ReactNode } from 'react'
 import { component, isNode } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
 
-import { GoPlus as NewIcon } from 'react-icons/go'
-import { FiEdit as EditIcon } from 'react-icons/fi'
-import { FiTrash as DeleteIcon } from 'react-icons/fi'
-import { MdFileDownload as DownloadIcon } from 'react-icons/md'
-
-import { ActionButton, PrimaryButton } from 'office-ui-fabric-react'
+import { ActionButton } from 'office-ui-fabric-react'
 
 // internal imports
 import defineStyles from '../tools/defineStyles'
+import defineActions from '../tools/defineActions'
 import DataTable from './DataTable'
 import Paginator from './Paginator'
 import PageSizeSelector from './PageSizeSelector'
@@ -19,7 +15,6 @@ import PaginationInfo from './PaginationInfo'
 
 // derived imports
 const { useCallback, useEffect, useState } = React
-
 
 // --- public components ---------------------------------------------
 
@@ -37,9 +32,36 @@ const DataExplorer = component<DataExplorerProps>({
 
 type DataExplorerProps = {
   title?: string,
+   actions:
+    (DataExplorerGeneralAction
+      | DataExplorerSingleRowAction
+      | DataExplorerMultiRowAction)[],
+
   slotFiltering?: ReactNode
 }
 
+type DataExplorerState = {
+}
+
+type DataExplorerSingleRowAction = {
+  type: 'singleRow',
+  text: string,
+  icon?: ReactNode
+}
+
+type DataExplorerMultiRowAction = {
+  type: 'multiRow',
+  text: string,
+  icon?: ReactNode
+}
+
+type DataExplorerGeneralAction = {
+  type: 'general',
+  text: string,
+  icon?: ReactNode
+}
+
+type DataExplorerActions = ReturnType<typeof useDataExplorerActions>[0]
 type DataExplorerClasses = ReturnType<typeof useDataExplorerStyles>
 
 // --- validation ----------------------------------------------------
@@ -130,23 +152,23 @@ const useDataExplorerStyles = defineStyles(theme => {
 
 // --- views ---------------------------------------------------------
 
-function DataExplorerView({
-  title,
-  slotFiltering
-}: DataExplorerProps) {
+function DataExplorerView(
+  props: DataExplorerProps
+) {
   const
+    [actions, state] = useDataExplorerActions(),
     classes = useDataExplorerStyles(),
     
-    filtering = !slotFiltering
+    filtering = !props.slotFiltering
       ? null
       : <div className={classes.filtering}>
-          {slotFiltering}
+          {props.slotFiltering}
         </div>
 
 
   return (
     <div className={classes.root}>
-      {renderHeader(title, classes)}
+      {renderHeader(props, state, actions, classes, 2)} // TODO
       {filtering}
       {renderBody(classes)}
       {renderFooter(classes)}
@@ -155,46 +177,87 @@ function DataExplorerView({
 }
 
 function renderHeader(
-  title: string | undefined,
-  classes: DataExplorerClasses
+  props: DataExplorerProps,
+  state: DataExplorerState,
+  actions: DataExplorerActions,
+  classes: DataExplorerClasses,
+  numSelectedRows: number
 ) {
   return (
     <div className={classes.header}>
       <div className={classes.title}>
-        {title}
+        {props.title}
       </div>
       <div className={classes.actionButtons}>
-        <ActionButton
-          className={classes.actionButton}
-          onRenderIcon={() =>
-            <div className={classes.actionIcons}>
-              <NewIcon/>
-            </div>
-         }>New</ActionButton>
-        <ActionButton
-          className={classes.actionButton}
-          onRenderIcon={() =>
-            <div className={classes.actionIcons}>
-              <EditIcon/>
-            </div>
-        }>Edit</ActionButton>
-        <ActionButton
-          className={classes.actionButton}
-          onRenderIcon={() =>
-            <div className={classes.actionIcons}>
-              <DeleteIcon/>
-            </div>
-        }>Delete</ActionButton>
-        <ActionButton
-          className={classes.actionButton}
-          onRenderIcon={() =>
-            <div className={classes.actionIcons}>
-              <DownloadIcon/>
-            </div>
-         }>Export</ActionButton>
+        {renderActionButtons(props, state, actions, classes, numSelectedRows)}
       </div>
     </div>
   ) 
+}
+
+function renderActionButtons(
+  props: DataExplorerProps,
+  state: DataExplorerState,
+  actions: DataExplorerActions,
+  classes: DataExplorerClasses,
+  numSelectedRows: number
+) {
+  const buttons: ReactNode[] = []
+
+  props.actions.forEach((action, idx) => {
+    const
+      disabled =
+        action.type === 'singleRow' && numSelectedRows !== 1
+            || action.type === 'multiRow' && numSelectedRows === 0
+
+    /*
+    if (idx > 0) {
+      items.push({
+        key: `separator-${idx}`,
+        onRender: () => <div className={classes.actionButtonSeparator}></div>
+      })
+    }
+    */
+
+    const
+      hasIcon = !!action.icon,
+      iconProps = hasIcon ? { iconName: 'icon' } : null,
+
+      actionButtonClassName = classes.actionButton, // TODO
+
+// TODO
+//        disabled
+//          ? css(classes.actionButton, classes.actionButtonDisabled)
+//          : classes.actionButton,
+      
+      iconClassName = null // TODO
+
+// TODO
+//      hasIcon
+//          ? (disabled ? classes.actionIconDisabled : classes.actionIcon)
+//          : undefined
+
+    buttons.push(
+      <ActionButton disabled={disabled}>
+        {action.text}
+      </ActionButton>)
+    
+    
+    /*
+    ({
+      key: String(idx),
+      text: action.text,
+      iconProps,
+      disabled,
+      className: actionButtonClassName,
+      onRenderIcon: action.icon ?
+        () => <div className={iconClassName}>{action.icon}</div>
+        : undefined
+    })
+    */
+  })
+  
+  return <div>{buttons}</div>
 }
 
 function renderBody(classes: DataExplorerClasses) {
@@ -272,8 +335,20 @@ function renderFooter(classes: DataExplorerClasses) {
         about="items"
       />
     </div>
-  ) 
+  )
 }
+
+// --- actions -------------------------------------------------------
+
+function initDataExplorerState(): DataExplorerState {
+  return {}
+}
+
+const useDataExplorerActions = defineActions(update => {
+  return {
+
+  }
+}, initDataExplorerState)
 
 // --- exports -------------------------------------------------------
 
