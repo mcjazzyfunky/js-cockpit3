@@ -144,8 +144,8 @@ function DateInputView({
             
               navigationIcons: {
                 closeIcon: 'jsc:close',
-                leftNavigation: 'jsc:up',
-                rightNavigation: 'jsc:down'
+                leftNavigation: 'jsc:down',
+                rightNavigation: 'jsc:up'
               }
             }
 

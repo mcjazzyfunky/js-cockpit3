@@ -1,17 +1,17 @@
 import React from 'react'
 
-const upSvg =
+const downSvg =
   <svg width="20px" height="20px" viewBox="0 0 64 64">
     <g fill="none" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10">
-      <polyline strokeLinejoin="bevel" points="20,40 32,56 44,40 "/>
+      <polyline strokeLinejoin="bevel" points="20,32 32,16 44,32 "/>
       <polyline strokeMiterlimit="10" points="32,16 32,56"/>
     </g>
   </svg>
 
-function UpIcon() {
-  return upSvg
+function DownIcon() {
+  return downSvg
 }
 
-UpIcon.displayName = 'UpIcon'
+DownIcon.displayName = 'DownIcon'
 
-export default React.memo(UpIcon)
+export default React.memo(DownIcon)

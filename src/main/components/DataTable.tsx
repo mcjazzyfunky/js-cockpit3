@@ -12,11 +12,12 @@ import { Checkbox, Icon } from 'office-ui-fabric-react'
 import defineStyles from '../tools/defineStyles'
 import classNames from '../tools/classNames'
 import defineActions from '../tools/defineActions'
+import EventHandler from '../types/EventHandler'
 import TableSortEvent from '../types/TableSortEvent'
-import TableRowSelection from '../types/TableRowSelectionEvent'
+import TableRowSelectionEvent from '../types/TableRowSelectionEvent'
 
 // derived imports
-const { useState } = React
+const { useEffect, useState } = React
 
 // --- constants -----------------------------------------------------
 
@@ -41,8 +42,8 @@ type DataTableProps = {
   
   rowSelectionMode?: 'none' | 'single' | 'multi',
 
-  sortBy?: string | null,
-  sortDir?: 'asc' | 'desc',
+  sortField?: string | null,
+  sortDirection?: 'asc' | 'desc',
 
   columns: {
     title: string, 
@@ -54,8 +55,8 @@ type DataTableProps = {
 
   data: Item[],
 
-  onRowSelectionChange?: (event: RowSelectionChangeEvent) => void
-  onSortChange?: (event: SortChangeEvent) => void,
+  onTableRowSelection?: EventHandler<TableRowSelectionEvent> 
+  onTableSort?: EventHandler<TableSortEvent>
 
   ref?: any // TODO
 }
@@ -67,9 +68,6 @@ type DataTableState = {
 type DataTableActions = ReturnType<typeof useDataTableActions>[0]
 type Item = Record<string, any>
 type ColumnWidths = { selectionColumn: number, dataColumns: number[] }
-
-type RowSelectionChangeEvent = any // TODO
-type SortChangeEvent = any // TODO
 
 type DataTableClasses = ReturnType<typeof useDataTableStyles>
 
@@ -221,6 +219,18 @@ function DataTableView(props: DataTableProps) {
           size.height
         )
 
+
+  useEffect(() => {
+    actions.unselectAllItems()
+  }, [props.data, actions]) // `actions` is only added to satisfy linter
+
+  useEffect(() => {
+    props.onTableRowSelection && props.onTableRowSelection({
+      type: 'tableRowSelection',
+      selection: Array.from(state.selectedItems)
+    })
+  }, [state.selectedItems])
+
   return (
     <div className={classes.root}>
       {tableHead}
@@ -238,7 +248,7 @@ function renderHead(
   actions: DataTableActions, 
   classes: DataTableClasses,
   columnWidths: ColumnWidths | null 
-) { // TODO
+) { 
   const
     minWidth = columnWidths
       ? columnWidths.selectionColumn
@@ -282,25 +292,32 @@ function renderTableHeadCell(
   const
     column = props.columns[columnIdx],
     isSortable = props.columns[columnIdx].sortable && !!column.field,
-    isSorted = !!props.sortBy && props.sortBy === column.field,
+    isSorted = !!props.sortField && props.sortField === column.field,
     width = !columnWidths ? '' : columnWidths.dataColumns[columnIdx],
 
     className = classNames(
       classes.tableHeadCell,
       isSortable ? classes.tableHeadCellSortable : null),
 
-
     sortIcon = isSortable && isSorted
-        ? (props.sortDir === 'asc'
+        ? (props.sortDirection === 'asc'
           ? <Icon iconName="jsc:up"/>
           : <Icon iconName="jsc:down"/>)
         : null,
 
+    // TODO - ugly, has to be fixed
     onClick = 
       !isSortable
         ? null
         : () => {
-          /// TODO //changeSort(column.field!, isSorted ? sortDir !== 'desc' : false)
+          props.onTableSort && props.onTableSort({
+            type: 'tableSort',
+            sortField: column.field!,
+
+            sortDirection: props.sortField === column.field && props.sortDirection === 'asc'
+              ? 'desc'
+              : 'asc' 
+          })
         } 
 
   return (
@@ -492,12 +509,12 @@ function renderSelectRowCheckbox(
 
 function initDataTableState(): DataTableState {
   return {
-    selectedItems: new Set<any>(), // TODO
+    selectedItems: new Set<Item>(),
   }
 }
 
 const useDataTableActions = defineActions(update => ({
-  selectItems(state, items: Item[]) {
+  selectItems( state, items: Item[]) {
     const selectedItems = new Set(state.selectedItems)
     
     items.forEach(item => selectedItems.add(item))

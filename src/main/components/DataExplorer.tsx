@@ -203,8 +203,10 @@ function renderBody(classes: DataExplorerClasses) {
       <DataTable
         title="Contacts"
         rowSelectionMode="multi"
-        sortBy="lastName"
-        sortDir="desc"
+        sortField="lastName"
+        sortDirection="asc"
+        onTableRowSelection={ev => console.log('selection', ev)}
+        onTableSort={ev => console.log('table sort', ev)}
         columns={[
           {
             title: 'First name',
