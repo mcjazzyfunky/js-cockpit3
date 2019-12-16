@@ -48,7 +48,7 @@ const useFormSectionStyles = defineStyles((theme, hasTitle: boolean) => {
       fontWeight: 600,
       color: theme.palette.neutralPrimary,
       textTransform: 'uppercase',
-      paddingLeft: '1em'
+      paddingLeft: '0.8em'
     },
 
     content: {

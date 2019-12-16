@@ -1,16 +1,19 @@
 import React from 'react'
-import { App, WorkspaceSelector, Brand, CheckBoxGroup, Cockpit,
+import { ActionBar, App, WorkspaceSelector, Brand, CheckBoxGroup, Cockpit,
   DataExplorer, DataForm, DateInput, FormSection, Fieldset, FilterBox, LogoutButton,
   MenuBar, RadioButtonGroup, Tabs, Tab, TextInput,
   SelectBox, SideMenu, UserMenu, loadThemeByName
 } from '../js-cockpit'
 
+import { FiSave as SaveIcon } from 'react-icons/fi'
+import { FiTrash2 as DeleteIcon } from 'react-icons/fi'
+import { FiPrinter as PrintIcon } from 'react-icons/fi'
 
 export default {
   title: 'Cockpit'
 }
 
-loadThemeByName('orange')
+loadThemeByName('blue')
 
 // TODO!!!!!
 /*
@@ -137,7 +140,7 @@ export const cockpit = () =>
         <><UserMenu displayName="Jane Doe"/><LogoutButton/></>
       }
 
-      slotMenu={menuBar}
+      //slotMenu={menuBar}
 
       slotSidebar={
         <SideMenu
@@ -282,7 +285,19 @@ const dataExplorer =
 
 
 const dataForm = 
-  <DataForm title="Products">
+  <DataForm
+    title="Products"
+    
+    slotActions={
+      <ActionBar
+        actions={[
+          { actionId: 'save', text: 'Save', icon: <SaveIcon/> },
+          { actionId: 'delete', text: 'Delete', icon:  <DeleteIcon/> },
+          { actionId: 'print', text: 'Print', icon: <PrintIcon/> },
+        ]} 
+      />
+    }
+  >
     <Tabs>
       <Tab title="Customer data">
         <FormSection title="Address">

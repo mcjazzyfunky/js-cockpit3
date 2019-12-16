@@ -1,4 +1,5 @@
 // components
+export { default as ActionBar } from './components/ActionBar'
 export { default as App } from './components/App'
 export { default as Brand } from './components/Brand'
 export { default as CheckBox} from './components/CheckBox'

@@ -24,6 +24,7 @@ const DataForm = component<DataFormProps>({
 
 type DataFormProps = {
   title?: string,
+  slotActions?: ReactNode
   children?: ReactNode
 }
 
@@ -32,6 +33,7 @@ type DataFormProps = {
 const validateDataFormProps = Spec.checkProps({
   optional: {
     title: Spec.string,
+    slotActions: isNode,
     children: isNode
   }
 })
@@ -50,11 +52,15 @@ const useDataFormStyles = defineStyles(theme => {
             '.ms-Pivot': {
               backgroundColor: theme.palette.neutralLight,
               marginBottom: '1em',
-              maxHeight: '34px',
+              height: '34px',
             },
 
             '.ms-Pivot *': {
               height: '34px',
+            },
+
+            '.ms-Button:hover': {
+              //backgroundColor: theme.palette.neutralQuaternaryAlt,
             },
 
             '.ms-Pivot-text': {
@@ -66,6 +72,8 @@ const useDataFormStyles = defineStyles(theme => {
     },
 
     header: {
+      display: 'flex',
+      alignItems: 'center',
       borderWidth: '0 0 0.5px 0',
       borderStyle: 'solid',
       borderColor: theme.palette.neutralQuaternary
@@ -76,6 +84,11 @@ const useDataFormStyles = defineStyles(theme => {
       fontFamily: theme.fonts.large.fontFamily,
       fontSize: theme.fonts.large.fontSize,
       fontWeight: 400,
+      marginRight: '1em'
+    },
+
+    actions: {
+
     },
 
     body: {
@@ -88,6 +101,7 @@ const useDataFormStyles = defineStyles(theme => {
 
 function DataFormView({
   title,
+  slotActions,
   children
 }: DataFormProps) {
   const classes = useDataFormStyles()
@@ -99,6 +113,11 @@ function DataFormView({
           <div className={classes.title}>
               {title}
           </div>
+          {
+            slotActions
+              ? <div className={classes.actions}>{slotActions}</div>
+              : null
+          }
         </div>
         <div className={classes.body}>
           {children}
