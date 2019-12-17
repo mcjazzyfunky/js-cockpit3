@@ -39,6 +39,7 @@ export { default as defineStyles } from './tools/defineStyles'
 export { default as LabelPosition } from './enums/LabelPosition'
 
 // themes
+export { default as ClassicTheme } from './themes/ClassicTheme'
 export { default as BlueTheme } from './themes/BlueTheme'
 export { default as GreenTheme } from './themes/GreenTheme'
 export { default as OrangeTheme } from './themes/OrangeTheme'

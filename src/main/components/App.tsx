@@ -39,28 +39,15 @@ function AppView({
   theme,
   children
 }: AppProps) {
-  const content = !theme
+  return !theme
     ? children
     : <Customizer settings={{ theme }}>
         <Fabric>
            {children}
         </Fabric>
       </Customizer>
-
-  return (
-    <>
-      <style>
-        {`
-          body {
-            margin: 0;
-            padding: 0;
-          }
-        `}
-      </style>
-      {content}
-    </>
-  )
 }
+
 
 
 // --- exports -------------------------------------------------------

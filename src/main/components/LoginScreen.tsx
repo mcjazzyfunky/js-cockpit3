@@ -69,6 +69,8 @@ const useLoginScreenStyles = defineStyles((_, theme: ITheme) => { // TODO
       position: 'absolute',
       minWidth: '100%',
       minHeight: '100%',
+      top: 0,
+      left: 0,
       backgroundColor: '#f3f3f2',
     },
 
@@ -145,7 +147,7 @@ const useLoginScreenStyles = defineStyles((_, theme: ITheme) => { // TODO
 
     headline: {
       fontFamily: theme.fonts.large.fontFamily,
-      fontSize: '32px',
+      fontSize: '30px',
       fontWeight: 200,
       marginTop: '10px',
       height: '40px'
@@ -153,7 +155,7 @@ const useLoginScreenStyles = defineStyles((_, theme: ITheme) => { // TODO
     
     subheadline: {
       fontFamily: theme.fonts.medium.fontFamily,
-      fontSize: '17px',
+      fontSize: '16px',
       fontWeight: 100,
       marginTop: '6px'
     },

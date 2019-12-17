@@ -3,7 +3,7 @@ import { ActionBar, App, WorkspaceSelector, Brand, CheckBoxGroup, Cockpit,
   DataExplorer, DataForm, DateInput, FormSection, Fieldset, FilterBox, LogoutButton,
   MenuBar, RadioButtonGroup, Tabs, Tab, TextInput,
   SelectBox, SideMenu, UserMenu,
-  BlueTheme, OrangeTheme, GreenTheme, VioletTheme, TealTheme
+  ClassicTheme, BlueTheme, OrangeTheme, GreenTheme, VioletTheme, TealTheme
 } from '../js-cockpit'
 
 
@@ -101,150 +101,147 @@ const menuBar =
   />
 
 export const cockpit = () =>
-  <App theme={OrangeTheme}>
-    <div>
-    <Cockpit theme={GreenTheme}
-      slotBrand={<Brand vendor="meet&amp;greet" title="Back Office" size="small" multicolor={true}/>}
+  <Cockpit
+    theme={ClassicTheme}
+    slotBrand={<Brand vendor="meet&amp;greet" title="Back Office" size="small" multicolor={true}/>}
 
-      slotTopNav={
-        <WorkspaceSelector
-          menu={{
-            type: 'items',
-            activeItemId: '3',
-            items: [
-              { type: 'item', itemId: '1', text: 'Dashboard', description: 'A easy overview of your business' },
-              { type: 'item', itemId: '2', text: 'User management', description: 'Handle user and user groups' },
-              { type: 'item', itemId: '3', text: 'Catalog', description: 'Manage products and categories' },
-              { type: 'item', itemId: '4', text: 'CMS', description: 'Content management system' }
-            ]
-          }}
-        />
-      }
+    slotTopNav={
+      <WorkspaceSelector
+        menu={{
+          type: 'items',
+          activeItemId: '3',
+          items: [
+            { type: 'item', itemId: '1', text: 'Dashboard', description: 'A easy overview of your business' },
+            { type: 'item', itemId: '2', text: 'User management', description: 'Handle user and user groups' },
+            { type: 'item', itemId: '3', text: 'Catalog', description: 'Manage products and categories' },
+            { type: 'item', itemId: '4', text: 'CMS', description: 'Content management system' }
+          ]
+        }}
+      />
+    }
 
-      slotActions={
-        <><UserMenu displayName="Jane Doe"/><LogoutButton/></>
-      }
+    slotActions={
+      <><UserMenu displayName="Jane Doe"/><LogoutButton/></>
+    }
 
-      //slotMenu={menuBar}
+    //slotMenu={menuBar}
 
-      slotSidebar={
-        <SideMenu
-          menu={{
-            type: 'groups',
-            activeItemId: '123',
-            groups: [
-              {
-                type: 'group',
-                title: 'Products',
-                items: [
-                  {
-                    type: 'item',
-                    title: 'Manage products',
-                    itemId: '1'
-                  },
-                  {
-                    type: 'item',
-                    title: 'Price calculation',
-                    itemId: '123'
-                  },
-                  {
-                    type: 'item',
-                    title: 'Import products',
-                    itemId: '3'
-                  },
-                  {
-                    type: 'item',
-                    title: 'Export products',
-                    itemId: '3'
-                  }
-                ]
-              },
-              {
-                type: 'group',
-                title: 'Articles',
-                items: [
-                  {
-                    type: 'item',
-                    title: 'Assign articles to products',
-                    itemId: '1',
-                  },
-                  {
-                    type: 'item',
-                    title: 'Export articles',
-                    itemId: '2'
-                  }
-                ]
-              },
-              /*
-              {
-                type: 'group',
-                title: 'Articles',
-                items: [
-                  {
-                    type: 'group',
-                    title: 'Variants',
-                    items: [
-                      {
-                        type: 'item',
-                        title: 'Item-2-1',
-                        itemId: '1',
-                      },
-                      {
-                        type: 'item',
-                        title: 'Item-2-1',
-                        itemId: '2'
-                      }
-                    ]
-                  },
-                  {
-                    type: 'group',
-                    title: 'Services',
-                    items: [
-                      {
-                        type: 'item',
-                        title: 'Item-2-1',
-                        itemId: '1'
-                      },
-                      {
-                        type: 'item',
-                        title: 'Item-2-1',
-                        itemId: '2'
-                      }
-                    ]
-                  }
-                ]
-              }*/
-              {
-                type: 'group',
-                title: 'Categories',
-                items: [
-                  {
-                    type: 'item',
-                    title: 'Manage categories',
-                    itemId: '1'
-                  },
-                  {
-                    type: 'item',
-                    title: 'Import categories',
-                    itemId: '1'
-                  },
-                  {
-                    type: 'item',
-                    title: 'Export categories',
-                    itemId: '2'
-                  }
-                ]
-              },
-            ]
-          }}
-        />
-      }
-      slotCenter={
-        mainContent
-      }
-    />
-    </div>
-  </App>
+    slotSidebar={
+      <SideMenu
+        menu={{
+          type: 'groups',
+          activeItemId: '123',
+          groups: [
+            {
+              type: 'group',
+              title: 'Products',
+              items: [
+                {
+                  type: 'item',
+                  title: 'Manage products',
+                  itemId: '1'
+                },
+                {
+                  type: 'item',
+                  title: 'Price calculation',
+                  itemId: '123'
+                },
+                {
+                  type: 'item',
+                  title: 'Import products',
+                  itemId: '3'
+                },
+                {
+                  type: 'item',
+                  title: 'Export products',
+                  itemId: '3'
+                }
+              ]
+            },
+            {
+              type: 'group',
+              title: 'Articles',
+              items: [
+                {
+                  type: 'item',
+                  title: 'Assign articles to products',
+                  itemId: '1',
+                },
+                {
+                  type: 'item',
+                  title: 'Export articles',
+                  itemId: '2'
+                }
+              ]
+            },
+            /*
+            {
+              type: 'group',
+              title: 'Articles',
+              items: [
+                {
+                  type: 'group',
+                  title: 'Variants',
+                  items: [
+                    {
+                      type: 'item',
+                      title: 'Item-2-1',
+                      itemId: '1',
+                    },
+                    {
+                      type: 'item',
+                      title: 'Item-2-1',
+                      itemId: '2'
+                    }
+                  ]
+                },
+                {
+                  type: 'group',
+                  title: 'Services',
+                  items: [
+                    {
+                      type: 'item',
+                      title: 'Item-2-1',
+                      itemId: '1'
+                    },
+                    {
+                      type: 'item',
+                      title: 'Item-2-1',
+                      itemId: '2'
+                    }
+                  ]
+                }
+              ]
+            }*/
+            {
+              type: 'group',
+              title: 'Categories',
+              items: [
+                {
+                  type: 'item',
+                  title: 'Manage categories',
+                  itemId: '1'
+                },
+                {
+                  type: 'item',
+                  title: 'Import categories',
+                  itemId: '1'
+                },
+                {
+                  type: 'item',
+                  title: 'Export categories',
+                  itemId: '2'
+                }
+              ]
+            },
+          ]
+        }}
+      />
+    }
+    slotCenter={
+      mainContent
+    }
+  />
 
 const dataExplorer =
   <DataExplorer

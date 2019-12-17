@@ -1,21 +1,19 @@
 import React from 'react'
-import { App, Brand, LoginScreen, Text, TealTheme } from '../js-cockpit'
+import { Brand, LoginScreen, Text, ClassicTheme, TealTheme } from '../js-cockpit'
 
 export default {
   title: 'Login screen'
 }
 
 export const loginScreen = () =>
-  <App>
-    <LoginScreen
-      theme={TealTheme}
+  <LoginScreen
+    theme={ClassicTheme}
 
-      slotHeader={
-        <Brand
-          vendor="meet&amp;greet"
-          title="Back Office"
-        />}
+    slotHeader={
+      <Brand
+        vendor="meet&amp;greet"
+        title="Back Office"
+      />}
 
-      slotFooter={<Text>&copy; 2019, meet+greet</Text>}
-    />
-  </App>
+    slotFooter={<Text>&copy; 2019, meet+greet</Text>}
+  />
