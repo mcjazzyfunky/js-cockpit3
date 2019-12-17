@@ -4,7 +4,7 @@ import { component, isNode } from 'js-react-utils'
 import { IoIosUnlock as LoginIcon } from 'react-icons/io'
 import * as Spec from 'js-spec/validators'
 
-import { PrimaryButton } from 'office-ui-fabric-react'
+import { Customizer, Fabric, PrimaryButton, ITheme } from 'office-ui-fabric-react'
 
 // internal import
 import defineStyles from '../tools/defineStyles'
@@ -13,6 +13,7 @@ import FormCtrlCtx from '../context/FormCtrlCtx'
 import TextInput from './TextInput'
 import PasswordInput from './PasswordInput'
 import CheckBox from './CheckBox'
+import useTheme from '../hooks/useTheme'
 
 // derived imports
 const { useCallback, useState } = React
@@ -35,7 +36,8 @@ type LoginScreenProps = {
   slotHeader?: ReactNode,
   slotFooter?: ReactNode,
   slotLoginIntro?: ReactNode,
-  slotLoginFields?: ReactNode
+  slotLoginFields?: ReactNode,
+  theme?: ITheme
 }
 
 type LoginField = 
@@ -51,13 +53,14 @@ const validateLoginScreenProps = Spec.checkProps({
     slotHeader: isNode,
     slotFooter: isNode,
     slotLoginIntro: isNode,
-    slotLoginFields: isNode
+    slotLoginFields: isNode,
+    theme: Spec.object
   }
 })
 
 // --- styles --------------------------------------------------------
 
-const useLoginScreenStyles = defineStyles(theme => {
+const useLoginScreenStyles = defineStyles((_, theme: ITheme) => { // TODO
   return {
     root: {
       display: 'flex',
@@ -103,7 +106,7 @@ const useLoginScreenStyles = defineStyles(theme => {
       padding: '24px 20px',
       boxSizing: 'border-box',
       color: theme.palette.white,
-      backgroundColor: theme.palette.themePrimary,
+      backgroundColor: theme.palette.themeSecondary,
       borderRadius: '6px 0 0 6px',
       textAlign: 'center',
 
@@ -180,10 +183,12 @@ function LoginScreenView({
   slotHeader,
   slotFooter,
   slotLoginIntro,
-  slotLoginFields
+  slotLoginFields,
+  theme
 }: LoginScreenProps) {
   const
-    classes = useLoginScreenStyles(),
+    defaultTheme = useTheme(),
+    classes = useLoginScreenStyles(theme || defaultTheme),
     [formCtrl] = useState(createFormCtrl),
 
     onSubmit = useCallback((ev: any) => { // TODO
@@ -192,7 +197,7 @@ function LoginScreenView({
       formCtrl.submit()
     }, [])
 
-  return (
+  const content = (
     <div className={classes.root}>
       <div className={classes.topSpacer}/>
       {renderHeader(slotHeader, classes)}
@@ -229,6 +234,14 @@ function LoginScreenView({
       <div className={classes.bottomSpacer}/>
     </div>
   )
+
+  return !theme
+    ? content
+    : <Customizer settings={{ theme }}>
+        <Fabric>
+           {content}
+        </Fabric>
+      </Customizer>
 }
 
 function renderHeader(

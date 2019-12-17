@@ -3,6 +3,8 @@ import React, { ReactNode } from 'react'
 import { component, isNode } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
 
+import { Fabric, Customizer, ITheme } from 'office-ui-fabric-react';
+
 // --- components ----------------------------------------------------
 
 const App = component<AppProps>({
@@ -18,13 +20,15 @@ const App = component<AppProps>({
 // --- types ---------------------------------------------------------
 
 type AppProps = {
-  children: ReactNode
+  theme?: ITheme,
+  children?: ReactNode
 }
 
 // --- validation ----------------------------------------------------
 
 const validateAppProps = Spec.checkProps({
   optional: {
+    theme: Spec.object,
     children: isNode
   }
 })
@@ -32,8 +36,17 @@ const validateAppProps = Spec.checkProps({
 // --- view ----------------------------------------------------------
 
 function AppView({
+  theme,
   children
 }: AppProps) {
+  const content = !theme
+    ? children
+    : <Customizer settings={{ theme }}>
+        <Fabric>
+           {children}
+        </Fabric>
+      </Customizer>
+
   return (
     <>
       <style>
@@ -44,7 +57,7 @@ function AppView({
           }
         `}
       </style>
-      {children}
+      {content}
     </>
   )
 }

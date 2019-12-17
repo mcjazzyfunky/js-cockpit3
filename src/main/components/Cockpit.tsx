@@ -2,9 +2,11 @@
 import React, { ReactNode } from 'react'
 import { component, isNode } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
+import { Fabric, Customizer, ITheme } from 'office-ui-fabric-react'
 
 // internal import
 import defineStyles from '../tools/defineStyles'
+import useTheme from '../hooks/useTheme'
 
 // --- components ----------------------------------------------------
 
@@ -21,6 +23,7 @@ const Cockpit = component<CockpitProps>({
 // --- types ---------------------------------------------------------
 
 type CockpitProps = {
+  theme?: ITheme,
   slotBrand?: ReactNode,
   slotTopNav?: ReactNode,
   slotActions?: ReactNode,
@@ -35,6 +38,7 @@ type Classes = ReturnType<typeof useCockpitStyles>
 
 const validateCockpitProps = Spec.checkProps({
   optional: {
+    theme: Spec.object,
     slotBrand: isNode,
     slotTopNav: isNode,
     slotActions: isNode,
@@ -46,7 +50,7 @@ const validateCockpitProps = Spec.checkProps({
 
 // --- styles --------------------------------------------------------
 
-const useCockpitStyles = defineStyles(theme => {
+const useCockpitStyles = defineStyles((_, theme: ITheme) => { // TODO
   return {
     root: {
       display: 'flex',
@@ -116,6 +120,7 @@ const useCockpitStyles = defineStyles(theme => {
 // --- view ----------------------------------------------------------
 
 function CockpitView({
+  theme,
   slotBrand,
   slotTopNav,
   slotActions,
@@ -123,20 +128,30 @@ function CockpitView({
   slotSidebar,
   slotCenter
 }: CockpitProps) {
-  const classes = useCockpitStyles()
+  const
+    defaultTheme = useTheme(),
+    classes = useCockpitStyles(theme || defaultTheme)
 
   const
     header = renderHeader(slotBrand, slotTopNav, slotActions, classes),
     menu = renderMenu(slotMenu, classes),
     body = renderBody(slotSidebar, slotCenter, classes)
 
-  return (
+  const content = (
     <div className={classes.root}>
       {header}
       {menu}
       {body}
     </div>
   )
+
+  return !theme
+    ? content
+    : <Customizer settings={{ theme }}>
+        <Fabric>
+           {content}
+        </Fabric>
+      </Customizer>
 }
 
 function renderHeader(

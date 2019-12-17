@@ -25,18 +25,25 @@ export { default as TextInput } from './components/TextInput'
 export { default as UserMenu } from './components/UserMenu'
 export { default as WorkspaceSelector } from './components/WorkspaceSelector'
 
-// hoks
+// hooks
 export { default as useAdvancedFormCtrl } from './hooks/useAdvancedFormCtrl'
-export { default as useFormMgmt } from './hooks/useFormMgmt'
 export { default as useDefaultLabelPosition } from './hooks/useDefaultLabelPosition'
+export { default as useFormMgmt } from './hooks/useFormMgmt'
+export { default as useTheme } from './hooks/useTheme'
 
 // tools
 export { default as classNames } from './tools/classNames'
 export { default as defineStyles } from './tools/defineStyles'
-export { default as loadThemeByName } from './tools/loadThemeByName'
 
 // enums
 export { default as LabelPosition } from './enums/LabelPosition'
+
+// themes
+export { default as BlueTheme } from './themes/BlueTheme'
+export { default as GreenTheme } from './themes/GreenTheme'
+export { default as OrangeTheme } from './themes/OrangeTheme'
+export { default as VioletTheme } from './themes/VioletTheme'
+export { default as TealTheme } from './themes/TealTheme'
 
 // --- register general icons ----------------------------------------
 

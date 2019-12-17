@@ -1,5 +1,5 @@
 // external imports
-import React, { ReactNode } from 'react'
+import React, { ReactElement, ReactNode } from 'react'
 import { component, isNode } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
 
@@ -46,19 +46,19 @@ type DataExplorerState = {
 type DataExplorerSingleRowAction = {
   type: 'singleRow',
   text: string,
-  icon?: ReactNode
+  icon?: ReactElement
 }
 
 type DataExplorerMultiRowAction = {
   type: 'multiRow',
   text: string,
-  icon?: ReactNode
+  icon?: ReactElement
 }
 
 type DataExplorerGeneralAction = {
   type: 'general',
   text: string,
-  icon?: ReactNode
+  icon?: ReactElement
 }
 
 type DataExplorerActions = ReturnType<typeof useDataExplorerActions>[0]
@@ -225,6 +225,10 @@ function renderActionButtons(
 
       actionButtonClassName = classes.actionButton, // TODO
 
+      onRenderIcon = !action.icon
+        ? undefined
+        : () => action.icon as JSX.Element,
+
 // TODO
 //        disabled
 //          ? css(classes.actionButton, classes.actionButtonDisabled)
@@ -238,7 +242,7 @@ function renderActionButtons(
 //          : undefined
 
     buttons.push(
-      <ActionButton disabled={disabled}>
+      <ActionButton disabled={disabled} onRenderIcon={onRenderIcon}>
         {action.text}
       </ActionButton>)
     

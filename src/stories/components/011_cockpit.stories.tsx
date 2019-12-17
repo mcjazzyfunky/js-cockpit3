@@ -2,10 +2,14 @@ import React from 'react'
 import { ActionBar, App, WorkspaceSelector, Brand, CheckBoxGroup, Cockpit,
   DataExplorer, DataForm, DateInput, FormSection, Fieldset, FilterBox, LogoutButton,
   MenuBar, RadioButtonGroup, Tabs, Tab, TextInput,
-  SelectBox, SideMenu, UserMenu, loadThemeByName
+  SelectBox, SideMenu, UserMenu,
+  BlueTheme, OrangeTheme, GreenTheme, VioletTheme, TealTheme
 } from '../js-cockpit'
 
+
 import { FiSave as SaveIcon } from 'react-icons/fi'
+import { FiSave as EditIcon } from 'react-icons/fi'
+import { FiSave as NewIcon } from 'react-icons/fi'
 import { FiTrash2 as DeleteIcon } from 'react-icons/fi'
 import { FiPrinter as PrintIcon } from 'react-icons/fi'
 
@@ -13,25 +17,6 @@ export default {
   title: 'Cockpit'
 }
 
-loadThemeByName('teal')
-
-// TODO!!!!!
-/*
-import { registerIcons } from '@uifabric/styling'
-
-registerIcons({
-  icons: {
-    chevrondown: (
-      <svg width="12" height="12" viewBox="0 0 12 12">
-        <g>
-          <polyline fill="none" stroke="currentColor" strokeWidth="1" strokeLinejoin="bevel" strokeMiterlimit="10"
-            points="1,5 6,11 11,5"/>
-        </g>
-      </svg>
-    )
-  }
-}, { disableWarnings: true})
-*/
 const menuBar = 
   <MenuBar
     items={[
@@ -116,9 +101,9 @@ const menuBar =
   />
 
 export const cockpit = () =>
-  <App>
+  <App theme={OrangeTheme}>
     <div>
-    <Cockpit
+    <Cockpit theme={GreenTheme}
       slotBrand={<Brand vendor="meet&amp;greet" title="Back Office" size="small" multicolor={true}/>}
 
       slotTopNav={
@@ -268,15 +253,18 @@ const dataExplorer =
     actions={[
       {
         type: 'general',
-        text: 'New'
+        text: 'New',
+        icon: <NewIcon/>
       },
       {
         type: 'singleRow',
-        text: 'Edit'
+        text: 'Edit',
+        icon: <EditIcon/>
       },
       {
         type: 'multiRow',
-        text: 'Delete'
+        text: 'Delete',
+        icon: <DeleteIcon/>
       }
     ]}
     
