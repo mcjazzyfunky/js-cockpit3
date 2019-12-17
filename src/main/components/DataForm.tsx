@@ -50,7 +50,7 @@ const useDataFormStyles = defineStyles(theme => {
         '[data-component="jsc:Tabs"]': {
           selectors: {
             '.ms-Pivot': {
-              backgroundColor: theme.palette.neutralLight,
+              backgroundColor: theme.palette.neutralLighter,
               marginBottom: '1em',
               height: '34px',
             },

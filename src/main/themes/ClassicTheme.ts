@@ -12,16 +12,16 @@ export default createTheme({
     fontWeight: DEFAULT_FONT_WEIGHT 
   },
 
-  palette: {
-    themePrimary: '#6c91ad',
-    themeLighterAlt: '#f8fafc',
-    themeLighter: '#e3ecf2',
-    themeLight: '#ccdbe7',
-    themeTertiary: '#9fbace',
-    themeSecondary: '#7a9db7',
-    themeDarkAlt: '#61829c',
-    themeDark: '#526e84',
-    themeDarker: '#3c5161',
+ palette: {
+    themePrimary: '#4f738f',
+    themeLighterAlt: '#f6f9fb',
+    themeLighter: '#dce6ed',
+    themeLight: '#bfd0dd',
+    themeTertiary: '#89a6bc',
+    themeSecondary: '#5e819c',
+    themeDarkAlt: '#476781',
+    themeDark: '#3c576d',
+    themeDarker: '#2c4050',
     neutralLighterAlt: '#f8f8f8',
     neutralLighter: '#f4f4f4',
     neutralLight: '#eaeaea',
@@ -34,6 +34,7 @@ export default createTheme({
     neutralPrimary: '#323130',
     neutralDark: '#605e5d',
     black: '#494847',
-    white: '#ffffff'
+    white: '#ffffff',
+    redDark: '#d44204'
   }
 })

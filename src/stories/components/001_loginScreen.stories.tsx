@@ -1,5 +1,5 @@
 import React from 'react'
-import { Brand, LoginScreen, Text, ClassicTheme, TealTheme } from '../js-cockpit'
+import { Brand, LoginScreen, Text, ClassicTheme, BlueTheme, TealTheme } from '../js-cockpit'
 
 export default {
   title: 'Login screen'
@@ -7,7 +7,7 @@ export default {
 
 export const loginScreen = () =>
   <LoginScreen
-    theme={ClassicTheme}
+    theme={TealTheme}
 
     slotHeader={
       <Brand

@@ -68,10 +68,10 @@ const useFieldWrapperStyles = defineStyles(
     asterisk: {
       position: 'relative',
       display: 'inline-block',
-//      fontSize: '15px',
+      fontSize: '15px',
       marginLeft: '2px',
       bottom: '1px',
-//      color: theme.colors.warning400
+      color: theme.palette.redDark
     },
 
     field: {

@@ -102,7 +102,7 @@ const menuBar =
 
 export const cockpit = () =>
   <Cockpit
-    theme={ClassicTheme}
+    theme={OrangeTheme}
     slotBrand={<Brand vendor="meet&amp;greet" title="Back Office" size="small" multicolor={true}/>}
 
     slotTopNav={
@@ -480,4 +480,4 @@ const dataForm =
     </Tabs>
   </DataForm>
 */
-const mainContent = dataExplorer
+const mainContent = dataForm

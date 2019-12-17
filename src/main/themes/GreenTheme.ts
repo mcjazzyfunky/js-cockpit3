@@ -34,6 +34,7 @@ export default createTheme({
     neutralPrimary: '#333333',
     neutralDark: '#272727',
     black: '#1d1d1d',
-    white: '#ffffff'
+    white: '#ffffff',
+    redDark: '#d44204'
   }
 })
