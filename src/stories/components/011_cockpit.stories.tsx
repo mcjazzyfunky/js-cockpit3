@@ -3,9 +3,10 @@ import { ActionBar, App, WorkspaceSelector, Brand, CheckBoxGroup, Cockpit,
   DataExplorer, DataForm, DateInput, FormSection, Fieldset, FilterBox, LogoutButton,
   MenuBar, RadioButtonGroup, Tabs, Tab, TextInput,
   SelectBox, SideMenu, UserMenu,
-  ClassicTheme, BlueTheme, OrangeTheme, GreenTheme, VioletTheme, TealTheme
+  DefaultTheme, ClassicTheme, BlueTheme, OrangeTheme, GreenTheme, VioletTheme, TealTheme
 } from '../js-cockpit'
 
+import { ITheme } from 'office-ui-fabric-react'
 
 import { FiSave as SaveIcon } from 'react-icons/fi'
 import { FiSave as EditIcon } from 'react-icons/fi'
@@ -14,7 +15,7 @@ import { FiTrash2 as DeleteIcon } from 'react-icons/fi'
 import { FiPrinter as PrintIcon } from 'react-icons/fi'
 
 export default {
-  title: 'Cockpit'
+  title: 'Cockpit - Themes'
 }
 
 const menuBar = 
@@ -100,9 +101,9 @@ const menuBar =
     ]}
   />
 
-export const cockpit = () =>
-  <Cockpit
-    theme={OrangeTheme}
+function renderCockpit(theme: ITheme = DefaultTheme) {
+  return <Cockpit
+    theme={theme}
     slotBrand={<Brand vendor="meet&amp;greet" title="Back Office" size="small" multicolor={true}/>}
 
     slotTopNav={
@@ -242,6 +243,7 @@ export const cockpit = () =>
       mainContent
     }
   />
+}
 
 const dataExplorer =
   <DataExplorer
@@ -481,3 +483,13 @@ const dataForm =
   </DataForm>
 */
 const mainContent = dataForm
+
+
+
+export const cockpitDefault = () => renderCockpit(DefaultTheme)
+export const cockpitClassic = () => renderCockpit(ClassicTheme)
+export const cockpitBlue = () => renderCockpit(BlueTheme)
+export const cockpitOrange = () => renderCockpit(OrangeTheme)
+export const cockpitGreen = () => renderCockpit(GreenTheme)
+export const cockpitViolet = () => renderCockpit(VioletTheme)
+export const cockpitTeal = () => renderCockpit(TealTheme)

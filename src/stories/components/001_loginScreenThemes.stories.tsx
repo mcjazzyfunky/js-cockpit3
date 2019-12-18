@@ -14,9 +14,9 @@ function renderLoginScreen(theme: ITheme = DefaultTheme) {
     theme={theme}
 
     performLogin={data => {
-      return new Promise((_, reject) => {
+      return new Promise((resolve, reject) => {
         setTimeout(() => {
-          reject(new Error('Invalid username and password '))
+          reject('Invalid username and password')
         }, 3000)
       })
     }}

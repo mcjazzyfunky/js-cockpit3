@@ -3,7 +3,10 @@ import React, { ReactNode } from 'react'
 import { component, isNode } from 'js-react-utils'
 import { IoIosUnlock as LoginIcon } from 'react-icons/io'
 import * as Spec from 'js-spec/validators'
-import { Customizer, Fabric, PrimaryButton, Spinner, SpinnerSize, ITheme } from 'office-ui-fabric-react'
+
+import {
+  Customizer, Fabric, FocusTrapZone, PrimaryButton, Spinner, SpinnerSize, ITheme
+} from 'office-ui-fabric-react'
 
 // internal import
 import defineStyles from '../tools/defineStyles'
@@ -247,7 +250,9 @@ function LoginScreenView({
               ? ''
               : typeof error === 'string'
                 ? error.trim()
-                : String(error.message || error).trim()
+                : error instanceof Error
+                  ? error.message
+                  : '' 
 
             if (!msg) {
               msg = 'Could not log in'
@@ -290,9 +295,12 @@ function LoginScreenView({
             }
           </div>
           <div className={classes.column2Bottom}>
-            { errorMsg ? <div className={classes.errorMsg}>{errorMsg}</div> : null }
+            {errorMsg ? <div className={classes.errorMsg}>{errorMsg}</div> : null}
             <CheckBox name="rememberLogin" label="remember login"/>
             {renderLoginButton(isLoading, classes)}
+            <FocusTrapZone disabled={!isLoading}>
+              <a href="javascript:void(0)"></a>
+            </FocusTrapZone>
           </div>
         </LoginForm>
       </div>
@@ -380,9 +388,9 @@ function renderLoginButton(isLoading: boolean, classes: Classes) {
       : null
 
   return (
-    <PrimaryButton type="submit" className={classes.loginButton}>
-      {loginButtonText}
-      {spinner}
+      <PrimaryButton type="submit" className={classes.loginButton}>
+        {loginButtonText}
+        {spinner}
     </PrimaryButton>
   )
 }
