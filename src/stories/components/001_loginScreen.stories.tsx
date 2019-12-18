@@ -7,7 +7,15 @@ export default {
 
 export const loginScreen = () =>
   <LoginScreen
-    theme={TealTheme}
+    theme={BlueTheme}
+
+    performLogin={data => {
+      return new Promise((_, reject) => {
+        setTimeout(() => {
+          reject(new Error('Invalid username and password '))
+        }, 3000)
+      })
+    }}
 
     slotHeader={
       <Brand

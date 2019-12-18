@@ -3,7 +3,7 @@ import React, { ReactNode } from 'react'
 import { component, isNode } from 'js-react-utils'
 import { IoIosUnlock as LoginIcon } from 'react-icons/io'
 import * as Spec from 'js-spec/validators'
-import { Customizer, Fabric, PrimaryButton, ITheme } from 'office-ui-fabric-react'
+import { Customizer, Fabric, PrimaryButton, Spinner, SpinnerSize, ITheme } from 'office-ui-fabric-react'
 
 // internal import
 import defineStyles from '../tools/defineStyles'
@@ -12,6 +12,7 @@ import TextInput from './TextInput'
 import PasswordInput from './PasswordInput'
 import CheckBox from './CheckBox'
 import useTheme from '../hooks/useTheme'
+import { constants } from 'crypto'
 
 // derived imports
 const { useCallback, useState } = React
@@ -35,6 +36,7 @@ type LoginScreenProps = {
   slotFooter?: ReactNode,
   slotLoginIntro?: ReactNode,
   slotLoginFields?: ReactNode,
+  performLogin?: (data: Record<string, any>) => Promise<void>
   theme?: ITheme
 }
 
@@ -52,6 +54,7 @@ const validateLoginScreenProps = Spec.checkProps({
     slotFooter: isNode,
     slotLoginIntro: isNode,
     slotLoginFields: isNode,
+    performLogin: Spec.func,
     theme: Spec.object
   }
 })
@@ -126,6 +129,7 @@ const useLoginScreenStyles = defineStyles((_, theme: ITheme) => { // TODO
     },
 
     column2: {
+      position: 'relative',
       display: 'flex',
       flexDirection: 'column',
       minWidth: '250px',
@@ -167,12 +171,38 @@ const useLoginScreenStyles = defineStyles((_, theme: ITheme) => { // TODO
 
     loginButton: {
       width: '100%',
-      margin: '16px 0 0 0 !important'
+      margin: '16px 0 0 0 !important',
+      zIndex: 32000
     },
 
     defaultIntro: {
       width: '220px',
       maxWidth: '220px'
+    },
+
+    loadingPane: {
+      position: 'absolute',
+      width: '100%',
+      height: '100%',
+      top: 0,
+      left: 0,
+      backgroundColor: theme.palette.white,
+      opacity: '0.6',
+      zIndex: 30000
+    },
+
+    spinner: {
+      marginLeft: '1em'
+    },
+
+    errorMsg: {
+      backgroundColor: theme.semanticColors.errorBackground,
+      color: theme.palette.redDark,
+      fontFamily: theme.fonts.medium.fontFamily,
+      fontSize: theme.fonts.medium.fontSize,
+      borderRadius: '3px',
+      padding: '.8em .9em',
+      margin: '1.5em 0'
     }
   }
 })
@@ -184,15 +214,45 @@ function LoginScreenView({
   slotFooter,
   slotLoginIntro,
   slotLoginFields,
+  performLogin,
   theme
 }: LoginScreenProps) {
   const
+    [isLoading, setLoading] = useState(false),
+    [errorMsg, setErrorMsg] = useState(''),
     defaultTheme = useTheme(),
     classes = useLoginScreenStyles(theme || defaultTheme),
     [_, LoginForm, setSubmitHandler] = useFormMgmt()
 
   setSubmitHandler(data => {
-    console.log('submit', data)
+    if (performLogin && !isLoading) {
+      const result = performLogin(data)
+        
+      if (result && typeof result.then === 'function') {
+        setLoading(true)
+
+        result
+          .then(() => {
+
+          })
+          .catch(error => {
+            let msg = !error
+              ? ''
+              : typeof error === 'string'
+                ? error.trim()
+                : String(error.message || error).trim()
+
+            if (!msg) {
+              msg = 'Could not log in'
+            }
+            
+            setErrorMsg(msg)
+          })
+          .finally(() => {
+            setLoading(false)
+          })
+      }
+    }
   })
 
   const content = (
@@ -214,6 +274,7 @@ function LoginScreenView({
         </div>
 
         <LoginForm className={classes.column2}>
+          { !isLoading ? null : <div className={classes.loadingPane}/>}
           <div className={classes.column2Top}>
             {
               slotLoginFields
@@ -222,7 +283,8 @@ function LoginScreenView({
             }
           </div>
           <div className={classes.column2Bottom}>
-            {renderLoginActions(classes)}
+            { errorMsg ? <div className={classes.errorMsg}>{errorMsg}</div> : null }
+            {renderLoginActions(isLoading, classes)}
           </div>
         </LoginForm>
       </div>
@@ -299,12 +361,22 @@ function renderDefaultLoginFields(classes: Classes) {
   )
 }
 
-function renderLoginActions(classes: Classes) {
+function renderLoginActions(isLoading: boolean, classes: Classes) {
+  const
+    loginButtonText = isLoading
+      ? 'Logging in... '
+      : 'Log in',
+
+    spinner = isLoading
+      ? <Spinner size={SpinnerSize.small} className={classes.spinner}/>
+      : null
+
   return (
     <div className={classes.column2Bottom}>
       <CheckBox name="rememberLogin" label="Remember login"/>
       <PrimaryButton type="submit" className={classes.loginButton}>
-        Log in
+        {loginButtonText}
+        {spinner}
       </PrimaryButton>
     </div>
   )
