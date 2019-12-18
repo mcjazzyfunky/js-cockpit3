@@ -200,8 +200,8 @@ const useLoginScreenStyles = defineStyles((_, theme: ITheme) => { // TODO
       color: theme.palette.redDark,
       fontFamily: theme.fonts.medium.fontFamily,
       fontSize: theme.fonts.medium.fontSize,
-      borderRadius: '3px',
-      padding: '.8em .9em',
+      borderRadius: '2px',
+      padding: '.6em .9em',
       margin: '1.5em 0'
     }
   }
@@ -235,6 +235,7 @@ function LoginScreenView({
       const result = performLogin(data)
         
       if (result && typeof result.then === 'function') {
+        setErrorMsg('')
         setLoading(true)
 
         result
@@ -290,7 +291,8 @@ function LoginScreenView({
           </div>
           <div className={classes.column2Bottom}>
             { errorMsg ? <div className={classes.errorMsg}>{errorMsg}</div> : null }
-            {renderLoginActions(isLoading, classes)}
+            <CheckBox name="rememberLogin" label="remember login"/>
+            {renderLoginButton(isLoading, classes)}
           </div>
         </LoginForm>
       </div>
@@ -367,7 +369,7 @@ function renderDefaultLoginFields(classes: Classes) {
   )
 }
 
-function renderLoginActions(isLoading: boolean, classes: Classes) {
+function renderLoginButton(isLoading: boolean, classes: Classes) {
   const
     loginButtonText = isLoading
       ? 'Logging in... '
@@ -378,13 +380,10 @@ function renderLoginActions(isLoading: boolean, classes: Classes) {
       : null
 
   return (
-    <div className={classes.column2Bottom}>
-      <CheckBox name="rememberLogin" label="Remember login"/>
-      <PrimaryButton type="submit" className={classes.loginButton}>
-        {loginButtonText}
-        {spinner}
-      </PrimaryButton>
-    </div>
+    <PrimaryButton type="submit" className={classes.loginButton}>
+      {loginButtonText}
+      {spinner}
+    </PrimaryButton>
   )
 }
 
