@@ -3,13 +3,11 @@ import React, { ReactNode } from 'react'
 import { component, isNode } from 'js-react-utils'
 import { IoIosUnlock as LoginIcon } from 'react-icons/io'
 import * as Spec from 'js-spec/validators'
-
 import { Customizer, Fabric, PrimaryButton, ITheme } from 'office-ui-fabric-react'
 
 // internal import
 import defineStyles from '../tools/defineStyles'
-import createFormCtrl from '../control/createFormCtrl'
-import FormCtrlCtx from '../context/FormCtrlCtx'
+import useFormMgmt from '../hooks/useFormMgmt'
 import TextInput from './TextInput'
 import PasswordInput from './PasswordInput'
 import CheckBox from './CheckBox'
@@ -191,7 +189,7 @@ function LoginScreenView({
   const
     defaultTheme = useTheme(),
     classes = useLoginScreenStyles(theme || defaultTheme),
-    [formCtrl] = useState(createFormCtrl),
+    [formCtrl, FormCtrlProvider] = useFormMgmt(),
 
     onSubmit = useCallback((ev: any) => { // TODO
       ev.preventDefault()
@@ -218,7 +216,7 @@ function LoginScreenView({
         </div>
 
         <form className={classes.column2} onSubmit={onSubmit}>
-          <FormCtrlCtx.Provider value={formCtrl}>
+          <FormCtrlProvider>
             <div className={classes.column2Top}>
               {
                 slotLoginFields
@@ -229,7 +227,7 @@ function LoginScreenView({
             <div className={classes.column2Bottom}>
               {renderLoginActions(classes)}
             </div>
-          </FormCtrlCtx.Provider>
+          </FormCtrlProvider>
         </form>
       </div>
       {renderFooter(slotFooter, classes)}
