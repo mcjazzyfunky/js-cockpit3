@@ -79,33 +79,10 @@ const useLoginScreenStyles = defineStyles((_, theme: ITheme) => { // TODO
 
       selectors: {
         '@media(max-width: 640px)': {
-          backgroundColor: theme.palette.themeSecondary,
+          backgroundColor: theme.palette.white,
         }
       }
     },
-
-    /*
-    topSpacer: {
-      flexGrow: 3,
-
-      selectors: {
-        '@media(max-width: 640px)': {
-          display: 'none',
-        }
-      }
-    },
-
-    bottomSpacer: {
-      flexGrow: 5,
-      
-      selectors: {
-        '@media(max-width: 640px)': {
-          display: 'none',
-        }
-      }
-    },
-
-    */
 
     header: {
       flexGrow: 3,
@@ -120,8 +97,9 @@ const useLoginScreenStyles = defineStyles((_, theme: ITheme) => { // TODO
       selectors: {
         '@media(max-width: 640px)': {
           flexGrow: 0,
+          padding: '5px 0',
           color: theme.palette.white,
-          backgroundColor: theme.palette.themePrimary,
+          backgroundColor: theme.palette.themeSecondary,
         }
       }
     },
@@ -160,7 +138,8 @@ const useLoginScreenStyles = defineStyles((_, theme: ITheme) => { // TODO
         '@media(max-width: 640px)': {
           flexGrow: 0,
           color: theme.palette.white,
-          backgroundColor: theme.palette.themePrimary,
+          backgroundColor: theme.palette.themeSecondary,
+          padding: '5px 0',
         }
       }
     },
@@ -193,8 +172,9 @@ const useLoginScreenStyles = defineStyles((_, theme: ITheme) => { // TODO
 
       selectors: {
         '@media(max-width: 640px)': {
+          color: theme.palette.black,
           flexGrow: 0,
-          margin: '5px 10px',
+          margin: '1em 2em',
           padding: 0,
           background: 'none',
           borderRadius: 0,
@@ -218,7 +198,6 @@ const useLoginScreenStyles = defineStyles((_, theme: ITheme) => { // TODO
           display: 'block',
           width: '100%',
           background: 'none',
-          color: theme.palette.white,
           borderRadius: 0,
         }
       }
@@ -242,7 +221,7 @@ const useLoginScreenStyles = defineStyles((_, theme: ITheme) => { // TODO
     subheadline: {
       fontFamily: theme.fonts.medium.fontFamily,
       fontSize: '16px',
-      fontWeight: 100,
+      fontWeight: 200,
       marginTop: '6px'
     },
 
@@ -251,6 +230,10 @@ const useLoginScreenStyles = defineStyles((_, theme: ITheme) => { // TODO
     },
 
     column2Bottom: {
+    },
+
+    rememberLogin: {
+      margin: '1em 0 0 0',
     },
 
     loginButton: {
@@ -295,6 +278,15 @@ const useLoginScreenStyles = defineStyles((_, theme: ITheme) => { // TODO
           display: 'none'
         }
       }
+    },
+
+    focusTrapZoneFakeButton: {
+      position: 'absolute',
+      width: 0,
+      height: 0,
+      outline: 0,
+      border: 'none',
+      background: 'none'
     }
   }
 })
@@ -384,10 +376,12 @@ function LoginScreenView({
           </div>
           <div className={classes.column2Bottom}>
             {errorMsg ? <div className={classes.errorMsg}>{errorMsg}</div> : null}
-            <CheckBox name="rememberLogin" label="remember login"/>
+            <div className={classes.rememberLogin}>
+              <CheckBox name="rememberLogin" label="remember login"/>
+            </div>
             {renderLoginButton(isLoading, classes)}
             <FocusTrapZone disabled={!isLoading}>
-              <a href="javascript:void(0)"></a>
+              <button className={classes.focusTrapZoneFakeButton}></button>
             </FocusTrapZone>
           </div>
         </LoginForm>
