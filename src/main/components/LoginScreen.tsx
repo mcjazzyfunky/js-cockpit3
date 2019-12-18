@@ -189,13 +189,11 @@ function LoginScreenView({
   const
     defaultTheme = useTheme(),
     classes = useLoginScreenStyles(theme || defaultTheme),
-    [formCtrl, FormCtrlProvider] = useFormMgmt(),
+    [_, LoginForm, setSubmitHandler] = useFormMgmt()
 
-    onSubmit = useCallback((ev: any) => { // TODO
-      ev.preventDefault()
-
-      formCtrl.submit()
-    }, [])
+  setSubmitHandler(data => {
+    console.log('submit', data)
+  })
 
   const content = (
     <div className={classes.root}>
@@ -215,20 +213,18 @@ function LoginScreenView({
           </div>
         </div>
 
-        <form className={classes.column2} onSubmit={onSubmit}>
-          <FormCtrlProvider>
-            <div className={classes.column2Top}>
-              {
-                slotLoginFields
-                  ? slotLoginFields
-                  : renderDefaultLoginFields(classes)
-              }
-            </div>
-            <div className={classes.column2Bottom}>
-              {renderLoginActions(classes)}
-            </div>
-          </FormCtrlProvider>
-        </form>
+        <LoginForm className={classes.column2}>
+          <div className={classes.column2Top}>
+            {
+              slotLoginFields
+                ? slotLoginFields
+                : renderDefaultLoginFields(classes)
+            }
+          </div>
+          <div className={classes.column2Bottom}>
+            {renderLoginActions(classes)}
+          </div>
+        </LoginForm>
       </div>
       {renderFooter(slotFooter, classes)}
       <div className={classes.bottomSpacer}/>

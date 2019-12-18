@@ -4,7 +4,6 @@ import { component, isNode } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
 
 // internal imports
-import createFormCtrl from '../control/createFormCtrl'
 import FormCtrlCtx from '../context/FormCtrlCtx'
 import FormCtrl from '../types/FormCtrl'
 
@@ -17,32 +16,99 @@ function useFormMgmt() {
   return useState(initFormMgmt)[0]
 }
 
-function initFormMgmt(): [FormCtrl, FunctionComponent<FormCtrlProviderProps>] {
+function initFormMgmt():
+  [FormCtrl, FunctionComponent<FormProps>, (handler: SubmitHandler) => void] {
+  
+  let submitHandler: SubmitHandler = () => {} // TODO
+
   const
-    formCtrl = createFormCtrl(),
+    formCtrl = createFormCtrl(data => submitHandler(data)),
 
-    FormCtrlProvider = component<FormCtrlProviderProps>({
-      displayName: 'FormCtrlProvider', 
+    onSubmit = (ev: any) => { // TODO
+      ev.preventDefault()
+      formCtrl.submit()
+    },
 
-      render({ children }) {
-        return h(FormCtrlCtx.Provider, { value: formCtrl }, children)
+    setSubmitHandler = (handler: SubmitHandler) => {
+      submitHandler = handler
+    },
+
+    Form = component<FormProps>({
+      displayName: 'DynamicForm',
+
+      ...process.env.NODE_ENV === 'development' as any
+        ? { validate: validateFormCtrlProviderProps }
+        : null,
+
+      render({ className, children }) {
+        return (
+          h('form', { className, onSubmit },
+            h(FormCtrlCtx.Provider, { value: formCtrl }, children)))
       }
     })
 
-  return [formCtrl, FormCtrlProvider]
+  return [formCtrl, Form, setSubmitHandler]
 }
 
 // --- types ---------------------------------------------------------
 
-type FormCtrlProviderProps = {
+type FormProps = {
+  className?: string,
   children?: ReactNode
 }
 
+type SubmitHandler =
+  (data: Record<string, any>) => void
+
 // --- validation ----------------------------------------------------
 
-const validateFormCtrlProviderProps = Spec.exact({
-  children: Spec.optional(isNode)
+const validateFormCtrlProviderProps = Spec.checkProps({
+  optional: {
+    className: Spec.string,
+    children: Spec.optional(isNode)
+  }
 })
+
+// --- misc ----------------------------------------------------------
+
+function createFormCtrl(submitHandler: SubmitHandler): FormCtrl {
+  const
+    subscriptions = new Set<any>(), // TODO
+    
+    performSubmit = () => {
+      let invalid = false
+
+      let data: any = {}
+
+      subscriptions.forEach(requestValue => {
+        const result = requestValue(true)
+
+        if (!invalid) {
+          if (!result.valid) {
+            data = {}
+            invalid = true
+          } else if (result.name) {
+            data[result.name] = result.value
+          }
+        }
+      })
+
+      if (!invalid) {
+        submitHandler(data)
+      }
+    }
+
+  return {
+    registerComponent(requestValue) {
+      subscriptions.add(requestValue)
+
+      return () => subscriptions.delete(requestValue)
+    },
+
+    submit: performSubmit
+  }
+}
+
 
 // --- exports -------------------------------------------------------
 

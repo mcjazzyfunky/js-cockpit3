@@ -12,11 +12,12 @@ export default function defineStyles<A extends any[], S extends IStyleSet<any>>(
   getStyle: (theme: ITheme, ...args: A) => S
 ): (...args: A) => { [K in keyof S]: string } {
   
-  return memoizeFunction((...args: any[]) => {
+  // TODO: Memoize!!!!!!!!!
+  return (...args: any[]) => {
     const
       theme = useTheme(),
       styleSets = getStyle(theme, ...args as any)
 
     return mergeStyleSets(styleSets) as any
-  }) 
+  }
 }
