@@ -69,40 +69,100 @@ const useLoginScreenStyles = defineStyles((_, theme: ITheme) => { // TODO
     root: {
       display: 'flex',
       flexDirection: 'column',
-      alignItems: 'center',
+      alignItems: 'stretch',
       position: 'absolute',
       minWidth: '100%',
       minHeight: '100%',
       top: 0,
       left: 0,
       backgroundColor: '#f3f3f2',
+
+      selectors: {
+        '@media(max-width: 640px)': {
+          backgroundColor: theme.palette.themeSecondary,
+        }
+      }
     },
 
+    /*
     topSpacer: {
-      flexGrow: 3
+      flexGrow: 3,
+
+      selectors: {
+        '@media(max-width: 640px)': {
+          display: 'none',
+        }
+      }
     },
 
     bottomSpacer: {
-      flexGrow: 5 
+      flexGrow: 5,
+      
+      selectors: {
+        '@media(max-width: 640px)': {
+          display: 'none',
+        }
+      }
     },
 
+    */
+
     header: {
+      flexGrow: 3,
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'flex-end',
+      justifyContent: 'center',
       fontFamily: theme.fonts.mediumPlus.fontFamily,
       fontSize: theme.fonts.mediumPlus.fontSize,
-      color: theme.palette.neutralSecondaryAlt
+      color: theme.palette.neutralSecondaryAlt,
+
+      selectors: {
+        '@media(max-width: 640px)': {
+          flexGrow: 0,
+          color: theme.palette.white,
+          backgroundColor: theme.palette.themePrimary,
+        }
+      }
     },
 
     body: {
-      height: '450px',
       display: 'flex',
+      height: '450px',
       margin: '16px',
-      boxShadow: '5px 5px 25px silver'
+      alignSelf: 'center',
+      boxShadow: '5px 5px 25px silver',
+
+      selectors: {
+        '@media(max-width: 640px)': {
+          flexDirection: 'column',
+          flexGrow: 1,
+          alignItems: 'center',
+          margin: 0,
+          width: '100%',
+          boxShadow: 'none',
+          height: 'auto'
+        }
+      }
     },
 
     footer: {
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'flex-start',
+      justifyContent: 'center',
+      flexGrow: 5,
       fontFamily: theme.fonts.mediumPlus.fontFamily,
       fontSize: theme.fonts.mediumPlus.fontSize,
-      color: theme.palette.neutralSecondaryAlt
+      color: theme.palette.neutralSecondaryAlt,
+      
+      selectors: {
+        '@media(max-width: 640px)': {
+          flexGrow: 0,
+          color: theme.palette.white,
+          backgroundColor: theme.palette.themePrimary,
+        }
+      }
     },
     
     column1: {
@@ -129,22 +189,43 @@ const useLoginScreenStyles = defineStyles((_, theme: ITheme) => { // TODO
 
       backgroundRepeat: 'no-repeat',
       backgroundPosition: 'bottom',
+
+
+      selectors: {
+        '@media(max-width: 640px)': {
+          flexGrow: 0,
+          margin: '5px 10px',
+          padding: 0,
+          background: 'none',
+          borderRadius: 0,
+        }
+      }
     },
 
     column2: {
       position: 'relative',
       display: 'flex',
       flexDirection: 'column',
-      minWidth: '250px',
+      width: '250px',
       maxWidth: '250px',
       padding: '24px 20px',
       flexGrow: 7,
       backgroundColor: theme.palette.white,
-      borderRadius: '0 6px 6px 0'
+      borderRadius: '0 6px 6px 0',
+      
+      selectors: {
+        '@media(max-width: 640px)': {
+          display: 'block',
+          width: '100%',
+          background: 'none',
+          color: theme.palette.white,
+          borderRadius: 0,
+        }
+      }
     },
 
     column1Top: {
-      flexGrow: 1
+      flexGrow: 1,
     },
 
     column1Bottom: {
@@ -206,6 +287,14 @@ const useLoginScreenStyles = defineStyles((_, theme: ITheme) => { // TODO
       borderRadius: '2px',
       padding: '.6em .9em',
       margin: '1.5em 0'
+    },
+
+    loginIcon: {
+      selectors: {
+        '@media(max-width: 640px)': {
+          display: 'none'
+        }
+      }
     }
   }
 })
@@ -269,7 +358,6 @@ function LoginScreenView({
 
   const content = (
     <div className={classes.root}>
-      <div className={classes.topSpacer}/>
       {renderHeader(slotHeader, classes)}
       <div className={classes.body}>
         <div className={classes.column1}>
@@ -281,11 +369,11 @@ function LoginScreenView({
             }
           </div>
           <div className={classes.column1Bottom}>
-            <LoginIcon size="70"/>
+            <LoginIcon size="70" className={classes.loginIcon}/>
           </div>
         </div>
 
-        <LoginForm className={classes.column2} onInput={onFormInput}>
+        <LoginForm onInput={onFormInput} className={classes.column2}>
           { !isLoading ? null : <div className={classes.loadingPane}/>}
           <div className={classes.column2Top}>
             {
@@ -305,7 +393,6 @@ function LoginScreenView({
         </LoginForm>
       </div>
       {renderFooter(slotFooter, classes)}
-      <div className={classes.bottomSpacer}/>
     </div>
   )
 
