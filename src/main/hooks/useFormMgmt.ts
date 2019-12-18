@@ -1,5 +1,5 @@
 // external imports
-import React, { FunctionComponent, ReactNode } from 'react'
+import React, { FunctionComponent, FormEvent, ReactNode } from 'react'
 import { component, isNode } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
 
@@ -40,9 +40,9 @@ function initFormMgmt():
         ? { validate: validateFormCtrlProviderProps }
         : null,
 
-      render({ className, children }) {
+      render({ className, onInput, children }) {
         return (
-          h('form', { className, onSubmit },
+          h('form', { className, onInput, onSubmit },
             h(FormCtrlCtx.Provider, { value: formCtrl }, children)))
       }
     })
@@ -54,6 +54,7 @@ function initFormMgmt():
 
 type FormProps = {
   className?: string,
+  onInput?: (ev: FormEvent<HTMLFormElement>) => void,
   children?: ReactNode
 }
 
@@ -65,6 +66,7 @@ type SubmitHandler =
 const validateFormCtrlProviderProps = Spec.checkProps({
   optional: {
     className: Spec.string,
+    onInput: Spec.func,
     children: Spec.optional(isNode)
   }
 })
@@ -74,7 +76,6 @@ const validateFormCtrlProviderProps = Spec.checkProps({
 function createFormCtrl(submitHandler: SubmitHandler): FormCtrl {
   const
     subscriptions = new Set<any>(), // TODO
-    
     performSubmit = () => {
       let invalid = false
 

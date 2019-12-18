@@ -222,7 +222,13 @@ function LoginScreenView({
     [errorMsg, setErrorMsg] = useState(''),
     defaultTheme = useTheme(),
     classes = useLoginScreenStyles(theme || defaultTheme),
-    [_, LoginForm, setSubmitHandler] = useFormMgmt()
+    [_, LoginForm, setSubmitHandler] = useFormMgmt(),
+
+    onFormInput = useCallback(() => {
+      if (errorMsg) {
+        setErrorMsg('')
+      }
+    }, [errorMsg])
 
   setSubmitHandler(data => {
     if (performLogin && !isLoading) {
@@ -273,7 +279,7 @@ function LoginScreenView({
           </div>
         </div>
 
-        <LoginForm className={classes.column2}>
+        <LoginForm className={classes.column2} onInput={onFormInput}>
           { !isLoading ? null : <div className={classes.loadingPane}/>}
           <div className={classes.column2Top}>
             {
