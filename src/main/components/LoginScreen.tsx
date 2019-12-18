@@ -15,7 +15,6 @@ import TextInput from './TextInput'
 import PasswordInput from './PasswordInput'
 import CheckBox from './CheckBox'
 import useTheme from '../hooks/useTheme'
-import { constants } from 'crypto'
 
 // derived imports
 const { useCallback, useState } = React
@@ -196,7 +195,7 @@ const useLoginScreenStyles = defineStyles((_, theme: ITheme) => { // TODO
       selectors: {
         '@media(max-width: 640px)': {
           display: 'block',
-          width: '100%',
+          minWidth: '300px',
           background: 'none',
           borderRadius: 0,
         }

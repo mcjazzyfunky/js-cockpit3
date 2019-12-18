@@ -87,6 +87,7 @@ const useBrandStyles = defineStyles(theme => {
     },
 
     scaleMedium: {
+      transform: 'scale(.95, .95)'
     },
 
     scaleSmall: {
