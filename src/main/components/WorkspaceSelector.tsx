@@ -71,7 +71,7 @@ const useWorkspaceSelectorStyles = defineStyles(theme => {
 
     menuIcon: {
       display: 'inline-block',
-      color: theme.palette.themeTertiary,
+      color: theme.palette.themeSecondary,
       margin: '0 8px'
     },
 
@@ -95,7 +95,7 @@ const useWorkspaceSelectorStyles = defineStyles(theme => {
 
     workspaceLinkActive: {
       fontWeight: 650,
-      borderColor: theme.palette.themeTertiary,
+      borderColor: theme.palette.themeSecondary,
       borderWidth: '0 0 3px 0',
       borderStyle: 'solid'
     }

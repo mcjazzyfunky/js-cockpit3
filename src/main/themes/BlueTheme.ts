@@ -13,15 +13,15 @@ export default createTheme({
   },
 
   palette: {
-    themePrimary: '#4972c1',
-    themeLighterAlt: '#f6f8fd',
-    themeLighter: '#dde5f5',
-    themeLight: '#c1cfed',
-    themeTertiary: '#89a4da',
-    themeSecondary: '#5b80c9',
-    themeDarkAlt: '#4266ae',
-    themeDark: '#385693',
-    themeDarker: '#29406d',
+    themePrimary: '#106ebe',
+    themeLighterAlt: '#f3f8fc',
+    themeLighter: '#d1e4f5',
+    themeLight: '#abcdec',
+    themeTertiary: '#61a1d9',
+    themeSecondary: '#267cc7',
+    themeDarkAlt: '#0e62ac',
+    themeDark: '#0c5391',
+    themeDarker: '#093d6b',
     neutralLighterAlt: '#f8f8f8',
     neutralLighter: '#f4f4f4',
     neutralLight: '#eaeaea',
@@ -34,8 +34,7 @@ export default createTheme({
     neutralPrimary: '#323130',
     neutralDark: '#605e5d',
     black: '#494847',
-    white: '#ffffff',
-    redDark: '#d44204'
+    white: '#ffffff'
   }
 })
 

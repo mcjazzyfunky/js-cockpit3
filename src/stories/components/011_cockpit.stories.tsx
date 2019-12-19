@@ -104,7 +104,7 @@ const menuBar =
 function renderCockpit(theme: ITheme = DefaultTheme) {
   return <Cockpit
     theme={theme}
-    look="default"
+    look="bright"
     slotBrand={<Brand vendor="meet&amp;greet" title="Back Office" size="small" multicolor={true}/>}
 
     slotTopNav={
