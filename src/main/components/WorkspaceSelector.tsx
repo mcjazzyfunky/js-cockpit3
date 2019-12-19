@@ -71,7 +71,7 @@ const useWorkspaceSelectorStyles = defineStyles(theme => {
 
     menuIcon: {
       display: 'inline-block',
-      color: theme.palette.themePrimary,
+      color: theme.palette.themeTertiary,
       margin: '0 8px'
     },
 
@@ -87,15 +87,15 @@ const useWorkspaceSelectorStyles = defineStyles(theme => {
 
       selectors: {
         ':hover': {
-          backgroundColor: theme.palette.themePrimary,
+          backgroundColor: theme.palette.themeSecondary,
           borderRadius: '1px',
         }
       }
     },
 
     workspaceLinkActive: {
-      fontWeight: 600,
-      borderColor: theme.palette.themePrimary,
+      fontWeight: 650,
+      borderColor: theme.palette.themeTertiary,
       borderWidth: '0 0 3px 0',
       borderStyle: 'solid'
     }

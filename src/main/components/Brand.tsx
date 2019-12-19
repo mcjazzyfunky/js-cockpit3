@@ -50,6 +50,7 @@ const useBrandStyles = defineStyles(theme => {
       whiteSpace: 'nowrap',
       alignItems: 'center',
       fontSize: '18px',
+      userSelect: 'none'
     },
 
     column1: {
@@ -71,7 +72,7 @@ const useBrandStyles = defineStyles(theme => {
     },
 
     logoMulticolor: {
-      color: theme.palette.themePrimary
+      color: theme.palette.themeTertiary
     },
 
     vendor: {
@@ -91,7 +92,7 @@ const useBrandStyles = defineStyles(theme => {
     },
 
     scaleSmall: {
-      transform: 'scale(.8, .8)'
+      transform: 'scale(.75, .75)'
     },
 
     scaleLarge: {

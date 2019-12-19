@@ -104,6 +104,7 @@ const menuBar =
 function renderCockpit(theme: ITheme = DefaultTheme) {
   return <Cockpit
     theme={theme}
+    look="default"
     slotBrand={<Brand vendor="meet&amp;greet" title="Back Office" size="small" multicolor={true}/>}
 
     slotTopNav={
@@ -482,7 +483,7 @@ const dataForm =
     </Tabs>
   </DataForm>
 */
-const mainContent = dataForm
+const mainContent = dataExplorer
 
 
 

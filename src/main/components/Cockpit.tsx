@@ -23,6 +23,7 @@ const Cockpit = component<CockpitProps>({
 // --- types ---------------------------------------------------------
 
 type CockpitProps = {
+  look?: 'default' | 'bright',
   theme?: ITheme,
   slotBrand?: ReactNode,
   slotTopNav?: ReactNode,
@@ -38,6 +39,7 @@ type Classes = ReturnType<typeof useCockpitStyles>
 
 const validateCockpitProps = Spec.checkProps({
   optional: {
+    look: Spec.oneOf('default', 'bright'),
     theme: Spec.object,
     slotBrand: isNode,
     slotTopNav: isNode,
@@ -50,7 +52,7 @@ const validateCockpitProps = Spec.checkProps({
 
 // --- styles --------------------------------------------------------
 
-const useCockpitStyles = defineStyles((_, theme: ITheme) => { // TODO
+const useCockpitStyles = defineStyles((_, theme: ITheme, look: 'default' | 'bright') => { // TODO
   return {
     root: {
       display: 'flex',
@@ -70,9 +72,17 @@ const useCockpitStyles = defineStyles((_, theme: ITheme) => { // TODO
       display: 'flex',
       flexWrap: 'nowrap',
       alignItems: 'center',
-      backgroundColor: '#484848',
-      color: 'white',
-      minHeight: '48px'
+
+      ...look === 'default'
+        ? {
+          backgroundColor: '#484848',
+          color: 'white',
+        } : {
+          backgroundColor: theme.palette.themeDark,
+          color: theme.palette.white,
+        },
+
+      height: '46px'
     },
 
     brand: {
@@ -123,6 +133,7 @@ const useCockpitStyles = defineStyles((_, theme: ITheme) => { // TODO
 
 function CockpitView({
   theme,
+  look = 'default',
   slotBrand,
   slotTopNav,
   slotActions,
@@ -132,7 +143,7 @@ function CockpitView({
 }: CockpitProps) {
   const
     defaultTheme = useTheme(),
-    classes = useCockpitStyles(theme || defaultTheme)
+    classes = useCockpitStyles(theme || defaultTheme, look)
 
   const
     header = renderHeader(slotBrand, slotTopNav, slotActions, classes),

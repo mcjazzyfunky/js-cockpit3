@@ -39,21 +39,21 @@ const validateLogoutButtonProps = Spec.checkProps({
 const useLogoutButtonStyles = defineStyles(theme => {
   return {
     button: {
-      width: '48px',
-      height: '48px',
+      width: '46px',
+      height: '46px',
       border: 'none',
       color: theme.palette.white,
-      backgroundColor: theme.palette.themePrimary, 
+      backgroundColor: theme.palette.themeSecondary, 
       outline: 'none',
       cursor: 'pointer',
 
       selectors: {
         ':hover': {
-          backgroundColor: theme.palette.themeDarkAlt,
+          backgroundColor: theme.palette.themePrimary,
         },
 
         ':active': {
-          backgroundColor: theme.palette.themeDark,
+          backgroundColor: theme.palette.themeDarkAlt,
         }
       }
     },
