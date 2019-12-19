@@ -1,6 +1,8 @@
+import Rec from './Rec'
+
 type TableRowSelectionEvent = {
   type: 'tableRowSelection',
-  selection: Record<string, any>[]
+  selection: Set<Rec>
 }
 
 export default TableRowSelectionEvent

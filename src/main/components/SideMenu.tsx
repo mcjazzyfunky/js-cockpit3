@@ -167,7 +167,8 @@ const useSideMenuStyles = defineStyles(theme => {
 
     itemActive: {
       backgroundColor: theme.palette.neutralQuaternaryAlt,
-      borderWidth: '0 0 0 4px',
+      //backgroundColor: theme.palette.themeLight,
+      borderWidth: '0 0 0 3px',
       borderColor: theme.palette.themePrimary,
       borderStyle: 'solid'
     }

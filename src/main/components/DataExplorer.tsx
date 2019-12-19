@@ -1,5 +1,5 @@
 // external imports
-import React, { ReactElement, ReactNode } from 'react'
+import React, { ReactElement, ReactNode, Ref } from 'react'
 import { component, isNode } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
 
@@ -12,11 +12,13 @@ import DataTable from './DataTable'
 import Paginator from './Paginator'
 import PageSizeSelector from './PageSizeSelector'
 import PaginationInfo from './PaginationInfo'
+import useForceUpdate from '../hooks/useForceUpdate'
+import Rec from '../types/Rec'
 
 // derived imports
-const { useCallback, useEffect, useState } = React
+const { forwardRef, useCallback, useEffect, useImperativeHandle, useRef, useState } = React
 
-// --- public components ---------------------------------------------
+// --- omponents -----------------------------------------------------
 
 const DataExplorer = component<DataExplorerProps>({
   displayName: 'DataExplorer',
@@ -26,6 +28,25 @@ const DataExplorer = component<DataExplorerProps>({
     : null,
   
     render: DataExplorerView
+})
+
+const ActionBar = forwardRef((props: {
+  config: DataExplorerProps['actions'],
+  actions: DataExplorerActions,
+  classes: DataExplorerClasses,
+  getNumSelectedRows: () => number
+}, ref: any) => {
+  const forceUpdate = useForceUpdate()
+
+  useImperativeHandle(ref, () => ({ 
+    forceUpdate
+  }), [forceUpdate])
+
+  return renderActionButtons(
+    props.config,
+    props.actions,
+    props.classes,
+    props.getNumSelectedRows())
 })
 
 // --- types ---------------------------------------------------------
@@ -158,19 +179,38 @@ function DataExplorerView(
   const
     [actions, state] = useDataExplorerActions(),
     classes = useDataExplorerStyles(),
+    actionBarRef = useRef<{ forceUpdate: () => void }>(),
+    selectedRowsRef = useRef<Set<Rec>>(new Set()),
+
+    getNumSelectedRows = useCallback(() => {
+      return selectedRowsRef.current ? selectedRowsRef.current.size : 0
+    }, []),
+
+    onSelectionChange = useCallback((selectedRows: Set<Rec>) => {
+      selectedRowsRef.current = selectedRows
+      actionBarRef.current && actionBarRef.current.forceUpdate()
+    }, []),
     
     filtering = !props.slotFiltering
       ? null
       : <div className={classes.filtering}>
           {props.slotFiltering}
-        </div>
+        </div>,
 
+    actionBar =
+      <ActionBar
+        ref={actionBarRef}
+        config={props.actions}
+        classes={classes}
+        actions={actions}
+        getNumSelectedRows={getNumSelectedRows}
+      />
 
   return (
     <div className={classes.root}>
-      {renderHeader(props, state, actions, classes, 2)} // TODO
+      {renderHeader(props, state, actions, classes, actionBar)}
       {filtering}
-      {renderBody(classes)}
+      {renderBody(classes, onSelectionChange)}
       {renderFooter(classes)}
     </div>
   )
@@ -181,7 +221,7 @@ function renderHeader(
   state: DataExplorerState,
   actions: DataExplorerActions,
   classes: DataExplorerClasses,
-  numSelectedRows: number
+  actionBar: ReactNode
 ) {
   return (
     <div className={classes.header}>
@@ -189,26 +229,25 @@ function renderHeader(
         {props.title}
       </div>
       <div className={classes.actionButtons}>
-        {renderActionButtons(props, state, actions, classes, numSelectedRows)}
+        {actionBar}
       </div>
     </div>
   ) 
 }
 
 function renderActionButtons(
-  props: DataExplorerProps,
-  state: DataExplorerState,
+  config: DataExplorerProps['actions'],
   actions: DataExplorerActions,
   classes: DataExplorerClasses,
   numSelectedRows: number
 ) {
   const buttons: ReactNode[] = []
 
-  props.actions.forEach((action, idx) => {
+  config.forEach((item, idx) => {
     const
       disabled =
-        action.type === 'singleRow' && numSelectedRows !== 1
-            || action.type === 'multiRow' && numSelectedRows === 0
+        item.type === 'singleRow' && numSelectedRows !== 1
+            || item.type === 'multiRow' && numSelectedRows === 0
 
     /*
     if (idx > 0) {
@@ -220,14 +259,14 @@ function renderActionButtons(
     */
 
     const
-      hasIcon = !!action.icon,
+      hasIcon = !!item.icon,
       iconProps = hasIcon ? { iconName: 'icon' } : null,
 
       actionButtonClassName = classes.actionButton, // TODO
 
-      onRenderIcon = !action.icon
+      onRenderIcon = !item.icon
         ? undefined
-        : () => action.icon as JSX.Element,
+        : () => item.icon as JSX.Element,
 
 // TODO
 //        disabled
@@ -243,7 +282,7 @@ function renderActionButtons(
 
     buttons.push(
       <ActionButton disabled={disabled} onRenderIcon={onRenderIcon}>
-        {action.text}
+        {item.text}
       </ActionButton>)
     
     
@@ -260,11 +299,14 @@ function renderActionButtons(
     })
     */
   })
-  
+ 
   return <div>{buttons}</div>
 }
 
-function renderBody(classes: DataExplorerClasses) {
+function renderBody(
+  classes: DataExplorerClasses,
+  onSelectionChange: any // TODO!!!!!!
+) {
   return (
     <div className={classes.body}>
       <DataTable
@@ -272,7 +314,7 @@ function renderBody(classes: DataExplorerClasses) {
         rowSelectionMode="multi"
         sortField="lastName"
         sortDirection="asc"
-        onTableRowSelection={ev => console.log('selection', ev)}
+        onTableRowSelection={ev => onSelectionChange(ev.selection)} // TODO!!!!
         onTableSort={ev => console.log('table sort', ev)}
         columns={[
           {

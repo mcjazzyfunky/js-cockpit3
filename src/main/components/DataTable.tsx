@@ -13,6 +13,7 @@ import defineStyles from '../tools/defineStyles'
 import classNames from '../tools/classNames'
 import defineActions from '../tools/defineActions'
 import EventHandler from '../types/EventHandler'
+import Rec from '../types/Rec'
 import TableSortEvent from '../types/TableSortEvent'
 import TableRowSelectionEvent from '../types/TableRowSelectionEvent'
 
@@ -53,7 +54,7 @@ type DataTableProps = {
     sortable?: boolean
   }[],
 
-  data: Item[],
+  data: Rec[],
 
   onTableRowSelection?: EventHandler<TableRowSelectionEvent> 
   onTableSort?: EventHandler<TableSortEvent>
@@ -62,11 +63,10 @@ type DataTableProps = {
 }
 
 type DataTableState = {
-  selectedItems: Set<Item>
+  selectedItems: Set<Rec>
 }
 
 type DataTableActions = ReturnType<typeof useDataTableActions>[0]
-type Item = Record<string, any>
 type ColumnWidths = { selectionColumn: number, dataColumns: number[] }
 
 type DataTableClasses = ReturnType<typeof useDataTableStyles>
@@ -227,7 +227,7 @@ function DataTableView(props: DataTableProps) {
   useEffect(() => {
     props.onTableRowSelection && props.onTableRowSelection({
       type: 'tableRowSelection',
-      selection: Array.from(state.selectedItems)
+      selection: state.selectedItems
     })
   }, [state.selectedItems])
 
@@ -483,7 +483,7 @@ function renderSelectRowCheckbox(
   rowIndex: number
 ) {
   const
-    item: Item =  props.data[rowIndex],
+    item: Rec =  props.data[rowIndex],
     checked = state.selectedItems.has(item)
 
   return (
@@ -509,19 +509,19 @@ function renderSelectRowCheckbox(
 
 function initDataTableState(): DataTableState {
   return {
-    selectedItems: new Set<Item>(),
+    selectedItems: new Set<Rec>(),
   }
 }
 
 const useDataTableActions = defineActions(update => ({
-  selectItems( state, items: Item[]) {
+  selectItems( state, items: Rec[]) {
     const selectedItems = new Set(state.selectedItems)
     
     items.forEach(item => selectedItems.add(item))
     update({ selectedItems })
   },
   
-  unselectItems(state, items: Item[]) {
+  unselectItems(state, items: Rec[]) {
     const selectedItems = new Set(state.selectedItems)
     
     items.forEach(item => selectedItems.delete(item))

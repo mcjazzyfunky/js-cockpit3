@@ -27,6 +27,7 @@ export { default as WorkspaceSelector } from './components/WorkspaceSelector'
 
 // hooks
 export { default as useDefaultLabelPosition } from './hooks/useDefaultLabelPosition'
+export { default as useForceUpdate } from './hooks/useForceUpdate'
 export { default as useTheme } from './hooks/useTheme'
 
 // tools
