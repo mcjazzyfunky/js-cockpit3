@@ -2,7 +2,7 @@ import React from 'react'
 
 import { ITheme } from 'office-ui-fabric-react'
 import { Brand, LoginScreen, Text,
-  DefaultTheme, ClassicTheme, BlueTheme, GreenTheme, OrangeTheme, VioletTheme, TealTheme
+  DefaultTheme, ClassicTheme, BlueTheme, BlueGreenTheme, GreenTheme, OrangeTheme, VioletTheme, TealTheme
 } from '../js-cockpit'
 
 export default {
@@ -34,6 +34,7 @@ function renderLoginScreen(theme: ITheme = DefaultTheme) {
 export const loginScreen = () => renderLoginScreen()
 export const loginScreenClassic = () => renderLoginScreen(ClassicTheme)
 export const loginScreenBlue = () => renderLoginScreen(BlueTheme)
+export const loginScreenBlueGreen = () => renderLoginScreen(BlueGreenTheme)
 export const loginScreenOrange = () => renderLoginScreen(OrangeTheme)
 export const loginScreenGreen = () => renderLoginScreen(GreenTheme)
 export const loginScreenViolet = () => renderLoginScreen(VioletTheme)

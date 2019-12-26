@@ -3,7 +3,7 @@ import { ActionBar, App, WorkspaceSelector, Brand, CheckBoxGroup, Cockpit,
   DataExplorer, DataForm, DateInput, FormSection, Fieldset, FilterBox, LogoutButton,
   MenuBar, RadioButtonGroup, Tabs, Tab, TextInput,
   SelectBox, SideMenu, UserMenu,
-  DefaultTheme, ClassicTheme, BlueTheme, OrangeTheme, GreenTheme, VioletTheme, TealTheme
+  DefaultTheme, ClassicTheme, BlueTheme, BlueGreenTheme, OrangeTheme, GreenTheme, VioletTheme, TealTheme
 } from '../js-cockpit'
 
 import { ITheme } from 'office-ui-fabric-react'
@@ -101,11 +101,14 @@ const menuBar =
     ]}
   />
 
-function renderCockpit(theme: ITheme = DefaultTheme) {
+function renderCockpit(
+  theme: ITheme = DefaultTheme,
+  look: 'default' | 'bright' = 'default'
+) {
   return <Cockpit
     theme={theme}
-    look="bright"
-    slotBrand={<Brand vendor="meet&amp;greet" title="Back Office" size="small" multicolor={true}/>}
+    look={look}
+    slotBrand={<Brand vendor="meet&amp;greet" title="Back Office" size="small" multicolor={false}/>}
 
     slotTopNav={
       <WorkspaceSelector
@@ -490,7 +493,17 @@ const mainContent = dataExplorer
 export const cockpitDefault = () => renderCockpit(DefaultTheme)
 export const cockpitClassic = () => renderCockpit(ClassicTheme)
 export const cockpitBlue = () => renderCockpit(BlueTheme)
+export const cockpitBlueGreen = () => renderCockpit(BlueGreenTheme)
 export const cockpitOrange = () => renderCockpit(OrangeTheme)
 export const cockpitGreen = () => renderCockpit(GreenTheme)
 export const cockpitViolet = () => renderCockpit(VioletTheme)
 export const cockpitTeal = () => renderCockpit(TealTheme)
+
+export const cockpitDefaultBright = () => renderCockpit(DefaultTheme, 'bright')
+export const cockpitClassicBright = () => renderCockpit(ClassicTheme, 'bright')
+export const cockpitBlueBright = () => renderCockpit(BlueTheme, 'bright')
+export const cockpitBlueGreenBright = () => renderCockpit(BlueGreenTheme, 'bright')
+export const cockpitOrangeBright = () => renderCockpit(OrangeTheme, 'bright')
+export const cockpitGreenBright = () => renderCockpit(GreenTheme, 'bright')
+export const cockpitVioletBright = () => renderCockpit(VioletTheme, 'bright')
+export const cockpitTealBright = () => renderCockpit(TealTheme, 'bright')

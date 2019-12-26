@@ -68,7 +68,7 @@ const useBrandStyles = defineStyles(theme => {
     defaultLogo: {
       width: '1.6em',
       height: '1.6em',
-      padding: '0.75em 0 0 0' // TODO
+      padding: '0.7em 0 0 0' // TODO
     },
 
     logoMulticolor: {

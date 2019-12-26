@@ -169,7 +169,7 @@ const useSideMenuStyles = defineStyles(theme => {
       backgroundColor: theme.palette.neutralQuaternaryAlt,
       //backgroundColor: theme.palette.themeLight,
       borderWidth: '0 0 0 3px',
-      borderColor: theme.palette.themePrimary,
+      borderColor: theme.palette.themeSecondary,
       borderStyle: 'solid'
     }
   }
