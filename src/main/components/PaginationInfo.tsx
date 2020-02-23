@@ -10,13 +10,13 @@ import defineStyles from '../tools/defineStyles'
 // --- components ----------------------------------------------------
 
 const PaginationInfo = component<PaginationInfoProps>({
-  displayName: 'PaginationInfo',
+  name: 'PaginationInfo',
   
   ...process.env.NODE_ENV === 'development' as any
     ? { validate: Spec.lazy(() => validatePaginationInfoProps) }
     : null,
  
-  render: PaginationInfoView
+  main: PaginationInfoView
 })
 
 // --- types ---------------------------------------------------------

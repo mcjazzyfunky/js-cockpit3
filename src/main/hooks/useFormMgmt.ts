@@ -34,13 +34,13 @@ function initFormMgmt():
     },
 
     Form = component<FormProps>({
-      displayName: 'DynamicForm',
+      name: 'DynamicForm',
 
       ...process.env.NODE_ENV === 'development' as any
         ? { validate: validateFormCtrlProviderProps }
         : null,
 
-      render({ className, onInput, children }) {
+      main({ className, onInput, children }) {
         return (
           h('form', { className, onInput, onSubmit },
             h(FormCtrlCtx.Provider, { value: formCtrl }, children)))

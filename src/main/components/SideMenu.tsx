@@ -11,13 +11,13 @@ import classNames from '../tools/classNames'
 // --- components ----------------------------------------------------
 
 const SideMenu = component<SideMenuProps>({
-  displayName: 'SideMenu',
+  name: 'SideMenu',
   
   ...process.env.NODE_ENV === 'development' as any
     ? { validate: Spec.lazy(() => validateSideMenuProps) }
     : null,
  
-  render: SideMenuView
+  main: SideMenuView
 })
 
 // --- types ---------------------------------------------------------

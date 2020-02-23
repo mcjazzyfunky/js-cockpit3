@@ -15,13 +15,13 @@ const { useCallback, useEffect, useState, useRef } = React
 // --- components ----------------------------------------------------
 
 const CheckBox = component<CheckBoxProps>({
-  displayName: 'CheckBox',
+  name: 'CheckBox',
   
   ...process.env.NODE_ENV === 'development' as any
     ? { validate: Spec.lazy(() => validateCheckBoxProps) }
     : null,
  
-  render: CheckBoxView
+  main: CheckBoxView
 })
 
 // --- types ---------------------------------------------------------

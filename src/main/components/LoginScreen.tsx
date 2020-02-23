@@ -22,13 +22,13 @@ const { useCallback, useState } = React
 // --- components ----------------------------------------------------
 
 const LoginScreen = component<LoginScreenProps>({
-  displayName: 'LoginScreen',
+  name: 'LoginScreen',
   
   ...process.env.NODE_ENV === 'development' as any
     ? { validate: Spec.lazy(() => validateLoginScreenProps) }
     : null,
  
-  render: LoginScreenView
+  main: LoginScreenView
 })
 
 // --- types ---------------------------------------------------------

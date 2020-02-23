@@ -9,19 +9,19 @@ import defineStyles from '../tools/defineStyles'
 // --- components ----------------------------------------------------
 
 const UserMenu = component<UserMenuProps>({
-  displayName: 'UserMenu',
+  name: 'UserMenu',
   
   ...process.env.NODE_ENV === 'development' as any
     ? { validate: Spec.lazy(() => validateUserMenuProps) }
     : null,
   
-    render: UserMenuView
+    main: UserMenuView
 })
 
 const UserIcon = component({
-  displayName: 'UserIcon',
+  name: 'UserIcon',
 
-  render() {
+  main() {
     return (
       <svg version="1.1" width="22" height="22"  viewBox="0 0 36 36">
         <g fill="white">
@@ -43,7 +43,7 @@ type UserMenuProps = {
 
 const validateUserMenuProps = Spec.checkProps({
   optional: {
-    displayName: Spec.string
+    name: Spec.string
   }
 })
 

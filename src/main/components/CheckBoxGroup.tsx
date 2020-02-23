@@ -16,13 +16,13 @@ const { useCallback, useEffect, useState, useRef } = React
 // --- components ----------------------------------------------------
 
 const CheckBoxGroup = component<CheckBoxGroupProps>({
-  displayName: 'CheckBoxGroup',
+  name: 'CheckBoxGroup',
   
   ...process.env.NODE_ENV === 'development' as any
     ? { validate: Spec.lazy(() => validateCheckBoxGroupProps) }
     : null,
  
-  render: CheckBoxGroupView
+  main: CheckBoxGroupView
 })
 
 // --- types ---------------------------------------------------------

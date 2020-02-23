@@ -15,13 +15,13 @@ import LabelPosition from '../enums/LabelPosition'
 // --- components ----------------------------------------------------
 
 const FilterBox = component<FilterBoxProps>({
-  displayName: 'FilterBox',
+  name: 'FilterBox',
   
   ...process.env.NODE_ENV === 'development' as any
     ? { validate: Spec.lazy(() => validateFilterBoxProps) }
     : null,
  
-  render: FilterBoxView
+  main: FilterBoxView
 })
 
 // --- types ---------------------------------------------------------

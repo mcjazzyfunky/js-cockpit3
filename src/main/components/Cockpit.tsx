@@ -11,13 +11,13 @@ import useTheme from '../hooks/useTheme'
 // --- components ----------------------------------------------------
 
 const Cockpit = component<CockpitProps>({
-  displayName: 'Cockpit',
+  name: 'Cockpit',
   
   ...process.env.NODE_ENV === 'development' as any
     ? { validate: Spec.lazy(() => validateCockpitProps) }
     : null,
  
-  render: CockpitView
+  main: CockpitView
 })
 
 // --- types ---------------------------------------------------------

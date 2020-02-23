@@ -9,13 +9,13 @@ import defineStyles from '../tools/defineStyles'
 // --- components ----------------------------------------------------
 
 const Text = component<TextProps>({
-  displayName: 'Text',
+  name: 'Text',
   
   ...process.env.NODE_ENV === 'development' as any
     ? { validate: Spec.lazy(() => validateTextProps) }
     : null,
  
-  render: TextView
+  main: TextView
 })
 
 // --- types ---------------------------------------------------------

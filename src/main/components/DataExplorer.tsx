@@ -21,13 +21,13 @@ const { forwardRef, useCallback, useEffect, useImperativeHandle, useRef, useStat
 // --- omponents -----------------------------------------------------
 
 const DataExplorer = component<DataExplorerProps>({
-  displayName: 'DataExplorer',
+  name: 'DataExplorer',
   
   ...process.env.NODE_ENV === 'development' as any
     ? { validate: Spec.lazy(() => validateDataExplorerProps) }
     : null,
   
-    render: DataExplorerView
+    main: DataExplorerView
 })
 
 const ActionBar = forwardRef((props: {
@@ -253,7 +253,7 @@ function renderActionButtons(
     if (idx > 0) {
       items.push({
         key: `separator-${idx}`,
-        onRender: () => <div className={classes.actionButtonSeparator}></div>
+        onmain: () => <div className={classes.actionButtonSeparator}></div>
       })
     }
     */

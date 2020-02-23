@@ -16,13 +16,13 @@ const { useCallback, useEffect, useState, useRef } = React
 // --- components ----------------------------------------------------
 
 const RadioButtonGroup = component<RadioButtonGroupProps>({
-  displayName: 'RadioButtonGroup',
+  name: 'RadioButtonGroup',
   
   ...process.env.NODE_ENV === 'development' as any
     ? { validate: Spec.lazy(() => validateRadioButtonGroupProps) }
     : null,
  
-  render: RadioButtonGroupView
+  main: RadioButtonGroupView
 })
 
 // --- types ---------------------------------------------------------

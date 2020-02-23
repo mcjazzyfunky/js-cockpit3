@@ -15,13 +15,13 @@ const { Children } = React
 // --- components ----------------------------------------------------
 
 const Tabs = component<TabsProps>({
-  displayName: 'Tabs',
+  name: 'Tabs',
   
   ...process.env.NODE_ENV === 'development' as any
     ? { validate: Spec.lazy(() => validateTabsProps) }
     : null,
  
-  render: TabsView
+  main: TabsView
 })
 
 // --- types ---------------------------------------------------------

@@ -16,13 +16,13 @@ const { useCallback, useEffect, useRef, useState } = React
 // --- components ----------------------------------------------------
 
 const PasswordInput = component<PasswordInputProps>({
-  displayName: 'PasswordInput',
+  name: 'PasswordInput',
   
   ...process.env.NODE_ENV === 'development' as any
     ? { validate: Spec.lazy(() => validatePasswordInputProps) }
     : null,
  
-  render: PasswordInputView
+  main: PasswordInputView
 })
 
 // --- types ---------------------------------------------------------

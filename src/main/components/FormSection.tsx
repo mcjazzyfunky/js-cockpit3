@@ -10,13 +10,13 @@ import defineStyles from '../tools/defineStyles'
 // --- components ----------------------------------------------------
 
 const FormSection = component<FormSectionProps>({
-  displayName: 'FormSection',
+  name: 'FormSection',
   
   ...process.env.NODE_ENV === 'development' as any
     ? { validate: Spec.lazy(() => validateFormSectionProps) }
     : null,
  
-  render: FormSectionView
+  main: FormSectionView
 })
 
 // --- types ---------------------------------------------------------

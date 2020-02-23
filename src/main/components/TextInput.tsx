@@ -15,14 +15,14 @@ const { useCallback, useEffect, useState, useRef } = React
 
 // --- components ----------------------------------------------------
 
-const TextInput = component<TextInputProps>({
-  displayName: 'TextInput',
+const TextInput = component({
+  name: 'TextInput',
   
   ...process.env.NODE_ENV === 'development' as any
     ? { validate: Spec.lazy(() => validateTextInputProps) }
     : null,
  
-  render: TextInputView
+  main: TextInputView
 })
 
 // --- types ---------------------------------------------------------

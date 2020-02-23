@@ -7,8 +7,8 @@ import LabelPosition from '../enums/LabelPosition'
 // --- context -------------------------------------------------------
 
 export default context<LabelPosition>({
-  displayName: 'DefaultLabelPositionCtx',
-  defaultValue: LabelPosition.Above,
+  name: 'DefaultLabelPositionCtx',
+  default: LabelPosition.Above,
   
   ...process.env.NODE_ENV === 'development'
     ? { validate: Spec.oneOf(LabelPosition.Above, LabelPosition.Beside) }

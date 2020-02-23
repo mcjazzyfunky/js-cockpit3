@@ -14,13 +14,13 @@ const { Children } = React
 // --- components ----------------------------------------------------
 
 const FieldWrapper = component<FieldWrapperProps>({
-  displayName: 'FieldWrapper',
+  name: 'FieldWrapper',
   
   ...process.env.NODE_ENV === 'development' as any
     ? { validate: Spec.lazy(() => validateFieldWrapperProps) }
     : null,
  
-  render: FieldWrapperView
+  main: FieldWrapperView
 })
 
 // --- types ---------------------------------------------------------

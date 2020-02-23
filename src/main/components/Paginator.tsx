@@ -10,13 +10,13 @@ import defineStyles from '../tools/defineStyles'
 // --- components ----------------------------------------------------
 
 const Paginator = component<PaginatorProps>({
-  displayName: 'Paginator',
+  name: 'Paginator',
   
   ...process.env.NODE_ENV === 'development' as any
     ? { validate: Spec.lazy(() => validatePaginatorProps) }
     : null,
  
-  render: PaginatorView
+  main: PaginatorView
 })
 
 // --- types ---------------------------------------------------------

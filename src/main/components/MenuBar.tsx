@@ -12,13 +12,13 @@ import defineStyles from '../tools/defineStyles'
 // --- components ----------------------------------------------------
 
 const MenuBar = component<MenuBarProps>({
-  displayName: 'MenuBar',
+  name: 'MenuBar',
   
   ...process.env.NODE_ENV === 'development' as any
     ? { validate: Spec.lazy(() => validateMenuBarProps) }
     : null,
  
-  render: MenuBarView
+  main: MenuBarView
 })
 
 // --- types ---------------------------------------------------------

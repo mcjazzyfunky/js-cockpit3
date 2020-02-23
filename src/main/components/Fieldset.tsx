@@ -10,13 +10,13 @@ import defineStyles from '../tools/defineStyles'
 // --- components ----------------------------------------------------
 
 const Fieldset = component<FieldsetProps>({
-  displayName: 'Fieldset',
+  name: 'Fieldset',
   
   ...process.env.NODE_ENV === 'development' as any
     ? { validate: Spec.lazy(() => validateFieldsetProps) }
     : null,
  
-  render: FieldsetView
+  main: FieldsetView
 })
 
 // --- types ---------------------------------------------------------

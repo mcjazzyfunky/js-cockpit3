@@ -10,13 +10,13 @@ import defineStyles from '../tools/defineStyles'
 // --- components ----------------------------------------------------
 
 const WorkspaceSelector = component<WorkspaceSelectorProps>({
-  displayName: 'WorkspaceSelector',
+  name: 'WorkspaceSelector',
   
   ...process.env.NODE_ENV === 'development' as any
     ? { validate: Spec.lazy(() => validateWorkspaceSelectorProps) }
     : null,
  
-  render: WorkspaceSelectorView
+  main: WorkspaceSelectorView
 })
 
 // --- types ---------------------------------------------------------

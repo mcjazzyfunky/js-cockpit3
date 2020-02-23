@@ -27,13 +27,13 @@ const SELECTION_COLUMN_WIDTH = 38
 // --- components ----------------------------------------------------
 
 const DataTable = component<DataTableProps>({
-  displayName: 'DataTable',
+  name: 'DataTable',
   
   ...process.env.NODE_ENV === 'development' as any
     ? { validate: Spec.lazy(() => validateDataTableProps) }
     : null,
  
-  render: DataTableView
+  main: DataTableView
 })
 
 // --- types ---------------------------------------------------------

@@ -11,13 +11,13 @@ import defineStyles from '../tools/defineStyles'
 // --- components ----------------------------------------------------
 
 const LogoutButton = component<LogoutButtonProps>({
-  displayName: 'LogoutButton',
+  name: 'LogoutButton',
 
   ...process.env.NODE_ENV === 'development' as any
     ? { validate: Spec.lazy(() => validateLogoutButtonProps) }
     : null,
 
-  render: LogoutButtonView
+  main: LogoutButtonView
 })
 
 // --- types ---------------------------------------------------------

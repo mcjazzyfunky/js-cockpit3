@@ -12,13 +12,13 @@ import { icons } from 'react-icons/lib/cjs'
 // --- components ----------------------------------------------------
 
 const ActionBar = component<ActionBarProps>({
-  displayName: 'ActionBar',
+  name: 'ActionBar',
   
   ...process.env.NODE_ENV === 'development' as any
     ? { validate: Spec.lazy(() => validateActionBarProps) }
     : null,
  
-  render: ActionBarView
+  main: ActionBarView
 })
 
 // --- types ---------------------------------------------------------

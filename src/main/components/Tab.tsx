@@ -9,13 +9,13 @@ import defineStyles from '../tools/defineStyles'
 // --- components ----------------------------------------------------
 
 const Tab = component<TabProps>({
-  displayName: 'Tab',
+  name: 'Tab',
 
   ...process.env.NODE_ENV === 'development' as any
     ? { validate: Spec.lazy(() => validateTabProps) }
     : null,
 
-  render: TabView
+  main: TabView
 })
 
 // --- types ---------------------------------------------------------

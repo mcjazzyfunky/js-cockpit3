@@ -16,13 +16,13 @@ const { useCallback, useEffect, useState, useRef } = React
 // --- components ----------------------------------------------------
 
 const SelectBox = component<SelectBoxProps>({
-  displayName: 'SelectBox',
+  name: 'SelectBox',
   
   ...process.env.NODE_ENV === 'development' as any
     ? { validate: Spec.lazy(() => validateSelectBoxProps) }
     : null,
  
-  render: SelectBoxView
+  main: SelectBoxView
 })
 
 // --- types ---------------------------------------------------------

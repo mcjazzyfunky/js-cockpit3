@@ -14,13 +14,13 @@ const PAGE_SIZE_OPTIONS = [10, 25, 50, 100, 250, 500]
 // --- components ----------------------------------------------------
 
 const Paginator = component<PaginatorProps>({
-  displayName: 'Paginator',
+  name: 'Paginator',
   
   ...process.env.NODE_ENV === 'development' as any
     ? { validate: Spec.lazy(() => validatePaginatorProps) }
     : null,
  
-  render: PaginatorView
+  main: PaginatorView
 })
 
 // --- types ---------------------------------------------------------

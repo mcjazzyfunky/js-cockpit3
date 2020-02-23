@@ -11,13 +11,13 @@ import DefaultLabelPositionCtx from '../context/DefaultLabelPositionCtx'
 // --- components ----------------------------------------------------
 
 const DataForm = component<DataFormProps>({
-  displayName: 'DataForm',
+  name: 'DataForm',
   
   ...process.env.NODE_ENV === 'development' as any
     ? { validate: Spec.lazy(() => validateDataFormProps) }
     : null,
  
-  render: DataFormView
+  main: DataFormView
 })
 
 // --- types ---------------------------------------------------------

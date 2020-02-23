@@ -17,13 +17,13 @@ const { useCallback, useEffect, useState, useRef } = React
 // --- components ----------------------------------------------------
 
 const DateInput = component<DateInputProps>({
-  displayName: 'DateInput',
+  name: 'DateInput',
   
   ...process.env.NODE_ENV === 'development' as any
     ? { validate: Spec.lazy(() => validateDateInputProps) }
     : null,
  
-  render: DateInputView
+  main: DateInputView
 })
 
 // --- types ---------------------------------------------------------

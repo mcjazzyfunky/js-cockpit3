@@ -10,13 +10,13 @@ import defineStyles from '../tools/defineStyles'
 // --- components ----------------------------------------------------
 
 const Brand = component<BrandProps>({
-  displayName: 'Brand',
+  name: 'Brand',
   
   ...process.env.NODE_ENV === 'development' as any
     ? { validate: Spec.lazy(() => validateBrandProps) }
     : null,
  
-  render: BrandView
+  main: BrandView
 })
 
 // --- types ---------------------------------------------------------

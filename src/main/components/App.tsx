@@ -8,13 +8,13 @@ import { Fabric, Customizer, ITheme } from 'office-ui-fabric-react';
 // --- components ----------------------------------------------------
 
 const App = component<AppProps>({
-  displayName: 'App',
+  name: 'App',
   
   ...process.env.NODE_ENV === 'development' as any
     ? { validate: Spec.lazy(() => validateAppProps) }
     : null,
  
-  render: AppView
+  main: AppView
 })
 
 // --- types ---------------------------------------------------------
