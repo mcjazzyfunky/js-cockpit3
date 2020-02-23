@@ -18,9 +18,9 @@ const { useCallback, useEffect, useState, useRef } = React
 const TextInput = component({
   name: 'TextInput',
   
-  ...process.env.NODE_ENV === 'development' as any
-    ? { validate: Spec.lazy(() => validateTextInputProps) }
-    : null,
+  ...process.env.NODE_ENV === 'development' as any && {
+    validate: Spec.lazy(() => validateTextInputProps) 
+  },
  
   main: TextInputView
 })
