@@ -1,6 +1,6 @@
 import React from 'react'
 import { ActionBar, App, WorkspaceSelector, Brand, CheckBoxGroup, Cockpit,
-  DataExplorer, DataForm, DateInput, FormSection, Fieldset, FilterBox, LogoutButton,
+  DataExplorer, DataForm, DateInput, FormSection, Fieldset, FilterBox,
   MenuBar, RadioButtonGroup, Tabs, Tab, TextInput,
   SelectBox, SideMenu, UserMenu,
   DefaultTheme, ClassicTheme, BlueTheme, BlueGreenTheme, OrangeTheme, GreenTheme, VioletTheme, TealTheme
@@ -126,7 +126,7 @@ function renderCockpit(
     }
 
     slotActions={
-      <><UserMenu displayName="Jane Doe"/><LogoutButton/></>
+      <UserMenu displayName="Jane Doe"/>
     }
 
     //slotMenu={menuBar}
