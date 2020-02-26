@@ -28,6 +28,7 @@ export { default as WorkspaceSelector } from './components/WorkspaceSelector'
 // hooks
 export { default as useDefaultLabelPosition } from './hooks/useDefaultLabelPosition'
 export { default as useForceUpdate } from './hooks/useForceUpdate'
+export { default as useI18n } from './hooks/useI18n'
 export { default as useTheme } from './hooks/useTheme'
 
 // tools
@@ -46,6 +47,9 @@ export { default as GreenTheme } from './themes/GreenTheme'
 export { default as OrangeTheme } from './themes/OrangeTheme'
 export { default as VioletTheme } from './themes/VioletTheme'
 export { default as TealTheme } from './themes/TealTheme'
+
+// types
+export { default as I18n } from './types/I18n'
 
 // --- register general icons ----------------------------------------
 

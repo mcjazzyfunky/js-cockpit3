@@ -10,23 +10,25 @@ import {
 
 // internal import
 import defineStyles from '../tools/defineStyles'
-import useFormMgmt from '../hooks/useFormMgmt'
 import TextInput from './TextInput'
 import PasswordInput from './PasswordInput'
 import CheckBox from './CheckBox'
+import useFormMgmt from '../hooks/useFormMgmt'
+import useI18n from '../hooks/useI18n'
 import useTheme from '../hooks/useTheme'
+import I18n from '../types/I18n'
 
 // derived imports
 const { useCallback, useState } = React
 
 // --- components ----------------------------------------------------
 
-const LoginScreen = component<LoginScreenProps>({
+const LoginScreen = component({
   name: 'LoginScreen',
   
-  ...process.env.NODE_ENV === 'development' as any
-    ? { validate: Spec.lazy(() => validateLoginScreenProps) }
-    : null,
+  ...process.env.NODE_ENV === 'development' as any && {
+    validate: Spec.lazy(() => validateLoginScreenProps)
+  },
  
   main: LoginScreenView
 })
@@ -42,15 +44,11 @@ type LoginScreenProps = {
   theme?: ITheme
 }
 
-type LoginField = 
-  { type: 'text', name: string, label: string }
-    | { type: 'password', name: string, label: string }
-
 type Classes = ReturnType<typeof useLoginScreenStyles>
 
 // --- validation ----------------------------------------------------
 
-const validateLoginScreenProps = Spec.checkProps({
+const validateLoginScreenProps = Spec.checkProps<LoginScreenProps>({
   optional: {
     slotHeader: isNode,
     slotFooter: isNode,
@@ -301,11 +299,21 @@ function LoginScreenView({
   theme
 }: LoginScreenProps) {
   const
+    i18n = useI18n(),
     [isLoading, setLoading] = useState(false),
     [errorMsg, setErrorMsg] = useState(''),
     defaultTheme = useTheme(),
     classes = useLoginScreenStyles(theme || defaultTheme),
     [_, LoginForm, setSubmitHandler] = useFormMgmt(),
+    
+    rememberLoginLabel =
+      i18n.getText('jsc.LoginScreen.rememberLoginLabel', null,
+        'Remember login'),
+    
+    defaultLoginErrorMsg =
+      i18n.getText('jsc.LoginScreen.defaultLogiErrorMessage', null,
+        'Could not log in'),
+
 
     onFormInput = useCallback(() => {
       if (errorMsg) {
@@ -335,7 +343,7 @@ function LoginScreenView({
                   : '' 
 
             if (!msg) {
-              msg = 'Could not log in'
+              msg = defaultLoginErrorMsg
             }
             
             setErrorMsg(msg)
@@ -356,7 +364,7 @@ function LoginScreenView({
             {
               slotLoginIntro
                 ? slotLoginIntro
-                : renderDefaultLoginIntro(classes)
+                : renderDefaultLoginIntro(classes, i18n)
             }
           </div>
           <div className={classes.column1Bottom}>
@@ -370,15 +378,15 @@ function LoginScreenView({
             {
               slotLoginFields
                 ? slotLoginFields
-                : renderDefaultLoginFields(classes)
+                : renderDefaultLoginFields(classes, i18n)
             }
           </div>
           <div className={classes.column2Bottom}>
             {errorMsg ? <div className={classes.errorMsg}>{errorMsg}</div> : null}
             <div className={classes.rememberLogin}>
-              <CheckBox name="rememberLogin" label="remember login"/>
+              <CheckBox name="rememberLogin" label={rememberLoginLabel}/>
             </div>
-            {renderLoginButton(isLoading, classes)}
+            {renderLoginButton(isLoading, classes, i18n)}
             <FocusTrapZone disabled={!isLoading}>
               <button className={classes.focusTrapZoneFakeButton}></button>
             </FocusTrapZone>
@@ -428,41 +436,62 @@ function renderFooter(
   )
 }
 
-function renderDefaultLoginIntro(classes: Classes) {
+function renderDefaultLoginIntro(classes: Classes, { getText }: I18n) {
+  const
+    headline = getText('jsc.LoginScreen.loginHeadline', null, 'Login'),
+    text = getText('jsc.LoginScreen.loginText', null,
+      'Please enter your personal credentials to log in')
+
   return (
     <div className={classes.defaultIntro}>
-      <div className={classes.headline}>Login</div>
-      <div className={classes.subheadline}>Please enter your personal credentials to log in</div>
+      <div className={classes.headline}>{headline}</div>
+      <div className={classes.subheadline}>{text}</div>
     </div>
   )
 }
 
-function renderDefaultLoginFields(classes: Classes) {
+function renderDefaultLoginFields(classes: Classes, { getText }: I18n) {
+  const
+    usernameLabel = getText('jsc.LoginScreen.username', null, 'Username'),
+    passwordLabel = getText('jsc.LoginScreen.username', null, 'Password'),
+    
+    usernameErrorMsg = getText('jsc.LoginScreen.usernameErrorMessage', null,
+      'Please enter a username'),
+
+    passwordErrorMsg = getText('jsc.LoginScreen.passwordErrorMessage', null,
+      'Please enter a password')
+
   return (
     <>
       <TextInput
         name="username"
-        label="Username"
+        label={usernameLabel}
         required
-        messageOnError="Please enter a username"
+        messageOnError={usernameErrorMsg}
       />
 
       <PasswordInput
         name="password"
-        label="Password"
+        label={passwordLabel}
         required
-        messageOnError="Please enter a password"
+        messageOnError={passwordErrorMsg}
       />
     </>
   )
 }
 
-function renderLoginButton(isLoading: boolean, classes: Classes) {
+function renderLoginButton(isLoading: boolean, classes: Classes, { getText }: I18n) {
   const
-    loginButtonText = isLoading
-      ? 'Logging in... '
-      : 'Log in',
+    loginButtonLabel = getText(
+      'jsc.LoginScreen.loginButtonLabel', null, 'Log in'),
 
+    loginButtonLoadingLabel = getText(
+      'jsc.LoginScreen.loginButtonLoginLabel', null, 'Logging in..'),
+
+    loginButtonText = isLoading
+      ? loginButtonLoadingLabel
+      : loginButtonLabel,
+  
     spinner = isLoading
       ? <Spinner size={SpinnerSize.small} className={classes.spinner}/>
       : null
