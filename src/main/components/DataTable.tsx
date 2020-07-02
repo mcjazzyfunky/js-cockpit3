@@ -514,7 +514,7 @@ function initDataTableState(): DataTableState {
 }
 
 const useDataTableActions = defineActions(update => ({
-  selectItems( state, items: Rec[]) {
+  selectItems(state, items: Rec[]) {
     const selectedItems = new Set(state.selectedItems)
     
     items.forEach(item => selectedItems.add(item))
