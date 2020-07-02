@@ -5,7 +5,7 @@ import * as Spec from 'js-spec/validators'
 import { GoSearch as SearchIcon } from 'react-icons/go'
 import { MdFilterList as FilterIcon } from 'react-icons/md'
 
-import { PrimaryButton } from 'office-ui-fabric-react'
+import { PrimaryButton } from '@fluentui/react'
 
 // internal import
 import defineStyles from '../tools/defineStyles'
@@ -16,11 +16,11 @@ import LabelPosition from '../enums/LabelPosition'
 
 const FilterBox = component<FilterBoxProps>({
   name: 'FilterBox',
-  
-  ...process.env.NODE_ENV === 'development' as any
+
+  ...(process.env.NODE_ENV === ('development' as any)
     ? { validate: Spec.lazy(() => validateFilterBoxProps) }
-    : null,
- 
+    : null),
+
   main: FilterBoxView
 })
 
@@ -43,8 +43,7 @@ const validateFilterBoxProps = Spec.checkProps({
 const useFilterBoxStyles = defineStyles(theme => {
   return {
     root: {
-      display: 'flex',
-
+      display: 'flex'
     },
 
     column1: {
@@ -70,15 +69,13 @@ const useFilterBoxStyles = defineStyles(theme => {
 
 // --- view ----------------------------------------------------------
 
-function FilterBoxView({
-  children
-}: FilterBoxProps) {
+function FilterBoxView({ children }: FilterBoxProps) {
   const classes = useFilterBoxStyles()
 
   return (
     <div className={classes.root}>
       <div className={classes.column1}>
-        <FilterIcon className={classes.filterIcon}/>
+        <FilterIcon className={classes.filterIcon} />
       </div>
       <div className={classes.column2}>
         <DefaultLabelPositionCtx.Provider value={LabelPosition.Beside}>
@@ -86,7 +83,7 @@ function FilterBoxView({
         </DefaultLabelPositionCtx.Provider>
       </div>
       <div className={classes.column3}>
-        <PrimaryButton type="submit" onRenderIcon={() => <SearchIcon/>}>
+        <PrimaryButton type="submit" onRenderIcon={() => <SearchIcon />}>
           Search
         </PrimaryButton>
       </div>

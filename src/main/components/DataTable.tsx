@@ -6,7 +6,7 @@ import useResizeAware from 'react-resize-aware'
 import * as Spec from 'js-spec/validators'
 import Color from 'color'
 
-import { Checkbox, Icon } from 'office-ui-fabric-react'
+import { Checkbox, Icon } from '@fluentui/react'
 
 // internal imports
 import defineStyles from '../tools/defineStyles'
@@ -28,35 +28,35 @@ const SELECTION_COLUMN_WIDTH = 38
 
 const DataTable = component<DataTableProps>({
   name: 'DataTable',
-  
-  ...process.env.NODE_ENV === 'development' as any
+
+  ...(process.env.NODE_ENV === ('development' as any)
     ? { validate: Spec.lazy(() => validateDataTableProps) }
-    : null,
- 
+    : null),
+
   main: DataTableView
 })
 
 // --- types ---------------------------------------------------------
 
 type DataTableProps = {
-  title?: string | null,
-  
-  rowSelectionMode?: 'none' | 'single' | 'multi',
+  title?: string | null
 
-  sortField?: string | null,
-  sortDirection?: 'asc' | 'desc',
+  rowSelectionMode?: 'none' | 'single' | 'multi'
+
+  sortField?: string | null
+  sortDirection?: 'asc' | 'desc'
 
   columns: {
-    title: string, 
-    field?: string | null,
-    align?: 'start' | 'center' | 'end',
-    width?: number,
+    title: string
+    field?: string | null
+    align?: 'start' | 'center' | 'end'
+    width?: number
     sortable?: boolean
-  }[],
+  }[]
 
-  data: Rec[],
+  data: Rec[]
 
-  onTableRowSelection?: EventHandler<TableRowSelectionEvent> 
+  onTableRowSelection?: EventHandler<TableRowSelectionEvent>
   onTableSort?: EventHandler<TableSortEvent>
 
   ref?: any // TODO
@@ -67,15 +67,14 @@ type DataTableState = {
 }
 
 type DataTableActions = ReturnType<typeof useDataTableActions>[0]
-type ColumnWidths = { selectionColumn: number, dataColumns: number[] }
+type ColumnWidths = { selectionColumn: number; dataColumns: number[] }
 
 type DataTableClasses = ReturnType<typeof useDataTableStyles>
 
 // --- validation ----------------------------------------------------
 
 const validateDataTableProps = Spec.checkProps({
-  optional: {
-  }
+  optional: {}
 })
 
 // --- styles --------------------------------------------------------
@@ -91,11 +90,10 @@ const useDataTableStyles = defineStyles(theme => {
     tableContainer: {
       position: 'absolute',
       width: '100%',
-      height: '100%',
+      height: '100%'
     },
 
-    rowSelectionColumn: {
-    },
+    rowSelectionColumn: {},
 
     tableHead: {
       display: 'flex',
@@ -104,7 +102,7 @@ const useDataTableStyles = defineStyles(theme => {
       borderStyle: 'solid',
       borderColor: theme.palette.neutralTertiary
     },
-  
+
     tableHeadCell: {
       display: 'flex',
       alignItems: 'center',
@@ -140,7 +138,7 @@ const useDataTableStyles = defineStyles(theme => {
     tableHeadCellContent: {
       display: 'flex',
       alignItems: 'center',
-      flexWrap: 'nowrap',
+      flexWrap: 'nowrap'
     },
 
     tableBodyCell: {
@@ -159,9 +157,9 @@ const useDataTableStyles = defineStyles(theme => {
     },
 
     selectedOddRow: {
-      backgroundColor: theme.palette.themeLight,
+      backgroundColor: theme.palette.themeLight
     },
-    
+
     selectedEvenRow: {
       backgroundColor: Color(theme.palette.themeLight).darken(0.08) // TODO
     },
@@ -187,48 +185,35 @@ const useDataTableStyles = defineStyles(theme => {
 // --- view ----------------------------------------------------------
 
 function DataTableView(props: DataTableProps) {
-  const
-    [actions, state] = useDataTableActions(),
+  const [actions, state] = useDataTableActions(),
     classes = useDataTableStyles(),
     [selectedRows] = useState(() => new Set<any>()), // TODO
     [resizeListener, size] = useResizeAware(),
     tableSizeIsKnown = size.width !== null,
-
     columnWidths = tableSizeIsKnown
-       ? calculateColumnWidths(props.columns, props.rowSelectionMode !== 'none', size.width)
-       : null,
-
+      ? calculateColumnWidths(
+          props.columns,
+          props.rowSelectionMode !== 'none',
+          size.width
+        )
+      : null,
     tableHead = !tableSizeIsKnown
       ? null
-      : renderHead(
-        props,
-        state,
-        actions,
-        classes,
-        columnWidths
-      ),
-
+      : renderHead(props, state, actions, classes, columnWidths),
     table = !tableSizeIsKnown
       ? null
-      : renderTableBody(
-          props,
-          state,
-          actions, 
-          classes,
-          size.width,
-          size.height
-        )
-
+      : renderTableBody(props, state, actions, classes, size.width, size.height)
 
   useEffect(() => {
     actions.unselectAllItems()
   }, [props.data, actions]) // `actions` is only added to satisfy linter
 
   useEffect(() => {
-    props.onTableRowSelection && props.onTableRowSelection({
-      type: 'tableRowSelection',
-      selection: state.selectedItems
-    })
+    props.onTableRowSelection &&
+      props.onTableRowSelection({
+        type: 'tableRowSelection',
+        selection: state.selectedItems
+      })
   }, [state.selectedItems])
 
   return (
@@ -245,38 +230,43 @@ function DataTableView(props: DataTableProps) {
 function renderHead(
   props: DataTableProps,
   state: DataTableState,
-  actions: DataTableActions, 
+  actions: DataTableActions,
   classes: DataTableClasses,
-  columnWidths: ColumnWidths | null 
-) { 
-  const
-    minWidth = columnWidths
+  columnWidths: ColumnWidths | null
+) {
+  const minWidth = columnWidths
       ? columnWidths.selectionColumn
       : SELECTION_COLUMN_WIDTH + 'px',
-
     selectionColumn =
-      props.rowSelectionMode !== 'single' && props.rowSelectionMode !== 'multi'
-        ? null
-        : <div className={classes.rowSelectionColumn} style={{
+      props.rowSelectionMode !== 'single' &&
+      props.rowSelectionMode !== 'multi' ? null : (
+        <div
+          className={classes.rowSelectionColumn}
+          style={{
             minWidth
-          }}>
-            <div className={classes.allRowsSelectionCell}>
-              {
-                props.rowSelectionMode === 'multi'
-                  ? renderSelectAllRowsCheckbox(props, state, actions, classes)
-                  : null
-              }
-            </div>
+          }}
+        >
+          <div className={classes.allRowsSelectionCell}>
+            {props.rowSelectionMode === 'multi'
+              ? renderSelectAllRowsCheckbox(props, state, actions, classes)
+              : null}
           </div>
+        </div>
+      )
 
   return (
     <div className={classes.tableHead}>
       {selectionColumn}
-      {
-        props.columns.map((column, columnIdx) =>
-          renderTableHeadCell(
-            props, state, actions, classes, columnIdx, columnWidths))
-      }
+      {props.columns.map((column, columnIdx) =>
+        renderTableHeadCell(
+          props,
+          state,
+          actions,
+          classes,
+          columnIdx,
+          columnWidths
+        )
+      )}
     </div>
   )
 }
@@ -289,36 +279,38 @@ function renderTableHeadCell(
   columnIdx: number,
   columnWidths: ColumnWidths | null
 ) {
-  const
-    column = props.columns[columnIdx],
+  const column = props.columns[columnIdx],
     isSortable = props.columns[columnIdx].sortable && !!column.field,
     isSorted = !!props.sortField && props.sortField === column.field,
     width = !columnWidths ? '' : columnWidths.dataColumns[columnIdx],
-
     className = classNames(
       classes.tableHeadCell,
-      isSortable ? classes.tableHeadCellSortable : null),
-
-    sortIcon = isSortable && isSorted
-        ? (props.sortDirection === 'asc'
-          ? <Icon iconName="jsc:up"/>
-          : <Icon iconName="jsc:down"/>)
-        : null,
-
+      isSortable ? classes.tableHeadCellSortable : null
+    ),
+    sortIcon =
+      isSortable && isSorted ? (
+        props.sortDirection === 'asc' ? (
+          <Icon iconName="jsc:up" />
+        ) : (
+          <Icon iconName="jsc:down" />
+        )
+      ) : null,
     // TODO - ugly, has to be fixed
-    onClick = 
-      !isSortable
-        ? null
-        : () => {
-          props.onTableSort && props.onTableSort({
-            type: 'tableSort',
-            sortField: column.field!,
+    onClick = !isSortable
+      ? null
+      : () => {
+          props.onTableSort &&
+            props.onTableSort({
+              type: 'tableSort',
+              sortField: column.field!,
 
-            sortDirection: props.sortField === column.field && props.sortDirection === 'asc'
-              ? 'desc'
-              : 'asc' 
-          })
-        } 
+              sortDirection:
+                props.sortField === column.field &&
+                props.sortDirection === 'asc'
+                  ? 'desc'
+                  : 'asc'
+            })
+        }
 
   return (
     <div
@@ -341,23 +333,19 @@ function renderSelectAllRowsCheckbox(
   state: DataTableState,
   actions: DataTableActions,
   classes: DataTableClasses
-) { // TODO
-  const
-    rowSelectionSize = state.selectedItems.size,
+) {
+  // TODO
+  const rowSelectionSize = state.selectedItems.size,
     checked = rowSelectionSize > 0 && rowSelectionSize === props.data.length
-  
+
   return (
     <Checkbox
       checked={checked}
-
       checkmarkIconProps={{
         iconName: 'jsc:checkmark'
       }}
-
-      onChange={
-        () => checked
-          ? actions.unselectAllItems()
-          : actions.selectItems(props.data)
+      onChange={() =>
+        checked ? actions.unselectAllItems() : actions.selectItems(props.data)
       }
     />
   )
@@ -366,20 +354,23 @@ function renderSelectAllRowsCheckbox(
 function renderTableBody(
   props: DataTableProps,
   state: DataTableState,
-  actions: DataTableActions, 
+  actions: DataTableActions,
   classes: DataTableClasses,
   width: number,
-  height: number,
+  height: number
 ) {
-  const
-    hasSelectionColumn =
-      props.rowSelectionMode === 'single' || props.rowSelectionMode === 'multi', 
-    
+  const hasSelectionColumn =
+      props.rowSelectionMode === 'single' || props.rowSelectionMode === 'multi',
     indexFirstDataColumn = Number(hasSelectionColumn),
-    columnWidths = calculateColumnWidths(props.columns, hasSelectionColumn, width)
+    columnWidths = calculateColumnWidths(
+      props.columns,
+      hasSelectionColumn,
+      width
+    )
 
   return (
-    <VariableSizeGrid key={Math.random()} // TODO
+    <VariableSizeGrid
+      key={Math.random()} // TODO
       columnCount={props.columns.length + indexFirstDataColumn}
       rowCount={props.data.length}
       rowHeight={() => 28} // TODO
@@ -392,43 +383,36 @@ function renderTableBody(
       }
     >
       {({ columnIndex, rowIndex, style }) => {
-        const
-          item = props.data[rowIndex],
+        const item = props.data[rowIndex],
           isSelectedRow = state.selectedItems.has(item),
           isEvenRow = rowIndex % 2 === 1,
-
           className = classNames(
             classes.tableBodyCell,
             !isSelectedRow && !isEvenRow ? classes.unselectedOddRow : '',
             !isSelectedRow && isEvenRow ? classes.unselectedEvenRow : '',
             isSelectedRow && !isEvenRow ? classes.selectedOddRow : '',
-            isSelectedRow && isEvenRow ? classes.selectedEvenRow : ''),
-
+            isSelectedRow && isEvenRow ? classes.selectedEvenRow : ''
+          ),
           field =
             hasSelectionColumn && columnIndex === 0
               ? null
               : props.columns[columnIndex - indexFirstDataColumn].field || null,
-          
           cellValue =
-            hasSelectionColumn && columnIndex === 0 || field == null
+            (hasSelectionColumn && columnIndex === 0) || field == null
               ? null
               : props.data[rowIndex][field]
-        
-        return (
-          hasSelectionColumn && columnIndex === 0
-            ? <div style={style} className={
-                classNames(className, classes.rowSelectionCell)}>
-                  {renderSelectRowCheckbox(
-                    props,
-                    state,
-                    actions,
-                    classes,
-                    rowIndex
-                  )}
-              </div> 
-            : <div style={style} className={className}>
-                {cellValue}
-              </div>
+
+        return hasSelectionColumn && columnIndex === 0 ? (
+          <div
+            style={style}
+            className={classNames(className, classes.rowSelectionCell)}
+          >
+            {renderSelectRowCheckbox(props, state, actions, classes, rowIndex)}
+          </div>
+        ) : (
+          <div style={style} className={className}>
+            {cellValue}
+          </div>
         )
       }}
     </VariableSizeGrid>
@@ -440,39 +424,33 @@ function calculateColumnWidths(
   hasSelectorColumn: boolean,
   totalWidth: number
 ): ColumnWidths {
-  const
-    selectionColumnWidth = hasSelectorColumn ? SELECTION_COLUMN_WIDTH : 0,
+  const selectionColumnWidth = hasSelectorColumn ? SELECTION_COLUMN_WIDTH : 0,
     columnCount = columns.length,
-
     ret = {
       selectionColumn: selectionColumnWidth,
       dataColumns: [] as number[]
     }
 
-    const
-      realTotal = totalWidth - selectionColumnWidth,
+  const realTotal = totalWidth - selectionColumnWidth,
+    ratioTotal = columns.reduce((sum, col) => {
+      return sum + (col.width || 100)
+    }, 0)
 
-      ratioTotal = columns.reduce((sum, col) => {
-        return sum + (col.width || 100)
-      }, 0)
+  let sumRealWidths = 0
 
-    let sumRealWidths = 0 
+  for (let i = 0; i < columnCount; ++i) {
+    const column = columns[i],
+      realWidth =
+        i < columnCount - 1
+          ? Math.round(((column.width || 100) * realTotal) / ratioTotal)
+          : realTotal - sumRealWidths - 0.5 // TODO: why -0.5?
 
-    for (let i = 0; i < columnCount; ++i) {
-      const
-        column = columns[i],
-  
-        realWidth =
-          i < columnCount - 1
-            ? Math.round((column.width || 100) * realTotal / ratioTotal)
-            : realTotal - sumRealWidths - 0.5 // TODO: why -0.5?
+    sumRealWidths += realWidth
 
-      sumRealWidths += realWidth
+    ret.dataColumns.push(realWidth)
+  }
 
-      ret.dataColumns.push(realWidth)
-    }
-
-    return ret
+  return ret
 }
 
 function renderSelectRowCheckbox(
@@ -482,22 +460,15 @@ function renderSelectRowCheckbox(
   classes: DataTableClasses,
   rowIndex: number
 ) {
-  const
-    item: Rec =  props.data[rowIndex],
+  const item: Rec = props.data[rowIndex],
     checked = state.selectedItems.has(item)
 
   return (
     <Checkbox
       checked={checked}
-
-      onChange={
-        () => {
-          checked
-            ? actions.unselectItems([item])
-            : actions.selectItems([item])
-        }
-      }
-
+      onChange={() => {
+        checked ? actions.unselectItems([item]) : actions.selectItems([item])
+      }}
       checkmarkIconProps={{
         iconName: 'jsc:checkmark'
       }}
@@ -509,29 +480,32 @@ function renderSelectRowCheckbox(
 
 function initDataTableState(): DataTableState {
   return {
-    selectedItems: new Set<Rec>(),
+    selectedItems: new Set<Rec>()
   }
 }
 
-const useDataTableActions = defineActions(update => ({
-  selectItems(state, items: Rec[]) {
-    const selectedItems = new Set(state.selectedItems)
-    
-    items.forEach(item => selectedItems.add(item))
-    update({ selectedItems })
-  },
-  
-  unselectItems(state, items: Rec[]) {
-    const selectedItems = new Set(state.selectedItems)
-    
-    items.forEach(item => selectedItems.delete(item))
-    update({ selectedItems })
-  },
+const useDataTableActions = defineActions(
+  update => ({
+    selectItems(state, items: Rec[]) {
+      const selectedItems = new Set(state.selectedItems)
 
-  unselectAllItems(state) {
-    update({ selectedItems: new Set() })
-  }
-}), initDataTableState)
+      items.forEach(item => selectedItems.add(item))
+      update({ selectedItems })
+    },
+
+    unselectItems(state, items: Rec[]) {
+      const selectedItems = new Set(state.selectedItems)
+
+      items.forEach(item => selectedItems.delete(item))
+      update({ selectedItems })
+    },
+
+    unselectAllItems(state) {
+      update({ selectedItems: new Set() })
+    }
+  }),
+  initDataTableState
+)
 
 // --- exports -------------------------------------------------------
 

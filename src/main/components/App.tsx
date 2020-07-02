@@ -3,24 +3,24 @@ import React, { ReactNode } from 'react'
 import { component, isNode } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
 
-import { Fabric, Customizer, ITheme } from 'office-ui-fabric-react';
+import { Fabric, Customizer, ITheme } from '@fluentui/react'
 
 // --- components ----------------------------------------------------
 
 const App = component<AppProps>({
   name: 'App',
-  
-  ...process.env.NODE_ENV === 'development' as any
+
+  ...(process.env.NODE_ENV === ('development' as any)
     ? { validate: Spec.lazy(() => validateAppProps) }
-    : null,
- 
+    : null),
+
   main: AppView
 })
 
 // --- types ---------------------------------------------------------
 
 type AppProps = {
-  theme?: ITheme,
+  theme?: ITheme
   children?: ReactNode
 }
 
@@ -35,21 +35,16 @@ const validateAppProps = Spec.checkProps({
 
 // --- view ----------------------------------------------------------
 
-function AppView({
-  theme,
-  children
-}: AppProps) {
-  return !theme
-    ? children
-    : <Customizer settings={{ theme }}>
-        <Fabric>
-           {children}
-        </Fabric>
-      </Customizer>
+function AppView({ theme, children }: AppProps) {
+  return !theme ? (
+    children
+  ) : (
+    <Customizer settings={{ theme }}>
+      <Fabric>{children}</Fabric>
+    </Customizer>
+  )
 }
-
-
 
 // --- exports -------------------------------------------------------
 
-export default App 
+export default App

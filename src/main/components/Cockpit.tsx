@@ -2,7 +2,7 @@
 import React, { ReactNode } from 'react'
 import { component, isNode } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
-import { Fabric, Customizer, ITheme } from 'office-ui-fabric-react'
+import { Fabric, Customizer, ITheme } from '@fluentui/react'
 
 // internal import
 import defineStyles from '../tools/defineStyles'
@@ -12,24 +12,24 @@ import useTheme from '../hooks/useTheme'
 
 const Cockpit = component<CockpitProps>({
   name: 'Cockpit',
-  
-  ...process.env.NODE_ENV === 'development' as any
+
+  ...(process.env.NODE_ENV === ('development' as any)
     ? { validate: Spec.lazy(() => validateCockpitProps) }
-    : null,
- 
+    : null),
+
   main: CockpitView
 })
 
 // --- types ---------------------------------------------------------
 
 type CockpitProps = {
-  look?: 'default' | 'bright',
-  theme?: ITheme,
-  slotBrand?: ReactNode,
-  slotTopNav?: ReactNode,
-  slotActions?: ReactNode,
-  slotMenu?: ReactNode,
-  slotSidebar?: ReactNode,
+  look?: 'default' | 'bright'
+  theme?: ITheme
+  slotBrand?: ReactNode
+  slotTopNav?: ReactNode
+  slotActions?: ReactNode
+  slotMenu?: ReactNode
+  slotSidebar?: ReactNode
   slotCenter?: ReactNode
 }
 
@@ -46,88 +46,92 @@ const validateCockpitProps = Spec.checkProps({
     slotActions: isNode,
     slotMenu: isNode,
     slotSidebar: isNode,
-    slotCenter: isNode,
+    slotCenter: isNode
   }
 })
 
 // --- styles --------------------------------------------------------
 
-const useCockpitStyles = defineStyles((_, theme: ITheme, look: 'default' | 'bright') => { // TODO
-  return {
-    root: {
-      display: 'flex',
-      flexDirection: 'column',
-      flexWrap: 'nowrap',
-      position: 'absolute',
-      width: '100%',
-      height: '100%',
-      top: 0,
-      left: 0,
-      padding: 0,
-      margin: 0,
-      overflow: 'hidden'
-    },
+const useCockpitStyles = defineStyles(
+  (_, theme: ITheme, look: 'default' | 'bright') => {
+    // TODO
+    return {
+      root: {
+        display: 'flex',
+        flexDirection: 'column',
+        flexWrap: 'nowrap',
+        position: 'absolute',
+        width: '100%',
+        height: '100%',
+        top: 0,
+        left: 0,
+        padding: 0,
+        margin: 0,
+        overflow: 'hidden'
+      },
 
-    header: {
-      display: 'flex',
-      flexWrap: 'nowrap',
-      alignItems: 'center',
+      header: {
+        display: 'flex',
+        flexWrap: 'nowrap',
+        alignItems: 'center',
 
-      ...look === 'default'
-        ? {
-          backgroundColor: '#484848',
-          color: 'white',
-        } : {
-          backgroundColor: theme.palette.themeDark,
-          color: theme.palette.white,
-        },
+        ...(look === 'default'
+          ? {
+              backgroundColor: '#484848',
+              color: 'white'
+            }
+          : {
+              backgroundColor: theme.palette.themeDark,
+              color: theme.palette.white
+            }),
 
-      height: '46px'
-    },
+        height: '46px'
+      },
 
-    brand: {
-      display: 'flex',
-      flexWrap: 'nowrap',
-      marginRight: '40px',
-      marginTop: '-4px' // TODO!!!
-    },
+      brand: {
+        display: 'flex',
+        flexWrap: 'nowrap',
+        marginRight: '40px',
+        marginTop: '-4px' // TODO!!!
+      },
 
-    topNav: {
-      display: 'flex',
-      flexWrap: 'nowrap',
-      flexGrow: 1
-    },
+      topNav: {
+        display: 'flex',
+        flexWrap: 'nowrap',
+        flexGrow: 1
+      },
 
-    actions: {
-      display: 'flex'
-    },
+      actions: {
+        display: 'flex'
+      },
 
-    menu: {
-      display: 'flex'
-    },
+      menu: {
+        display: 'flex'
+      },
 
-    body: {
-      display: 'flex',
-      flexGrow: 1,
-      height: '100%'
-    },
+      body: {
+        display: 'flex',
+        flexGrow: 1,
+        height: '100%'
+      },
 
-    sidebar: {
-      position: 'relative',
-//      backgroundColor: '#f8f8f8',
-      width: '250px',
-      overflow: 'auto'
-    },
+      sidebar: {
+        position: 'relative',
+        //      backgroundColor: '#f8f8f8',
+        width: '250px',
+        overflow: 'auto'
+      },
 
-    center: {
-      position: 'relative',
-      flexGrow: 1,
-//      backgroundColor: 'white',
-      margin: '3px', // TODO
-      boxSizing: 'border-box'
+      center: {
+        position: 'relative',
+        flexGrow: 1,
+        //      backgroundColor: 'white',
+        margin: '3px', // TODO
+        boxSizing: 'border-box'
+      }
     }
   }
-})
+)
 
 // --- view ----------------------------------------------------------
 
@@ -141,12 +145,10 @@ function CockpitView({
   slotSidebar,
   slotCenter
 }: CockpitProps) {
-  const
-    defaultTheme = useTheme(),
+  const defaultTheme = useTheme(),
     classes = useCockpitStyles(theme || defaultTheme, look)
 
-  const
-    header = renderHeader(slotBrand, slotTopNav, slotActions, classes),
+  const header = renderHeader(slotBrand, slotTopNav, slotActions, classes),
     menu = renderMenu(slotMenu, classes),
     body = renderBody(slotSidebar, slotCenter, classes)
 
@@ -158,13 +160,13 @@ function CockpitView({
     </div>
   )
 
-  return !theme
-    ? content
-    : <Customizer settings={{ theme }}>
-        <Fabric>
-           {content}
-        </Fabric>
-      </Customizer>
+  return !theme ? (
+    content
+  ) : (
+    <Customizer settings={{ theme }}>
+      <Fabric>{content}</Fabric>
+    </Customizer>
+  )
 }
 
 function renderHeader(
@@ -177,22 +179,21 @@ function renderHeader(
     return null
   }
 
-  const
-    col1 = !slotBrand
-      ? null
-      : <div className={classes.brand}>{slotBrand}</div>,
-    
-    col2 = !slotTopNav
-      ? null
-      : <div className={classes.topNav}>{slotTopNav}</div>,
-    
-    col3 = !slotActions
-      ? null
-      : <div className={classes.actions}>{slotActions}</div>
+  const col1 = !slotBrand ? null : (
+      <div className={classes.brand}>{slotBrand}</div>
+    ),
+    col2 = !slotTopNav ? null : (
+      <div className={classes.topNav}>{slotTopNav}</div>
+    ),
+    col3 = !slotActions ? null : (
+      <div className={classes.actions}>{slotActions}</div>
+    )
 
   return (
     <div className={classes.header}>
-      {col1}{col2}{col3}
+      {col1}
+      {col2}
+      {col3}
     </div>
   )
 }
@@ -202,26 +203,24 @@ function renderMenu(slotMenu: ReactNode, classes: Classes) {
     return null
   }
 
-  return (
-    <div className={classes.menu}>
-      {slotMenu}
-    </div>
-  )
+  return <div className={classes.menu}>{slotMenu}</div>
 }
 
-function renderBody(slotSidebar: ReactNode, slotCenter: ReactNode, classes: Classes) {
+function renderBody(
+  slotSidebar: ReactNode,
+  slotCenter: ReactNode,
+  classes: Classes
+) {
   if (!slotSidebar && !slotCenter) {
     return null
   }
-  
-  const
-    col1 = !slotSidebar
-      ? null
-      : <div className={classes.sidebar}>{slotSidebar}</div>,
-    
-    col2 = !slotCenter
-      ? null
-      : <div className={classes.center}>{slotCenter}</div>
+
+  const col1 = !slotSidebar ? null : (
+      <div className={classes.sidebar}>{slotSidebar}</div>
+    ),
+    col2 = !slotCenter ? null : (
+      <div className={classes.center}>{slotCenter}</div>
+    )
 
   return (
     <div className={classes.body}>
@@ -234,4 +233,3 @@ function renderBody(slotSidebar: ReactNode, slotCenter: ReactNode, classes: Clas
 // --- exports -------------------------------------------------------
 
 export default Cockpit
-

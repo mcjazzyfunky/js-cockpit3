@@ -3,7 +3,7 @@ import React, { FormEvent } from 'react'
 import { component, isNode } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
 
-import { TextField } from 'office-ui-fabric-react'
+import { TextField } from '@fluentui/react'
 
 // internal import
 import defineStyles from '../tools/defineStyles'
@@ -17,23 +17,23 @@ const { useCallback, useEffect, useRef, useState } = React
 
 const PasswordInput = component<PasswordInputProps>({
   name: 'PasswordInput',
-  
-  ...process.env.NODE_ENV === 'development' as any
+
+  ...(process.env.NODE_ENV === ('development' as any)
     ? { validate: Spec.lazy(() => validatePasswordInputProps) }
-    : null,
- 
+    : null),
+
   main: PasswordInputView
 })
 
 // --- types ---------------------------------------------------------
 
 type PasswordInputProps = {
-  name?: string,
-  label?: string,
-  disabled?: boolean,
-  required?: boolean,
+  name?: string
+  label?: string
+  disabled?: boolean
+  required?: boolean
   size?: 'compact' | 'default' | 'large'
-  pattern?: RegExp,
+  pattern?: RegExp
   messageOnError?: string
 }
 
@@ -55,8 +55,7 @@ const validatePasswordInputProps = Spec.checkProps({
 
 const usePasswordInputStyles = defineStyles(theme => {
   return {
-    root: {
-    },
+    root: {}
   }
 })
 
@@ -71,8 +70,7 @@ function PasswordInputView({
   pattern,
   messageOnError
 }: PasswordInputProps) {
-  const
-    [value, setValue] = useState(''),
+  const [value, setValue] = useState(''),
     [error, setError] = useState(''),
     classes = usePasswordInputStyles(),
     formCtrl = useFormCtrl(),
@@ -81,25 +79,26 @@ function PasswordInputView({
     requiredRef = useRef(required),
     patternRef = useRef(pattern),
     messageOnErrorRef = useRef(messageOnError),
+    onInput = useCallback(
+      (ev: FormEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        setValue((ev.target as any).value)
 
-    onInput = useCallback((ev: FormEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-      setValue((ev.target as any).value)
-
-      if (error) {
-        setError('')
-      }
-    }, [error])
+        if (error) {
+          setError('')
+        }
+      },
+      [error]
+    )
 
   useEffect(() => {
     nameRef.current = name
     valueRef.current = value
     requiredRef.current = required
-    patternRef.current = pattern,
-    messageOnErrorRef.current = messageOnError
+    ;(patternRef.current = pattern),
+      (messageOnErrorRef.current = messageOnError)
   }, [name, value, required, pattern, messageOnError])
-  
-  useEffect(() => {
-  }, [value])
+
+  useEffect(() => {}, [value])
 
   useEffect(() => {
     if (formCtrl) {
@@ -144,23 +143,23 @@ function PasswordInputView({
 
 // --- misc ----------------------------------------------------------
 
-function validate(value: string, required: boolean, pattern?: RegExp, messageOnError?: string) {
+function validate(
+  value: string,
+  required: boolean,
+  pattern?: RegExp,
+  messageOnError?: string
+) {
   let ret: string | null = null
 
   if (required && !value) {
-    ret = messageOnError
-      ? messageOnError
-      : 'This is a required field'
+    ret = messageOnError ? messageOnError : 'This is a required field'
   } else if (value && pattern && !pattern.test(value)) {
-    ret = messageOnError
-      ? messageOnError
-      : 'Please enter a valid value'
+    ret = messageOnError ? messageOnError : 'Please enter a valid value'
   }
 
   return ret
 }
 
-
 // --- exports -------------------------------------------------------
 
-export default PasswordInput 
+export default PasswordInput

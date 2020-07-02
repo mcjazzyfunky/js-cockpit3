@@ -4,7 +4,7 @@ import { component, isNode } from 'js-react-utils'
 import { AiOutlineCalendar as CalendarIcon } from 'react-icons/ai'
 import * as Spec from 'js-spec/validators'
 
-import { Calendar, DatePicker } from 'office-ui-fabric-react'
+import { Calendar, DatePicker } from '@fluentui/react'
 
 // internal import
 import defineStyles from '../tools/defineStyles'
@@ -18,21 +18,21 @@ const { useCallback, useEffect, useState, useRef } = React
 
 const DateInput = component<DateInputProps>({
   name: 'DateInput',
-  
-  ...process.env.NODE_ENV === 'development' as any
+
+  ...(process.env.NODE_ENV === ('development' as any)
     ? { validate: Spec.lazy(() => validateDateInputProps) }
-    : null,
- 
+    : null),
+
   main: DateInputView
 })
 
 // --- types ---------------------------------------------------------
 
 type DateInputProps = {
-  name?: string,
-  label?: string,
-  required?: boolean,
-  disabled?: boolean,
+  name?: string
+  label?: string
+  required?: boolean
+  disabled?: boolean
   messageOnError?: string
 }
 
@@ -52,8 +52,7 @@ const validateDateInputProps = Spec.checkProps({
 
 const useDateInputStyles = defineStyles(theme => {
   return {
-    root: {
-    },
+    root: {},
     xxx: {
       border: '1px solid red'
     }
@@ -69,8 +68,7 @@ function DateInputView({
   required = false,
   messageOnError
 }: DateInputProps) {
-  const
-    [value, setValue] = useState<Date | null>(null),
+  const [value, setValue] = useState<Date | null>(null),
     [error, setError] = useState(''),
     classes = useDateInputStyles(),
     formCtrl = useFormCtrl(),
@@ -78,14 +76,17 @@ function DateInputView({
     valueRef = useRef(value),
     requiredRef = useRef(required),
     messageOnErrorRef = useRef(messageOnError),
+    onChange = useCallback(
+      (ev: any) => {
+        // TODO
+        setValue(ev.date || null)
 
-    onChange = useCallback((ev: any) => { // TODO
-      setValue(ev.date || null)
-
-      if (error) {
-        setError('')
-      }
-    }, [error])
+        if (error) {
+          setError('')
+        }
+      },
+      [error]
+    )
 
   useEffect(() => {
     nameRef.current = name
@@ -93,9 +94,8 @@ function DateInputView({
     requiredRef.current = required
     messageOnErrorRef.current = messageOnError
   }, [name, value, required, messageOnError])
-  
-  useEffect(() => {
-  }, [value])
+
+  useEffect(() => {}, [value])
 
   useEffect(() => {
     if (formCtrl) {
@@ -128,45 +128,43 @@ function DateInputView({
     <FieldWrapper label={label} required={required} error={error}>
       <DatePicker
         disabled={disabled}
-        formatDate={date => !date ? '' : date.toISOString().substr(0, 10)}
+        formatDate={date => (!date ? '' : date.toISOString().substr(0, 10))}
         //error={!!error}
         onChange={onChange}
-      
         textField={{
           iconProps: {
             iconName: 'jsc:calendar'
           }
         }}
+        calendarAs={props => {
+          const newProps = {
+            ...props,
 
-        calendarAs={
-          props => {
-            const newProps = {
-              ...props,
-            
-              navigationIcons: {
-                closeIcon: 'jsc:close',
-                leftNavigation: 'jsc:down',
-                rightNavigation: 'jsc:up'
-              }
+            navigationIcons: {
+              closeIcon: 'jsc:close',
+              leftNavigation: 'jsc:down',
+              rightNavigation: 'jsc:up'
             }
-
-            return <Calendar {...newProps}/>
           }
-        }
+
+          return <Calendar {...newProps} />
+        }}
       />
-    </FieldWrapper> 
+    </FieldWrapper>
   )
 }
 
 // --- misc ----------------------------------------------------------
 
-function validate(value: Date | null, required: boolean, messageOnError?: string) {
+function validate(
+  value: Date | null,
+  required: boolean,
+  messageOnError?: string
+) {
   let ret: string | null = null
 
   if (required && !value) {
-    ret = messageOnError
-      ? messageOnError
-      : 'This is a required field'
+    ret = messageOnError ? messageOnError : 'This is a required field'
   }
 
   return ret
@@ -174,4 +172,4 @@ function validate(value: Date | null, required: boolean, messageOnError?: string
 
 // --- exports -------------------------------------------------------
 
-export default DateInput 
+export default DateInput

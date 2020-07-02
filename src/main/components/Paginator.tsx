@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react'
 import { component, isNode } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
 
-import { Icon, Text, TextField } from 'office-ui-fabric-react'
+import { Icon, Text, TextField } from '@fluentui/react'
 
 // internal import
 import defineStyles from '../tools/defineStyles'
@@ -11,36 +11,34 @@ import defineStyles from '../tools/defineStyles'
 
 const Paginator = component<PaginatorProps>({
   name: 'Paginator',
-  
-  ...process.env.NODE_ENV === 'development' as any
+
+  ...(process.env.NODE_ENV === ('development' as any)
     ? { validate: Spec.lazy(() => validatePaginatorProps) }
-    : null,
- 
+    : null),
+
   main: PaginatorView
 })
 
 // --- types ---------------------------------------------------------
 
 type PaginatorProps = {
-  pageIndex: number,
-  pageCount: number,
+  pageIndex: number
+  pageCount: number
   disabled: boolean
 }
 
 // --- validation ----------------------------------------------------
 
 const validatePaginatorProps = Spec.checkProps({
-  optional: {
-  }
+  optional: {}
 })
 
 // --- styles --------------------------------------------------------
 
 const usePaginatorStyles = defineStyles(theme => {
   return {
-    root: {
-    },
-    
+    root: {},
+
     paginator: {
       display: 'flex',
       alignItems: 'center'
@@ -70,7 +68,7 @@ const usePaginatorStyles = defineStyles(theme => {
       outline: 'none',
       border: 'none',
       cursor: 'pointer',
-      
+
       selectors: {
         ':hover': {
           backgroundColor: theme.palette.neutralLight
@@ -80,8 +78,7 @@ const usePaginatorStyles = defineStyles(theme => {
           backgroundColor: theme.palette.neutralQuaternary
         }
       }
-    },
-
+    }
   }
 })
 
@@ -90,32 +87,32 @@ const usePaginatorStyles = defineStyles(theme => {
 function PaginatorView({
   pageIndex,
   pageCount,
-  disabled = false,
+  disabled = false
 }: PaginatorProps) {
   const classes = usePaginatorStyles()
 
   return (
     <div className={classes.paginator}>
       <a className={classes.pageButton}>
-        <Icon iconName="jsc:arrowDoubleLeft"/>
+        <Icon iconName="jsc:arrowDoubleLeft" />
       </a>
       <a className={classes.pageButton}>
-        <Icon iconName="jsc:arrowLeft"/>
+        <Icon iconName="jsc:arrowLeft" />
       </a>
       <div className={classes.pageInputContainer}>
         <Text>Page</Text>
         <TextField
           className={classes.pageInput}
-          value={"1"}
+          value={'1'}
           disabled={disabled}
         />
         <Text>of 125</Text>
       </div>
       <a className={classes.pageButton}>
-        <Icon iconName="jsc:arrowRight"/>
+        <Icon iconName="jsc:arrowRight" />
       </a>
       <a className={classes.pageButton}>
-        <Icon iconName="jsc:arrowDoubleRight"/>
+        <Icon iconName="jsc:arrowDoubleRight" />
       </a>
     </div>
   )

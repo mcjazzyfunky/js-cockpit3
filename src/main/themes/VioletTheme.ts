@@ -1,5 +1,5 @@
 // external imports
-import { createTheme } from 'office-ui-fabric-react'
+import { createTheme } from '@fluentui/react'
 
 // internal import
 import { DEFAULT_FONT_FAMILY, DEFAULT_FONT_WEIGHT } from './theme-constants'
@@ -9,7 +9,7 @@ import { DEFAULT_FONT_FAMILY, DEFAULT_FONT_WEIGHT } from './theme-constants'
 export default createTheme({
   defaultFontStyle: {
     fontFamily: DEFAULT_FONT_FAMILY,
-    fontWeight: DEFAULT_FONT_WEIGHT 
+    fontWeight: DEFAULT_FONT_WEIGHT
   },
 
   palette: {
@@ -34,6 +34,6 @@ export default createTheme({
     neutralPrimary: '#333333',
     neutralDark: '#272727',
     black: '#1d1d1d',
-    white: '#ffffff',
+    white: '#ffffff'
   }
 })

@@ -1,12 +1,36 @@
 import React from 'react'
-import { ActionBar, App, WorkspaceSelector, Brand, CheckBoxGroup, Cockpit,
-  DataExplorer, DataForm, DateInput, FormSection, Fieldset, FilterBox,
-  MenuBar, RadioButtonGroup, Tabs, Tab, TextInput,
-  SelectBox, SideMenu, UserMenu,
-  DefaultTheme, ClassicTheme, BlueTheme, BlueGreenTheme, OrangeTheme, GreenTheme, VioletTheme, TealTheme
+import {
+  ActionBar,
+  App,
+  WorkspaceSelector,
+  Brand,
+  CheckBoxGroup,
+  Cockpit,
+  DataExplorer,
+  DataForm,
+  DateInput,
+  FormSection,
+  Fieldset,
+  FilterBox,
+  MenuBar,
+  RadioButtonGroup,
+  Tabs,
+  Tab,
+  TextInput,
+  SelectBox,
+  SideMenu,
+  UserMenu,
+  DefaultTheme,
+  ClassicTheme,
+  BlueTheme,
+  BlueGreenTheme,
+  OrangeTheme,
+  GreenTheme,
+  VioletTheme,
+  TealTheme
 } from '../js-cockpit'
 
-import { ITheme } from 'office-ui-fabric-react'
+import { ITheme } from '@fluentui/react'
 
 import { FiSave as SaveIcon } from 'react-icons/fi'
 import { FiSave as EditIcon } from 'react-icons/fi'
@@ -18,7 +42,7 @@ export default {
   title: 'Cockpit - Themes'
 }
 
-const menuBar = 
+const menuBar = (
   <MenuBar
     items={[
       {
@@ -30,27 +54,31 @@ const menuBar =
           {
             id: '1-1',
             type: 'item',
-            text: 'Item-1-1',
-          }, {
-            id: '1-2',
-            type: 'item',
-            text: 'Item-1-2',
-          }, {
-            id: '1-3',
-            type: 'item',
-            text: 'Item-1-2',
+            text: 'Item-1-1'
           },
           {
-            type: 'divider',
-          }, {
+            id: '1-2',
+            type: 'item',
+            text: 'Item-1-2'
+          },
+          {
+            id: '1-3',
+            type: 'item',
+            text: 'Item-1-2'
+          },
+          {
+            type: 'divider'
+          },
+          {
             id: '1-4',
             type: 'item',
-            text: 'Item-1-2',
-          }, {
+            text: 'Item-1-2'
+          },
+          {
             id: '1-5',
             type: 'item',
-            text: 'Item-1-2',
-          },
+            text: 'Item-1-2'
+          }
         ]
       },
       {
@@ -62,23 +90,27 @@ const menuBar =
           {
             id: '2-1',
             type: 'item',
-            text: 'Item-2-1',
-          }, {
-            id: '2-2',
-            type: 'item',
-            text: 'Item-2-2',
-          }, {
-            id: '2-3',
-            type: 'item',
-            text: 'Item-2-3',
+            text: 'Item-2-1'
           },
           {
-            type: 'divider',
-          }, {
+            id: '2-2',
+            type: 'item',
+            text: 'Item-2-2'
+          },
+          {
+            id: '2-3',
+            type: 'item',
+            text: 'Item-2-3'
+          },
+          {
+            type: 'divider'
+          },
+          {
             id: '2-4',
             type: 'item',
-            text: 'Item-2-4',
-          }, {
+            text: 'Item-2-4'
+          },
+          {
             id: '2-5',
             type: 'menu',
             text: 'Item-2-5',
@@ -90,9 +122,10 @@ const menuBar =
                 text: 'Item 2-5-1'
               }
             ]
-          },
+          }
         ]
-      }, {
+      },
+      {
         type: 'menu',
         id: '233',
         text: 'Menu-3',
@@ -100,86 +133,110 @@ const menuBar =
       }
     ]}
   />
+)
 
 function renderCockpit(
   theme: ITheme = DefaultTheme,
   look: 'default' | 'bright' = 'default'
 ) {
-  return <Cockpit
-    theme={theme}
-    look={look}
-    slotBrand={<Brand vendor="meet&amp;greet" title="Back Office" size="small" multicolor={false}/>}
+  return (
+    <Cockpit
+      theme={theme}
+      look={look}
+      slotBrand={
+        <Brand
+          vendor="meet&amp;greet"
+          title="Back Office"
+          size="small"
+          multicolor={false}
+        />
+      }
+      slotTopNav={
+        <WorkspaceSelector
+          menu={{
+            type: 'items',
+            activeItemId: '3',
+            items: [
+              {
+                type: 'item',
+                itemId: '1',
+                text: 'Dashboard',
+                description: 'A easy overview of your business'
+              },
+              {
+                type: 'item',
+                itemId: '2',
+                text: 'User management',
+                description: 'Handle user and user groups'
+              },
+              {
+                type: 'item',
+                itemId: '3',
+                text: 'Catalog',
+                description: 'Manage products and categories'
+              },
+              {
+                type: 'item',
+                itemId: '4',
+                text: 'CMS',
+                description: 'Content management system'
+              }
+            ]
+          }}
+        />
+      }
+      slotActions={<UserMenu displayName="Jane Doe" />}
+      //slotMenu={menuBar}
 
-    slotTopNav={
-      <WorkspaceSelector
-        menu={{
-          type: 'items',
-          activeItemId: '3',
-          items: [
-            { type: 'item', itemId: '1', text: 'Dashboard', description: 'A easy overview of your business' },
-            { type: 'item', itemId: '2', text: 'User management', description: 'Handle user and user groups' },
-            { type: 'item', itemId: '3', text: 'Catalog', description: 'Manage products and categories' },
-            { type: 'item', itemId: '4', text: 'CMS', description: 'Content management system' }
-          ]
-        }}
-      />
-    }
-
-    slotActions={
-      <UserMenu displayName="Jane Doe"/>
-    }
-
-    //slotMenu={menuBar}
-
-    slotSidebar={
-      <SideMenu
-        menu={{
-          type: 'groups',
-          activeItemId: '123',
-          groups: [
-            {
-              type: 'group',
-              title: 'Products',
-              items: [
-                {
-                  type: 'item',
-                  title: 'Manage products',
-                  itemId: '1'
-                },
-                {
-                  type: 'item',
-                  title: 'Price calculation',
-                  itemId: '123'
-                },
-                {
-                  type: 'item',
-                  title: 'Import products',
-                  itemId: '3'
-                },
-                {
-                  type: 'item',
-                  title: 'Export products',
-                  itemId: '3'
-                }
-              ]
-            },
-            {
-              type: 'group',
-              title: 'Articles',
-              items: [
-                {
-                  type: 'item',
-                  title: 'Assign articles to products',
-                  itemId: '1',
-                },
-                {
-                  type: 'item',
-                  title: 'Export articles',
-                  itemId: '2'
-                }
-              ]
-            },
-            /*
+      slotSidebar={
+        <SideMenu
+          menu={{
+            type: 'groups',
+            activeItemId: '123',
+            groups: [
+              {
+                type: 'group',
+                title: 'Products',
+                items: [
+                  {
+                    type: 'item',
+                    title: 'Manage products',
+                    itemId: '1'
+                  },
+                  {
+                    type: 'item',
+                    title: 'Price calculation',
+                    itemId: '123'
+                  },
+                  {
+                    type: 'item',
+                    title: 'Import products',
+                    itemId: '3'
+                  },
+                  {
+                    type: 'item',
+                    title: 'Export products',
+                    itemId: '3'
+                  }
+                ]
+              },
+              {
+                type: 'group',
+                title: 'Articles',
+                items: [
+                  {
+                    type: 'item',
+                    title: 'Assign articles to products',
+                    itemId: '1'
+                  },
+                  {
+                    type: 'item',
+                    title: 'Export articles',
+                    itemId: '2'
+                  }
+                ]
+              },
+              /*
             {
               type: 'group',
               title: 'Articles',
@@ -218,89 +275,85 @@ function renderCockpit(
                 }
               ]
             }*/
-            {
-              type: 'group',
-              title: 'Categories',
-              items: [
-                {
-                  type: 'item',
-                  title: 'Manage categories',
-                  itemId: '1'
-                },
-                {
-                  type: 'item',
-                  title: 'Import categories',
-                  itemId: '1'
-                },
-                {
-                  type: 'item',
-                  title: 'Export categories',
-                  itemId: '2'
-                }
-              ]
-            },
-          ]
-        }}
-      />
-    }
-    slotCenter={
-      mainContent
-    }
-  />
+              {
+                type: 'group',
+                title: 'Categories',
+                items: [
+                  {
+                    type: 'item',
+                    title: 'Manage categories',
+                    itemId: '1'
+                  },
+                  {
+                    type: 'item',
+                    title: 'Import categories',
+                    itemId: '1'
+                  },
+                  {
+                    type: 'item',
+                    title: 'Export categories',
+                    itemId: '2'
+                  }
+                ]
+              }
+            ]
+          }}
+        />
+      }
+      slotCenter={mainContent}
+    />
+  )
 }
 
-const dataExplorer =
+const dataExplorer = (
   <DataExplorer
     title="Back-office users"
-
     actions={[
       {
         type: 'general',
         text: 'New',
-        icon: <NewIcon/>
+        icon: <NewIcon />
       },
       {
         type: 'singleRow',
         text: 'Edit',
-        icon: <EditIcon/>
+        icon: <EditIcon />
       },
       {
         type: 'multiRow',
         text: 'Delete',
-        icon: <DeleteIcon/>
+        icon: <DeleteIcon />
       }
     ]}
-    
     slotFiltering={
       <FilterBox>
-       <Fieldset>
-         <TextInput name="firstName" label="First name"/>
-         <TextInput name="lastName" label="Last name"/>
-       </Fieldset>
-       <Fieldset>
-         <TextInput name="postcode" label="Postcode"/>
-         <TextInput name="city" label="City"/>
-       </Fieldset>
-       <Fieldset>
-         <DateInput name="dateFrom" label="Date from"/>
-         <DateInput name="dateTo" label="Date to"/>
-       </Fieldset>
+        <Fieldset>
+          <TextInput name="firstName" label="First name" />
+          <TextInput name="lastName" label="Last name" />
+        </Fieldset>
+        <Fieldset>
+          <TextInput name="postcode" label="Postcode" />
+          <TextInput name="city" label="City" />
+        </Fieldset>
+        <Fieldset>
+          <DateInput name="dateFrom" label="Date from" />
+          <DateInput name="dateTo" label="Date to" />
+        </Fieldset>
       </FilterBox>
     }
   />
+)
 
-
-const dataForm = 
+const dataForm = (
   <DataForm
     title="Products"
-    
     slotActions={
       <ActionBar
         actions={[
-          { actionId: 'save', text: 'Save', icon: <SaveIcon/> },
-          { actionId: 'delete', text: 'Delete', icon:  <DeleteIcon/> },
-          { actionId: 'print', text: 'Print', icon: <PrintIcon/> },
-        ]} 
+          { actionId: 'save', text: 'Save', icon: <SaveIcon /> },
+          { actionId: 'delete', text: 'Delete', icon: <DeleteIcon /> },
+          { actionId: 'print', text: 'Print', icon: <PrintIcon /> }
+        ]}
       />
     }
   >
@@ -313,18 +366,17 @@ const dataForm =
               label="Salutation"
               align="horizontal"
               value="mrs"
-
               options={[
                 { value: 'mrs', text: 'Mrs' },
                 { value: 'mr', text: 'Mrs' }
               ]}
             />
-            
-            <TextInput name="firstName" label="First name" required/>
-            <TextInput name="lastName" label="Last name" required/>
-            <TextInput name="street" label="Street" required/>
-            <TextInput name="city" label="City" required/>
-            
+
+            <TextInput name="firstName" label="First name" required />
+            <TextInput name="lastName" label="Last name" required />
+            <TextInput name="street" label="Street" required />
+            <TextInput name="city" label="City" required />
+
             <SelectBox
               name="country"
               label="Country"
@@ -338,7 +390,6 @@ const dataForm =
               name="newsletter"
               label="Newsletter"
               value="monthly"
-
               options={[
                 { value: 'weekly', text: 'weekly' },
                 { value: 'monthly', text: 'monthly' },
@@ -346,54 +397,48 @@ const dataForm =
               ]}
             />
           </Fieldset>
-            
+
           <Fieldset title="Secondary address">
-            <TextInput name="firstName" label="First name" required/>
-            <TextInput name="lastName" label="Last name" required/>
-            <TextInput name="street" label="Street" required/>
-            <TextInput name="city" label="City" required/>
+            <TextInput name="firstName" label="First name" required />
+            <TextInput name="lastName" label="Last name" required />
+            <TextInput name="street" label="Street" required />
+            <TextInput name="city" label="City" required />
 
             <CheckBoxGroup
               label="Inform about"
               name="topics"
-
               options={[
                 { key: 'internalNews', text: 'Internal News' },
                 { key: 'externalNews', text: 'Exernal News' },
-                { key: 'offers', text: 'Offers'},
-                { key: 'changes', text: 'Changes'}
+                { key: 'offers', text: 'Offers' },
+                { key: 'changes', text: 'Changes' }
               ]}
             />
-
           </Fieldset>
         </FormSection>
         <FormSection title="Meta data">
           <Fieldset>
-            <TextInput name="firstName" label="First name" required/>
-            <TextInput name="lastName" label="Last name" required/>
-            <TextInput name="street" label="Street" required/>
-            <TextInput name="city" label="City" required/>
+            <TextInput name="firstName" label="First name" required />
+            <TextInput name="lastName" label="Last name" required />
+            <TextInput name="street" label="Street" required />
+            <TextInput name="city" label="City" required />
           </Fieldset>
-            
+
           <Fieldset>
-            <TextInput name="firstName" label="First name" required/>
-            <TextInput name="lastName" label="Last name" required/>
-            <TextInput name="street" label="Street" required/>
-            <TextInput name="city" label="City" required/>
+            <TextInput name="firstName" label="First name" required />
+            <TextInput name="lastName" label="Last name" required />
+            <TextInput name="street" label="Street" required />
+            <TextInput name="city" label="City" required />
           </Fieldset>
         </FormSection>
       </Tab>
-      <Tab title="Documents">
-        {dataExplorer}
-      </Tab>
-      <Tab title="Images">
-      </Tab>
-      <Tab title="Setting">
-      </Tab>
-      <Tab title="Permission">
-      </Tab>
+      <Tab title="Documents">{dataExplorer}</Tab>
+      <Tab title="Images"></Tab>
+      <Tab title="Setting"></Tab>
+      <Tab title="Permission"></Tab>
     </Tabs>
   </DataForm>
+)
 
 /*
 const dataForm = 
@@ -488,8 +533,6 @@ const dataForm =
 */
 const mainContent = dataExplorer
 
-
-
 export const cockpitDefault = () => renderCockpit(DefaultTheme)
 export const cockpitClassic = () => renderCockpit(ClassicTheme)
 export const cockpitBlue = () => renderCockpit(BlueTheme)
@@ -502,7 +545,8 @@ export const cockpitTeal = () => renderCockpit(TealTheme)
 export const cockpitDefaultBright = () => renderCockpit(DefaultTheme, 'bright')
 export const cockpitClassicBright = () => renderCockpit(ClassicTheme, 'bright')
 export const cockpitBlueBright = () => renderCockpit(BlueTheme, 'bright')
-export const cockpitBlueGreenBright = () => renderCockpit(BlueGreenTheme, 'bright')
+export const cockpitBlueGreenBright = () =>
+  renderCockpit(BlueGreenTheme, 'bright')
 export const cockpitOrangeBright = () => renderCockpit(OrangeTheme, 'bright')
 export const cockpitGreenBright = () => renderCockpit(GreenTheme, 'bright')
 export const cockpitVioletBright = () => renderCockpit(VioletTheme, 'bright')

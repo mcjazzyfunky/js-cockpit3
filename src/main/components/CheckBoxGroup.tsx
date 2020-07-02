@@ -3,7 +3,7 @@ import React, { FormEvent } from 'react'
 import { component, isNode } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
 
-import { Stack, Checkbox } from 'office-ui-fabric-react'
+import { Stack, Checkbox } from '@fluentui/react'
 
 // internal import
 import defineStyles from '../tools/defineStyles'
@@ -17,28 +17,28 @@ const { useCallback, useEffect, useState, useRef } = React
 
 const CheckBoxGroup = component<CheckBoxGroupProps>({
   name: 'CheckBoxGroup',
-  
-  ...process.env.NODE_ENV === 'development' as any
+
+  ...(process.env.NODE_ENV === ('development' as any)
     ? { validate: Spec.lazy(() => validateCheckBoxGroupProps) }
-    : null,
- 
+    : null),
+
   main: CheckBoxGroupView
 })
 
 // --- types ---------------------------------------------------------
 
 type CheckBoxGroupProps = {
-  name?: string,
-  label?: string,
-  value?: string,
-  options?: Option[],
-  required?: boolean,
-  disabled?: boolean,
+  name?: string
+  label?: string
+  value?: string
+  options?: Option[]
+  required?: boolean
+  disabled?: boolean
   messageOnError?: string
 }
 
 type Option = {
-  key: string,
+  key: string
   text: string
 }
 
@@ -67,7 +67,7 @@ const useCheckBoxGroupStyles = defineStyles(theme => {
   return {
     root: {
       paddingTop: '3px'
-    },
+    }
   }
 })
 
@@ -82,8 +82,7 @@ function CheckBoxGroupView({
   required = false,
   messageOnError
 }: CheckBoxGroupProps) {
-  const
-    [val, setVal] = useState(''),
+  const [val, setVal] = useState(''),
     [error, setError] = useState(''),
     classes = useCheckBoxGroupStyles(),
     formCtrl = useFormCtrl(),
@@ -91,32 +90,30 @@ function CheckBoxGroupView({
     valueRef = useRef(val),
     requiredRef = useRef(required),
     messageOnErrorRef = useRef(messageOnError),
+    onInput = useCallback(
+      (ev: FormEvent<HTMLInputElement>) => {
+        setVal(ev.currentTarget.value)
 
-    onInput = useCallback((ev: FormEvent<HTMLInputElement>) => {
-      setVal(ev.currentTarget.value)
-
-      if (error) {
-        setError('')
-      }
-    }, [error])
+        if (error) {
+          setError('')
+        }
+      },
+      [error]
+    )
 
   useEffect(() => {
     nameRef.current = name
     valueRef.current = val
     requiredRef.current = required
     messageOnErrorRef.current = messageOnError
-  }, [name, val, required,  messageOnError])
-  
-  useEffect(() => {
-  }, [val])
+  }, [name, val, required, messageOnError])
+
+  useEffect(() => {}, [val])
 
   useEffect(() => {
     if (formCtrl) {
       return formCtrl.registerComponent((update: boolean) => {
-        const errorMsg = validate(
-          valueRef.current,
-          requiredRef.current
-        )
+        const errorMsg = validate(valueRef.current, requiredRef.current)
 
         if (update && errorMsg) {
           setError(errorMsg)
@@ -140,35 +137,37 @@ function CheckBoxGroupView({
     <FieldWrapper label={label} required={required} error={error}>
       <div className={classes.root}>
         <Stack tokens={{ childrenGap: 5 }}>
-          {
-            !options ? null : options.map(option => {
-              return (
-                <Checkbox
-                  key={option.key}
-                  label={option.text}
-
-                  checkmarkIconProps={{
-                    iconName: 'jsc:checkmark'
-                  }}
-                />
-              )
-            })
-          }
+          {!options
+            ? null
+            : options.map(option => {
+                return (
+                  <Checkbox
+                    key={option.key}
+                    label={option.text}
+                    checkmarkIconProps={{
+                      iconName: 'jsc:checkmark'
+                    }}
+                  />
+                )
+              })}
         </Stack>
       </div>
-    </FieldWrapper> 
+    </FieldWrapper>
   )
 }
 
 // --- misc ----------------------------------------------------------
 
-function validate(value: string, required: boolean, pattern?: RegExp, messageOnError?: string) {
+function validate(
+  value: string,
+  required: boolean,
+  pattern?: RegExp,
+  messageOnError?: string
+) {
   let ret: string | null = null
 
   if (required && !value) {
-    ret = messageOnError
-      ? messageOnError
-      : 'This is a required field'
+    ret = messageOnError ? messageOnError : 'This is a required field'
   }
 
   return ret
@@ -176,4 +175,4 @@ function validate(value: string, required: boolean, pattern?: RegExp, messageOnE
 
 // --- exports -------------------------------------------------------
 
-export default CheckBoxGroup 
+export default CheckBoxGroup

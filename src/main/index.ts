@@ -2,7 +2,7 @@
 export { default as ActionBar } from './components/ActionBar'
 export { default as App } from './components/App'
 export { default as Brand } from './components/Brand'
-export { default as CheckBox} from './components/CheckBox'
+export { default as CheckBox } from './components/CheckBox'
 export { default as CheckBoxGroup } from './components/CheckBoxGroup'
 export { default as Cockpit } from './components/Cockpit'
 export { default as DataExplorer } from './components/DataExplorer'
@@ -53,7 +53,7 @@ export { default as I18n } from './types/I18n'
 // --- register general icons ----------------------------------------
 
 import React from 'react'
-import { registerIcons } from 'office-ui-fabric-react'
+import { registerIcons } from '@fluentui/react'
 import CalendarIcon from './icons/CalendarIcon'
 import CheckmarkIcon from './icons/CheckmarkIcon'
 import ChevronDownIcon from './icons/ChevronDownIcon'
@@ -68,18 +68,21 @@ import ArrowDoubleRightIcon from './icons/ArrowDoubleRightIcon'
 
 const h = React.createElement
 
-registerIcons({
-  icons: {
-    'jsc:calendar': h(CalendarIcon),
-    'jsc:checkmark': h(CheckmarkIcon),
-    'jsc:chevronDown': h(ChevronDownIcon),
-    'jsc:chevronRight': h(ChevronRightIcon),
-    'jsc:up': h(UpIcon),
-    'jsc:down': h(DownIcon),
-    'jsc:close': h(CloseIcon),
-    'jsc:arrowLeft': h(ArrowLeftIcon),
-    'jsc:arrowRight': h(ArrowRightIcon),
-    'jsc:arrowDoubleLeft': h(ArrowDoubleLeftIcon),
-    'jsc:arrowDoubleRight': h(ArrowDoubleRightIcon),
-  }
-}, { disableWarnings: true })
+registerIcons(
+  {
+    icons: {
+      'jsc:calendar': h(CalendarIcon),
+      'jsc:checkmark': h(CheckmarkIcon),
+      'jsc:chevronDown': h(ChevronDownIcon),
+      'jsc:chevronRight': h(ChevronRightIcon),
+      'jsc:up': h(UpIcon),
+      'jsc:down': h(DownIcon),
+      'jsc:close': h(CloseIcon),
+      'jsc:arrowLeft': h(ArrowLeftIcon),
+      'jsc:arrowRight': h(ArrowRightIcon),
+      'jsc:arrowDoubleLeft': h(ArrowDoubleLeftIcon),
+      'jsc:arrowDoubleRight': h(ArrowDoubleRightIcon)
+    }
+  },
+  { disableWarnings: true }
+)

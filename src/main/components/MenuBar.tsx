@@ -3,8 +3,13 @@ import React, { ReactNode } from 'react'
 import { component, isNode } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
 
-import { CommandBar, CommandBarButton, ICommandBarItemProps, IComponentAs, IButtonProps }
-  from 'office-ui-fabric-react'
+import {
+  CommandBar,
+  CommandBarButton,
+  ICommandBarItemProps,
+  IComponentAs,
+  IButtonProps
+} from '@fluentui/react'
 
 // internal import
 import defineStyles from '../tools/defineStyles'
@@ -13,33 +18,33 @@ import defineStyles from '../tools/defineStyles'
 
 const MenuBar = component<MenuBarProps>({
   name: 'MenuBar',
-  
-  ...process.env.NODE_ENV === 'development' as any
+
+  ...(process.env.NODE_ENV === ('development' as any)
     ? { validate: Spec.lazy(() => validateMenuBarProps) }
-    : null,
- 
+    : null),
+
   main: MenuBarView
 })
 
 // --- types ---------------------------------------------------------
 
 type MenuBarProps = {
-  items: (Menu | Item | Divider)[],
+  items: (Menu | Item | Divider)[]
   onAction?: (ev: ActionEvent) => void
 }
 
 type Menu = {
-  type: 'menu',
-  id: string, 
-  text: string,
-  items: (Menu | Item | Divider)[] 
+  type: 'menu'
+  id: string
+  text: string
+  items: (Menu | Item | Divider)[]
 }
 
 type Item = {
-  type: 'item',
-  id: string,
-  text: string,
-  disabled?: boolean,
+  type: 'item'
+  id: string
+  text: string
+  disabled?: boolean
   onAction?: (ev: ActionEvent) => void
 }
 
@@ -52,8 +57,7 @@ type ActionEvent = any // TODO
 // --- validation ----------------------------------------------------
 
 const validateMenuBarProps = Spec.checkProps({
-  optional: {
-  }
+  optional: {}
 })
 
 // --- styles --------------------------------------------------------
@@ -67,7 +71,7 @@ const useMenuBarStyles = defineStyles(theme => {
       borderColor: theme.palette.neutralTertiary,
       backgroundColor: theme.palette.neutralQuaternaryAlt,
       borderStyle: 'solid',
-      
+
       selectors: {
         '& *': {
           backgroundColor: 'transparent !important',
@@ -82,56 +86,51 @@ const useMenuBarStyles = defineStyles(theme => {
         '& .ms-Button-flexContainer:hover': {
           backgroundColor: theme.palette.neutralTertiary + ' !important'
         }
-      },
+      }
     },
 
     inner: {
       display: 'flex',
       flexDirection: 'row',
-      alignItems: 'center',
+      alignItems: 'center'
     },
 
     commandBar: {
       borderWidth: '0 0 1px 0',
       borderStyle: 'solid',
-//      borderColor:  '#888', 
-      flex: 1,
+      //      borderColor:  '#888',
+      flex: 1
     }
   }
 })
 
 // --- view ----------------------------------------------------------
 
-function MenuBarView({
-  items,
-  onAction
-}: MenuBarProps) {
- 
- let
-    ret = null,
+function MenuBarView({ items, onAction }: MenuBarProps) {
+  let ret = null,
     buttonAs: IComponentAs<IButtonProps>
 
-  const
-    classes = useMenuBarStyles(),
+  const classes = useMenuBarStyles(),
     itemCount = items.length
 
-  buttonAs = props => 
-    <CommandBarButton 
+  buttonAs = props => (
+    <CommandBarButton
       {...props}
-
       menuIconProps={{
         iconName: 'jsc:chevronDown'
       }}
-
-      menuProps={{
-        ...props.menuProps,
-        isBeakVisible: true,
-        gapSpace: -6
-      } as any}
+      menuProps={
+        {
+          ...props.menuProps,
+          isBeakVisible: true,
+          gapSpace: -6
+        } as any
+      }
     />
+  )
 
   if (itemCount > 0) {
-    ret =
+    ret = (
       <div data-component="jsc:MenuBar" className={classes.root}>
         <div className={classes.inner}>
           <CommandBar
@@ -141,6 +140,7 @@ function MenuBarView({
           />
         </div>
       </div>
+    )
   }
 
   return ret
@@ -157,8 +157,7 @@ function getItemProps(
   const ret: ICommandBarItemProps[] = []
 
   for (let i = 0; i < items.length; ++i) {
-    const
-      child = items[i],
+    const child = items[i],
       type = child.type
 
     let item: ICommandBarItemProps
@@ -177,7 +176,7 @@ function getItemProps(
           text: child.text,
 
           subMenuProps: {
-            items: getItemProps(child.items, baseOnAction),
+            items: getItemProps(child.items, baseOnAction)
           },
 
           submenuIconProps: {
@@ -185,10 +184,9 @@ function getItemProps(
           }
         }
         break
-      
+
       case 'item': {
-        const
-          id = child.id,
+        const id = child.id,
           childOnAction = child.onAction
 
         let onClick: (() => void) | undefined
@@ -199,7 +197,7 @@ function getItemProps(
             kind: 'command',
             id
           }
-  
+
           onClick = () => {
             if (childOnAction) {
               childOnAction(event)

@@ -1,4 +1,4 @@
 // external imports
-import { createTheme } from 'office-ui-fabric-react'
+import { createTheme } from '@fluentui/react'
 
 export default createTheme({})

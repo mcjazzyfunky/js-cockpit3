@@ -1,9 +1,14 @@
 // external imports
 import React, { ReactNode } from 'react'
-import { component, isNode, isElementOfType, withChildren } from 'js-react-utils'
+import {
+  component,
+  isNode,
+  isElementOfType,
+  withChildren
+} from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
 
-import { Pivot, PivotItem } from 'office-ui-fabric-react'
+import { Pivot, PivotItem } from '@fluentui/react'
 
 // internal import
 import defineStyles from '../tools/defineStyles'
@@ -16,11 +21,11 @@ const { Children } = React
 
 const Tabs = component<TabsProps>({
   name: 'Tabs',
-  
-  ...process.env.NODE_ENV === 'development' as any
+
+  ...(process.env.NODE_ENV === ('development' as any)
     ? { validate: Spec.lazy(() => validateTabsProps) }
-    : null,
- 
+    : null),
+
   main: TabsView
 })
 
@@ -42,16 +47,13 @@ const validateTabsProps = Spec.checkProps({
 
 const useTabsStyles = defineStyles(theme => {
   return {
-    root: {
-    },
+    root: {}
   }
 })
 
 // --- view ----------------------------------------------------------
 
-function TabsView({
-  children
-}: TabsProps) {
+function TabsView({ children }: TabsProps) {
   const classes = useTabsStyles()
 
   // Children.map would modify keys
@@ -67,9 +69,7 @@ function TabsView({
 
   return (
     <div data-component="jsc:Tabs" className={classes.root}>
-      <Pivot>
-        {pages}
-      </Pivot>
+      <Pivot>{pages}</Pivot>
     </div>
   )
 }

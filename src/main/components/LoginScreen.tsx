@@ -5,8 +5,14 @@ import { IoIosUnlock as LoginIcon } from 'react-icons/io'
 import * as Spec from 'js-spec/validators'
 
 import {
-  Customizer, Fabric, FocusTrapZone, PrimaryButton, Spinner, SpinnerSize, ITheme
-} from 'office-ui-fabric-react'
+  Customizer,
+  Fabric,
+  FocusTrapZone,
+  PrimaryButton,
+  Spinner,
+  SpinnerSize,
+  ITheme
+} from '@fluentui/react'
 
 // internal import
 import defineStyles from '../tools/defineStyles'
@@ -25,21 +31,21 @@ const { useCallback, useState } = React
 
 const LoginScreen = component({
   name: 'LoginScreen',
-  
-  ...process.env.NODE_ENV === 'development' as any && {
+
+  ...(process.env.NODE_ENV === ('development' as any) && {
     validate: Spec.lazy(() => validateLoginScreenProps)
-  },
- 
+  }),
+
   main: LoginScreenView
 })
 
 // --- types ---------------------------------------------------------
 
 type LoginScreenProps = {
-  slotHeader?: ReactNode,
-  slotFooter?: ReactNode,
-  slotLoginIntro?: ReactNode,
-  slotLoginFields?: ReactNode,
+  slotHeader?: ReactNode
+  slotFooter?: ReactNode
+  slotLoginIntro?: ReactNode
+  slotLoginFields?: ReactNode
   performLogin?: (data: Record<string, any>) => Promise<void>
   theme?: ITheme
 }
@@ -61,7 +67,8 @@ const validateLoginScreenProps = Spec.checkProps<LoginScreenProps>({
 
 // --- styles --------------------------------------------------------
 
-const useLoginScreenStyles = defineStyles((_, theme: ITheme) => { // TODO
+const useLoginScreenStyles = defineStyles((_, theme: ITheme) => {
+  // TODO
   return {
     root: {
       display: 'flex',
@@ -76,7 +83,7 @@ const useLoginScreenStyles = defineStyles((_, theme: ITheme) => { // TODO
 
       selectors: {
         '@media(max-width: 640px)': {
-          backgroundColor: theme.palette.white,
+          backgroundColor: theme.palette.white
         }
       }
     },
@@ -96,7 +103,7 @@ const useLoginScreenStyles = defineStyles((_, theme: ITheme) => { // TODO
           flexGrow: 0,
           padding: '5px 0',
           color: theme.palette.white,
-          backgroundColor: theme.palette.themeSecondary,
+          backgroundColor: theme.palette.themeSecondary
         }
       }
     },
@@ -130,17 +137,17 @@ const useLoginScreenStyles = defineStyles((_, theme: ITheme) => { // TODO
       fontFamily: theme.fonts.mediumPlus.fontFamily,
       fontSize: theme.fonts.mediumPlus.fontSize,
       color: theme.palette.neutralSecondaryAlt,
-      
+
       selectors: {
         '@media(max-width: 640px)': {
           flexGrow: 0,
           color: theme.palette.white,
           backgroundColor: theme.palette.themeSecondary,
-          padding: '5px 0',
+          padding: '5px 0'
         }
       }
     },
-    
+
     column1: {
       flexGrow: 5,
       display: 'flex',
@@ -152,20 +159,20 @@ const useLoginScreenStyles = defineStyles((_, theme: ITheme) => { // TODO
       borderRadius: '6px 0 0 6px',
       textAlign: 'center',
 
-      backgroundImage: `url('data:image/svg+xml;charset=UTF-8,`
-        + `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">`
-        + '<g transform="translate(0 15)">'
-        + `<circle fill="white" opacity="0.14" cx="0" cy="50" r="30"/>`
-        + `<circle fill="white" opacity="0.14" cx="10" cy="80" r="50"/>`
-        + `<circle fill="white" opacity="0.14" cx="10" cy="100" r="30"/>`
-        + `<circle fill="white" opacity="0.17" cx="70" cy="100" r="65"/>`
-        + `<circle fill="white" opacity="0.16" cx="120" cy="60" r="50"/>`
-        + '</g>'
-        + `</svg>')`,
+      backgroundImage:
+        `url('data:image/svg+xml;charset=UTF-8,` +
+        `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">` +
+        '<g transform="translate(0 15)">' +
+        `<circle fill="white" opacity="0.14" cx="0" cy="50" r="30"/>` +
+        `<circle fill="white" opacity="0.14" cx="10" cy="80" r="50"/>` +
+        `<circle fill="white" opacity="0.14" cx="10" cy="100" r="30"/>` +
+        `<circle fill="white" opacity="0.17" cx="70" cy="100" r="65"/>` +
+        `<circle fill="white" opacity="0.16" cx="120" cy="60" r="50"/>` +
+        '</g>' +
+        `</svg>')`,
 
       backgroundRepeat: 'no-repeat',
       backgroundPosition: 'bottom',
-
 
       selectors: {
         '@media(max-width: 640px)': {
@@ -174,7 +181,7 @@ const useLoginScreenStyles = defineStyles((_, theme: ITheme) => { // TODO
           margin: '1em 2em',
           padding: 0,
           background: 'none',
-          borderRadius: 0,
+          borderRadius: 0
         }
       }
     },
@@ -189,23 +196,22 @@ const useLoginScreenStyles = defineStyles((_, theme: ITheme) => { // TODO
       flexGrow: 7,
       backgroundColor: theme.palette.white,
       borderRadius: '0 6px 6px 0',
-      
+
       selectors: {
         '@media(max-width: 640px)': {
           display: 'block',
           minWidth: '300px',
           background: 'none',
-          borderRadius: 0,
+          borderRadius: 0
         }
       }
     },
 
     column1Top: {
-      flexGrow: 1,
+      flexGrow: 1
     },
 
-    column1Bottom: {
-    },
+    column1Bottom: {},
 
     headline: {
       fontFamily: theme.fonts.large.fontFamily,
@@ -214,7 +220,7 @@ const useLoginScreenStyles = defineStyles((_, theme: ITheme) => { // TODO
       marginTop: '10px',
       height: '40px'
     },
-    
+
     subheadline: {
       fontFamily: theme.fonts.medium.fontFamily,
       fontSize: '16px',
@@ -226,11 +232,10 @@ const useLoginScreenStyles = defineStyles((_, theme: ITheme) => { // TODO
       flexGrow: 1
     },
 
-    column2Bottom: {
-    },
+    column2Bottom: {},
 
     rememberLogin: {
-      margin: '1em 0 0 0',
+      margin: '1em 0 0 0'
     },
 
     loginButton: {
@@ -298,23 +303,22 @@ function LoginScreenView({
   performLogin,
   theme
 }: LoginScreenProps) {
-  const
-    i18n = useI18n(),
+  const i18n = useI18n(),
     [isLoading, setLoading] = useState(false),
     [errorMsg, setErrorMsg] = useState(''),
     defaultTheme = useTheme(),
     classes = useLoginScreenStyles(theme || defaultTheme),
     [_, LoginForm, setSubmitHandler] = useFormMgmt(),
-    
-    rememberLoginLabel =
-      i18n.getText('jsc.LoginScreen.rememberLoginLabel', null,
-        'Remember login'),
-    
-    defaultLoginErrorMsg =
-      i18n.getText('jsc.LoginScreen.defaultLogiErrorMessage', null,
-        'Could not log in'),
-
-
+    rememberLoginLabel = i18n.getText(
+      'jsc.LoginScreen.rememberLoginLabel',
+      null,
+      'Remember login'
+    ),
+    defaultLoginErrorMsg = i18n.getText(
+      'jsc.LoginScreen.defaultLogiErrorMessage',
+      null,
+      'Could not log in'
+    ),
     onFormInput = useCallback(() => {
       if (errorMsg) {
         setErrorMsg('')
@@ -324,28 +328,26 @@ function LoginScreenView({
   setSubmitHandler(data => {
     if (performLogin && !isLoading) {
       const result = performLogin(data)
-        
+
       if (result && typeof result.then === 'function') {
         setErrorMsg('')
         setLoading(true)
 
         result
-          .then(() => {
-
-          })
+          .then(() => {})
           .catch(error => {
             let msg = !error
               ? ''
               : typeof error === 'string'
-                ? error.trim()
-                : error instanceof Error
-                  ? error.message
-                  : '' 
+              ? error.trim()
+              : error instanceof Error
+              ? error.message
+              : ''
 
             if (!msg) {
               msg = defaultLoginErrorMsg
             }
-            
+
             setErrorMsg(msg)
           })
           .finally(() => {
@@ -361,30 +363,28 @@ function LoginScreenView({
       <div className={classes.body}>
         <div className={classes.column1}>
           <div className={classes.column1Top}>
-            {
-              slotLoginIntro
-                ? slotLoginIntro
-                : renderDefaultLoginIntro(classes, i18n)
-            }
+            {slotLoginIntro
+              ? slotLoginIntro
+              : renderDefaultLoginIntro(classes, i18n)}
           </div>
           <div className={classes.column1Bottom}>
-            <LoginIcon size="70" className={classes.loginIcon}/>
+            <LoginIcon size="70" className={classes.loginIcon} />
           </div>
         </div>
 
         <LoginForm onInput={onFormInput} className={classes.column2}>
-          { !isLoading ? null : <div className={classes.loadingPane}/>}
+          {!isLoading ? null : <div className={classes.loadingPane} />}
           <div className={classes.column2Top}>
-            {
-              slotLoginFields
-                ? slotLoginFields
-                : renderDefaultLoginFields(classes, i18n)
-            }
+            {slotLoginFields
+              ? slotLoginFields
+              : renderDefaultLoginFields(classes, i18n)}
           </div>
           <div className={classes.column2Bottom}>
-            {errorMsg ? <div className={classes.errorMsg}>{errorMsg}</div> : null}
+            {errorMsg ? (
+              <div className={classes.errorMsg}>{errorMsg}</div>
+            ) : null}
             <div className={classes.rememberLogin}>
-              <CheckBox name="rememberLogin" label={rememberLoginLabel}/>
+              <CheckBox name="rememberLogin" label={rememberLoginLabel} />
             </div>
             {renderLoginButton(isLoading, classes, i18n)}
             <FocusTrapZone disabled={!isLoading}>
@@ -397,50 +397,38 @@ function LoginScreenView({
     </div>
   )
 
-  return !theme
-    ? content
-    : <Customizer settings={{ theme }}>
-        <Fabric>
-           {content}
-        </Fabric>
-      </Customizer>
+  return !theme ? (
+    content
+  ) : (
+    <Customizer settings={{ theme }}>
+      <Fabric>{content}</Fabric>
+    </Customizer>
+  )
 }
 
-function renderHeader(
-  slotHeader: ReactNode,
-  classes: Classes
-) {
+function renderHeader(slotHeader: ReactNode, classes: Classes) {
   if (!slotHeader) {
     return null
   }
 
-  return (
-    <div className={classes.header}>
-      {slotHeader}
-    </div>
-  )
+  return <div className={classes.header}>{slotHeader}</div>
 }
 
-function renderFooter(
-  slotFooter: ReactNode,
-  classes: Classes
-) {
+function renderFooter(slotFooter: ReactNode, classes: Classes) {
   if (!slotFooter) {
     return null
   }
 
-  return (
-    <div className={classes.footer}>
-      {slotFooter}
-    </div>
-  )
+  return <div className={classes.footer}>{slotFooter}</div>
 }
 
 function renderDefaultLoginIntro(classes: Classes, { getText }: I18n) {
-  const
-    headline = getText('jsc.LoginScreen.loginHeadline', null, 'Login'),
-    text = getText('jsc.LoginScreen.loginText', null,
-      'Please enter your personal credentials to log in')
+  const headline = getText('jsc.LoginScreen.loginHeadline', null, 'Login'),
+    text = getText(
+      'jsc.LoginScreen.loginText',
+      null,
+      'Please enter your personal credentials to log in'
+    )
 
   return (
     <div className={classes.defaultIntro}>
@@ -451,15 +439,18 @@ function renderDefaultLoginIntro(classes: Classes, { getText }: I18n) {
 }
 
 function renderDefaultLoginFields(classes: Classes, { getText }: I18n) {
-  const
-    usernameLabel = getText('jsc.LoginScreen.username', null, 'Username'),
+  const usernameLabel = getText('jsc.LoginScreen.username', null, 'Username'),
     passwordLabel = getText('jsc.LoginScreen.username', null, 'Password'),
-    
-    usernameErrorMsg = getText('jsc.LoginScreen.usernameErrorMessage', null,
-      'Please enter a username'),
-
-    passwordErrorMsg = getText('jsc.LoginScreen.passwordErrorMessage', null,
-      'Please enter a password')
+    usernameErrorMsg = getText(
+      'jsc.LoginScreen.usernameErrorMessage',
+      null,
+      'Please enter a username'
+    ),
+    passwordErrorMsg = getText(
+      'jsc.LoginScreen.passwordErrorMessage',
+      null,
+      'Please enter a password'
+    )
 
   return (
     <>
@@ -480,30 +471,34 @@ function renderDefaultLoginFields(classes: Classes, { getText }: I18n) {
   )
 }
 
-function renderLoginButton(isLoading: boolean, classes: Classes, { getText }: I18n) {
-  const
-    loginButtonLabel = getText(
-      'jsc.LoginScreen.loginButtonLabel', null, 'Log in'),
-
+function renderLoginButton(
+  isLoading: boolean,
+  classes: Classes,
+  { getText }: I18n
+) {
+  const loginButtonLabel = getText(
+      'jsc.LoginScreen.loginButtonLabel',
+      null,
+      'Log in'
+    ),
     loginButtonLoadingLabel = getText(
-      'jsc.LoginScreen.loginButtonLoginLabel', null, 'Logging in..'),
-
-    loginButtonText = isLoading
-      ? loginButtonLoadingLabel
-      : loginButtonLabel,
-  
-    spinner = isLoading
-      ? <Spinner size={SpinnerSize.small} className={classes.spinner}/>
-      : null
+      'jsc.LoginScreen.loginButtonLoginLabel',
+      null,
+      'Logging in..'
+    ),
+    loginButtonText = isLoading ? loginButtonLoadingLabel : loginButtonLabel,
+    spinner = isLoading ? (
+      <Spinner size={SpinnerSize.small} className={classes.spinner} />
+    ) : null
 
   return (
-      <PrimaryButton type="submit" className={classes.loginButton}>
-        {loginButtonText}
-        {spinner}
+    <PrimaryButton type="submit" className={classes.loginButton}>
+      {loginButtonText}
+      {spinner}
     </PrimaryButton>
   )
 }
 
 // --- exports -------------------------------------------------------
 
-export default LoginScreen 
+export default LoginScreen

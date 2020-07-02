@@ -3,7 +3,7 @@ import React, { ReactNode } from 'react'
 import { component, isNode } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
 
-import { ActionButton, DefaultButton } from 'office-ui-fabric-react'
+import { ActionButton, DefaultButton } from '@fluentui/react'
 
 // internal import
 import defineStyles from '../tools/defineStyles'
@@ -13,11 +13,11 @@ import { icons } from 'react-icons/lib/cjs'
 
 const ActionBar = component<ActionBarProps>({
   name: 'ActionBar',
-  
-  ...process.env.NODE_ENV === 'development' as any
+
+  ...(process.env.NODE_ENV === ('development' as any)
     ? { validate: Spec.lazy(() => validateActionBarProps) }
-    : null,
- 
+    : null),
+
   main: ActionBarView
 })
 
@@ -28,24 +28,22 @@ type ActionBarProps = {
 }
 
 type Action = {
-  text: string,
-  actionId: string,
+  text: string
+  actionId: string
   icon?: ReactNode
 }
 
 // --- validation ----------------------------------------------------
 
 const validateActionBarProps = Spec.checkProps({
-  optional: {
-  }
+  optional: {}
 })
 
 // --- styles --------------------------------------------------------
 
 const useActionBarStyles = defineStyles(theme => {
   return {
-    root: {
-    },
+    root: {},
 
     actionButton: {
       selectors: {
@@ -65,40 +63,32 @@ const useActionBarStyles = defineStyles(theme => {
 
     actionIcon: {
       //color: theme.palette.themePrimary,
-      margin: '2px 1px 0 0',
+      margin: '2px 1px 0 0'
     }
   }
 })
 
 // --- view ----------------------------------------------------------
 
-function ActionBarView({
-  actions
-}: ActionBarProps) {
+function ActionBarView({ actions }: ActionBarProps) {
   const classes = useActionBarStyles()
 
   return (
     <div className={classes.root}>
-      {
-        actions.map(action => {
-          return (
-            <ActionButton
-              className={classes.actionButton}
-
-              onRenderIcon={
-                action.icon
-                  ? () =>
-                      <div className={classes.actionIcon}>
-                        {action.icon}
-                      </div>
-                  : undefined
-              }
-            >
-              {action.text}
-            </ActionButton>
-          )
-        })
-      }
+      {actions.map(action => {
+        return (
+          <ActionButton
+            className={classes.actionButton}
+            onRenderIcon={
+              action.icon
+                ? () => <div className={classes.actionIcon}>{action.icon}</div>
+                : undefined
+            }
+          >
+            {action.text}
+          </ActionButton>
+        )
+      })}
     </div>
   )
 }

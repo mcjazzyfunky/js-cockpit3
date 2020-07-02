@@ -3,7 +3,7 @@ import React, { ReactElement, ReactNode, Ref } from 'react'
 import { component, isNode } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
 
-import { ActionButton } from 'office-ui-fabric-react'
+import { ActionButton } from '@fluentui/react'
 
 // internal imports
 import defineStyles from '../tools/defineStyles'
@@ -16,69 +16,86 @@ import useForceUpdate from '../hooks/useForceUpdate'
 import Rec from '../types/Rec'
 
 // derived imports
-const { forwardRef, useCallback, useEffect, useImperativeHandle, useRef, useState } = React
+const {
+  forwardRef,
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState
+} = React
 
 // --- omponents -----------------------------------------------------
 
 const DataExplorer = component<DataExplorerProps>({
   name: 'DataExplorer',
-  
-  ...process.env.NODE_ENV === 'development' as any
+
+  ...(process.env.NODE_ENV === ('development' as any)
     ? { validate: Spec.lazy(() => validateDataExplorerProps) }
-    : null,
-  
-    main: DataExplorerView
+    : null),
+
+  main: DataExplorerView
 })
 
-const ActionBar = forwardRef((props: {
-  config: DataExplorerProps['actions'],
-  actions: DataExplorerActions,
-  classes: DataExplorerClasses,
-  getNumSelectedRows: () => number
-}, ref: any) => {
-  const forceUpdate = useForceUpdate()
+const ActionBar = forwardRef(
+  (
+    props: {
+      config: DataExplorerProps['actions']
+      actions: DataExplorerActions
+      classes: DataExplorerClasses
+      getNumSelectedRows: () => number
+    },
+    ref: any
+  ) => {
+    const forceUpdate = useForceUpdate()
 
-  useImperativeHandle(ref, () => ({ 
-    forceUpdate
-  }), [forceUpdate])
+    useImperativeHandle(
+      ref,
+      () => ({
+        forceUpdate
+      }),
+      [forceUpdate]
+    )
 
-  return renderActionButtons(
-    props.config,
-    props.actions,
-    props.classes,
-    props.getNumSelectedRows())
-})
+    return renderActionButtons(
+      props.config,
+      props.actions,
+      props.classes,
+      props.getNumSelectedRows()
+    )
+  }
+)
 
 // --- types ---------------------------------------------------------
 
 type DataExplorerProps = {
-  title?: string,
-   actions:
-    (DataExplorerGeneralAction
-      | DataExplorerSingleRowAction
-      | DataExplorerMultiRowAction)[],
+  title?: string
+  actions: (
+    | DataExplorerGeneralAction
+    | DataExplorerSingleRowAction
+    | DataExplorerMultiRowAction
+  )[]
 
   slotFiltering?: ReactNode
 }
 
-type DataExplorerState = {
-}
+type DataExplorerState = {}
 
 type DataExplorerSingleRowAction = {
-  type: 'singleRow',
-  text: string,
+  type: 'singleRow'
+  text: string
   icon?: ReactElement
 }
 
 type DataExplorerMultiRowAction = {
-  type: 'multiRow',
-  text: string,
+  type: 'multiRow'
+  text: string
   icon?: ReactElement
 }
 
 type DataExplorerGeneralAction = {
-  type: 'general',
-  text: string,
+  type: 'general'
+  text: string
   icon?: ReactElement
 }
 
@@ -115,12 +132,12 @@ const useDataExplorerStyles = defineStyles(theme => {
       borderColor: theme.palette.neutralQuaternary,
       borderStyle: 'solid',
       marginBottom: '3px',
-      padding: '4px 10px',
+      padding: '4px 10px'
     },
 
     body: {
       flexGrow: 1,
-      position: 'relative',
+      position: 'relative'
     },
 
     footer: {
@@ -131,7 +148,7 @@ const useDataExplorerStyles = defineStyles(theme => {
       margin: '0 0 -3px 0',
       borderStyle: 'solid',
       borderColor: theme.palette.neutralQuaternaryAlt,
-      borderWidth: '.5px 0 0 0',
+      borderWidth: '.5px 0 0 0'
     },
 
     title: {
@@ -139,11 +156,10 @@ const useDataExplorerStyles = defineStyles(theme => {
       fontSize: theme.fonts.large.fontSize,
       fontWeight: 400,
       padding: '3px 4px',
-      margin: '0 28px 0 0',
+      margin: '0 28px 0 0'
     },
 
-    actionButtons: {
-    },
+    actionButtons: {},
 
     actionButton: {
       selectors: {
@@ -156,7 +172,7 @@ const useDataExplorerStyles = defineStyles(theme => {
         ':active': {
           borderRadius: 0,
           color: theme.palette.black,
-          backgroundColor: theme.palette.neutralQuaternary,
+          backgroundColor: theme.palette.neutralQuaternary
         }
       }
     },
@@ -166,38 +182,29 @@ const useDataExplorerStyles = defineStyles(theme => {
     },
 
     filtering: {
-      padding: '0.5em 1em 0.8em 1em',
+      padding: '0.5em 1em 0.8em 1em'
     }
   }
 })
 
 // --- views ---------------------------------------------------------
 
-function DataExplorerView(
-  props: DataExplorerProps
-) {
-  const
-    [actions, state] = useDataExplorerActions(),
+function DataExplorerView(props: DataExplorerProps) {
+  const [actions, state] = useDataExplorerActions(),
     classes = useDataExplorerStyles(),
     actionBarRef = useRef<{ forceUpdate: () => void }>(),
     selectedRowsRef = useRef<Set<Rec>>(new Set()),
-
     getNumSelectedRows = useCallback(() => {
       return selectedRowsRef.current ? selectedRowsRef.current.size : 0
     }, []),
-
     onSelectionChange = useCallback((selectedRows: Set<Rec>) => {
       selectedRowsRef.current = selectedRows
       actionBarRef.current && actionBarRef.current.forceUpdate()
     }, []),
-    
-    filtering = !props.slotFiltering
-      ? null
-      : <div className={classes.filtering}>
-          {props.slotFiltering}
-        </div>,
-
-    actionBar =
+    filtering = !props.slotFiltering ? null : (
+      <div className={classes.filtering}>{props.slotFiltering}</div>
+    ),
+    actionBar = (
       <ActionBar
         ref={actionBarRef}
         config={props.actions}
@@ -205,6 +212,7 @@ function DataExplorerView(
         actions={actions}
         getNumSelectedRows={getNumSelectedRows}
       />
+    )
 
   return (
     <div className={classes.root}>
@@ -225,14 +233,10 @@ function renderHeader(
 ) {
   return (
     <div className={classes.header}>
-      <div className={classes.title}>
-        {props.title}
-      </div>
-      <div className={classes.actionButtons}>
-        {actionBar}
-      </div>
+      <div className={classes.title}>{props.title}</div>
+      <div className={classes.actionButtons}>{actionBar}</div>
     </div>
-  ) 
+  )
 }
 
 function renderActionButtons(
@@ -244,10 +248,9 @@ function renderActionButtons(
   const buttons: ReactNode[] = []
 
   config.forEach((item, idx) => {
-    const
-      disabled =
-        item.type === 'singleRow' && numSelectedRows !== 1
-            || item.type === 'multiRow' && numSelectedRows === 0
+    const disabled =
+      (item.type === 'singleRow' && numSelectedRows !== 1) ||
+      (item.type === 'multiRow' && numSelectedRows === 0)
 
     /*
     if (idx > 0) {
@@ -258,34 +261,28 @@ function renderActionButtons(
     }
     */
 
-    const
-      hasIcon = !!item.icon,
+    const hasIcon = !!item.icon,
       iconProps = hasIcon ? { iconName: 'icon' } : null,
-
       actionButtonClassName = classes.actionButton, // TODO
+      onRenderIcon = !item.icon ? undefined : () => item.icon as JSX.Element,
+      // TODO
+      //        disabled
+      //          ? css(classes.actionButton, classes.actionButtonDisabled)
+      //          : classes.actionButton,
 
-      onRenderIcon = !item.icon
-        ? undefined
-        : () => item.icon as JSX.Element,
-
-// TODO
-//        disabled
-//          ? css(classes.actionButton, classes.actionButtonDisabled)
-//          : classes.actionButton,
-      
       iconClassName = null // TODO
 
-// TODO
-//      hasIcon
-//          ? (disabled ? classes.actionIconDisabled : classes.actionIcon)
-//          : undefined
+    // TODO
+    //      hasIcon
+    //          ? (disabled ? classes.actionIconDisabled : classes.actionIcon)
+    //          : undefined
 
     buttons.push(
       <ActionButton disabled={disabled} onRenderIcon={onRenderIcon}>
         {item.text}
-      </ActionButton>)
-    
-    
+      </ActionButton>
+    )
+
     /*
     ({
       key: String(idx),
@@ -299,7 +296,7 @@ function renderActionButtons(
     })
     */
   })
- 
+
   return <div>{buttons}</div>
 }
 
@@ -320,7 +317,7 @@ function renderBody(
           {
             title: 'First name',
             field: 'firstName',
-            width: 50,
+            width: 50
           },
           {
             title: 'Last name',
@@ -333,53 +330,49 @@ function renderBody(
             field: 'city'
           }
         ]}
-      
-        data={[{
-          id: 1,
-          firstName: 'Jane',
-          lastName: 'Doe',
-          city: 'London'
-        }, {
-          id: 2,
-          firstName: 'John',
-          lastName: 'Smith',
-          city: 'Brighton'
-        }, {
-          id: 3,
-          firstName: 'Mary',
-          lastName: 'Mason',
-          city: 'Bristol'
-        }, {
-          id: 4,
-          firstName: 'Jane',
-          lastName: 'Doe',
-          city: 'London'
-        }, {
-          id: 5,
-          firstName: 'Mary',
-          lastName: 'Mason',
-          city: 'Bristol'
-        }]}
+        data={[
+          {
+            id: 1,
+            firstName: 'Jane',
+            lastName: 'Doe',
+            city: 'London'
+          },
+          {
+            id: 2,
+            firstName: 'John',
+            lastName: 'Smith',
+            city: 'Brighton'
+          },
+          {
+            id: 3,
+            firstName: 'Mary',
+            lastName: 'Mason',
+            city: 'Bristol'
+          },
+          {
+            id: 4,
+            firstName: 'Jane',
+            lastName: 'Doe',
+            city: 'London'
+          },
+          {
+            id: 5,
+            firstName: 'Mary',
+            lastName: 'Mason',
+            city: 'Bristol'
+          }
+        ]}
       />
     </div>
-  ) 
+  )
 }
 
 function renderFooter(classes: DataExplorerClasses) {
   return (
     <div className={classes.footer}>
-      <Paginator
-        pageIndex={1}
-        pageCount={143}
-        disabled={false}
-      />
-      <PageSizeSelector
-        pageSize={50}
-        disabled={false}
-      />
-      <PaginationInfo
-        about="items"
-      />
+      <Paginator pageIndex={1} pageCount={143} disabled={false} />
+      <PageSizeSelector pageSize={50} disabled={false} />
+      <PaginationInfo about="items" />
     </div>
   )
 }
@@ -391,9 +384,7 @@ function initDataExplorerState(): DataExplorerState {
 }
 
 const useDataExplorerActions = defineActions(update => {
-  return {
-
-  }
+  return {}
 }, initDataExplorerState)
 
 // --- exports -------------------------------------------------------

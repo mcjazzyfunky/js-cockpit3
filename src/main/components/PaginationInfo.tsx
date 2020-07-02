@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react'
 import { component, isNode } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
 
-import { Text } from 'office-ui-fabric-react'
+import { Text } from '@fluentui/react'
 
 // internal import
 import defineStyles from '../tools/defineStyles'
@@ -11,11 +11,11 @@ import defineStyles from '../tools/defineStyles'
 
 const PaginationInfo = component<PaginationInfoProps>({
   name: 'PaginationInfo',
-  
-  ...process.env.NODE_ENV === 'development' as any
+
+  ...(process.env.NODE_ENV === ('development' as any)
     ? { validate: Spec.lazy(() => validatePaginationInfoProps) }
-    : null,
- 
+    : null),
+
   main: PaginationInfoView
 })
 
@@ -28,8 +28,7 @@ type PaginationInfoProps = {
 // --- validation ----------------------------------------------------
 
 const validatePaginationInfoProps = Spec.checkProps({
-  optional: {
-  }
+  optional: {}
 })
 
 // --- styles --------------------------------------------------------
@@ -41,14 +40,13 @@ const usePaginationInfoStyles = defineStyles(theme => {
       textAlign: 'right',
       margin: '0 1rem',
       whiteSpace: 'nowrap'
-    },
+    }
   }
 })
 
 // --- view ----------------------------------------------------------
 
-function PaginationInfoView({
-}: PaginationInfoProps) {
+function PaginationInfoView({}: PaginationInfoProps) {
   const classes = usePaginationInfoStyles()
 
   return (

@@ -3,7 +3,7 @@ import React, { FormEvent } from 'react'
 import { component, isNode } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
 
-import { Checkbox } from 'office-ui-fabric-react'
+import { Checkbox } from '@fluentui/react'
 
 // internal import
 import defineStyles from '../tools/defineStyles'
@@ -16,22 +16,22 @@ const { useCallback, useEffect, useState, useRef } = React
 
 const CheckBox = component<CheckBoxProps>({
   name: 'CheckBox',
-  
-  ...process.env.NODE_ENV === 'development' as any
+
+  ...(process.env.NODE_ENV === ('development' as any)
     ? { validate: Spec.lazy(() => validateCheckBoxProps) }
-    : null,
- 
+    : null),
+
   main: CheckBoxView
 })
 
 // --- types ---------------------------------------------------------
 
 type CheckBoxProps = {
-  name?: string,
-  label?: string,
-  required?: boolean,
-  disabled?: boolean,
-  size?: 'compact' | 'default' | 'large',
+  name?: string
+  label?: string
+  required?: boolean
+  disabled?: boolean
+  size?: 'compact' | 'default' | 'large'
   messageOnError?: string
 }
 
@@ -51,8 +51,7 @@ const validateCheckBoxProps = Spec.checkProps({
 
 const useCheckBoxStyles = defineStyles(theme => {
   return {
-    root: {
-    },
+    root: {}
   }
 })
 
@@ -65,8 +64,7 @@ function CheckBoxView({
   required = false,
   messageOnError
 }: CheckBoxProps) {
-  const
-    [value, setValue] = useState(false),
+  const [value, setValue] = useState(false),
     [error, setError] = useState(''),
     classes = useCheckBoxStyles(),
     formCtrl = useFormCtrl(),
@@ -74,19 +72,21 @@ function CheckBoxView({
     valueRef = useRef(value),
     requiredRef = useRef(required),
     messageOnErrorRef = useRef(messageOnError),
+    onInput = useCallback(
+      (
+        ev: FormEvent<HTMLElement | HTMLInputElement> | undefined,
+        checked: boolean | undefined
+      ) => {
+        if (ev && checked !== undefined) {
+          setValue(checked)
 
-    onInput = useCallback((
-      ev: FormEvent<HTMLElement | HTMLInputElement> | undefined,
-      checked: boolean | undefined
-    ) => {
-      if (ev && checked !== undefined) {
-        setValue(checked)
-
-        if (error) {
-          setError('')
+          if (error) {
+            setError('')
+          }
         }
-      }
-    }, [error])
+      },
+      [error]
+    )
 
   useEffect(() => {
     nameRef.current = name
@@ -94,9 +94,8 @@ function CheckBoxView({
     requiredRef.current = required
     messageOnErrorRef.current = messageOnError
   }, [name, value, required, messageOnError])
-  
-  useEffect(() => {
-  }, [value])
+
+  useEffect(() => {}, [value])
 
   useEffect(() => {
     if (formCtrl) {
@@ -126,17 +125,16 @@ function CheckBoxView({
   }, [formCtrl])
 
   return (
-      <Checkbox
-        checked={value}
-        disabled={disabled}
-        name={name}
-        label={label}
-        onChange={onInput}
-        
-        checkmarkIconProps={{
-          iconName: 'jsc:checkmark'
-        }}
-      />
+    <Checkbox
+      checked={value}
+      disabled={disabled}
+      name={name}
+      label={label}
+      onChange={onInput}
+      checkmarkIconProps={{
+        iconName: 'jsc:checkmark'
+      }}
+    />
   )
 }
 
@@ -146,9 +144,7 @@ function validate(value: boolean, required: boolean, messageOnError?: string) {
   let ret: string | null = null
 
   if (required && !value) {
-    ret = messageOnError
-      ? messageOnError
-      : 'This is a required field' // TODO
+    ret = messageOnError ? messageOnError : 'This is a required field' // TODO
   }
 
   return ret
