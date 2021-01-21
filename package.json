@@ -86,7 +86,7 @@
   "dependencies": {
     "@fluentui/react": "^7.121.8",
     "color": "^3.1.2",
-    "immer": "^6.0.8",
+    "immer": "^8.0.1",
     "js-react-utils": "0.0.77",
     "js-spec": "^0.1.79",
     "react": "^16.13.1",
