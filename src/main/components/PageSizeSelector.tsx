@@ -6,24 +6,24 @@ import { Dropdown, Icon, Text } from '@fluentui/react'
 // internal import
 import defineStyles from '../tools/defineStyles'
 
-// --- constants -----------------------------------------------------
+// === constants =====================================================
 
 const PAGE_SIZE_OPTIONS = [10, 25, 50, 100, 250, 500]
 
-// --- types ---------------------------------------------------------
+// === types =========================================================
 
 type PageSizeSelectorProps = {
   pageSize: number
   disabled: boolean
 }
 
-// --- validation ----------------------------------------------------
+// === validation ====================================================
 
 const validatePageSizeSelectorProps = Spec.checkProps({
   optional: {}
 })
 
-// --- styles --------------------------------------------------------
+// === styles ========================================================
 
 const usePaginatorStyles = defineStyles((theme) => {
   return {
@@ -47,7 +47,7 @@ const usePaginatorStyles = defineStyles((theme) => {
   }
 })
 
-// --- components ----------------------------------------------------
+// === components ====================================================
 
 function PageSizeSelector({ pageSize, disabled }: PageSizeSelectorProps) {
   const classes = usePaginatorStyles()
@@ -81,6 +81,6 @@ function renderChevronDownIcon() {
   return <Icon iconName="jsc:chevronDown" />
 }
 
-// --- exports -------------------------------------------------------
+// === exports =======================================================
 
 export default PageSizeSelector

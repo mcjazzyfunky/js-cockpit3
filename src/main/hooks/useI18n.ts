@@ -20,12 +20,12 @@ const defaultI18n: I18n = Object.freeze({
 
     return ret
   },
-  
+
   formatNumber(value, decimals = 0) {
     return value.toFixed(decimals)
   }
 })
 
-// --- exports -------------------------------------------------------
+// === exports =======================================================
 
 export default useI18n

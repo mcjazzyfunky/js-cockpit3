@@ -11,7 +11,7 @@ import useFormCtrl from '../hooks/useFormCtrl'
 // derived import
 const { useCallback, useEffect, useState, useRef } = React
 
-// --- types ---------------------------------------------------------
+// === types =========================================================
 
 type CheckBoxProps = {
   name?: string
@@ -22,7 +22,7 @@ type CheckBoxProps = {
   messageOnError?: string
 }
 
-// --- validation ----------------------------------------------------
+// === validation ====================================================
 
 const validateCheckBoxProps = Spec.checkProps({
   optional: {
@@ -34,7 +34,7 @@ const validateCheckBoxProps = Spec.checkProps({
   }
 })
 
-// --- styles --------------------------------------------------------
+// === styles ========================================================
 
 const useCheckBoxStyles = defineStyles((theme) => {
   return {
@@ -42,7 +42,7 @@ const useCheckBoxStyles = defineStyles((theme) => {
   }
 })
 
-// --- components ----------------------------------------------------
+// === components ====================================================
 
 function CheckBox({
   name,
@@ -132,7 +132,7 @@ Object.assign(CheckBox, {
     convertValidation(validateCheckBoxProps))
 })
 
-// --- misc ----------------------------------------------------------
+// === misc ==========================================================
 
 function validate(value: boolean, required: boolean, messageOnError?: string) {
   let ret: string | null = null
@@ -144,6 +144,6 @@ function validate(value: boolean, required: boolean, messageOnError?: string) {
   return ret
 }
 
-// --- exports -------------------------------------------------------
+// === exports =======================================================
 
 export default CheckBox

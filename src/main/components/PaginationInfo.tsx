@@ -7,19 +7,19 @@ import { Text } from '@fluentui/react'
 // internal import
 import defineStyles from '../tools/defineStyles'
 
-// --- types ---------------------------------------------------------
+// === types =========================================================
 
 type PaginationInfoProps = {
   about: 'items'
 }
 
-// --- validation ----------------------------------------------------
+// === validation ====================================================
 
 const validatePaginationInfoProps = Spec.checkProps({
   optional: {}
 })
 
-// --- styles --------------------------------------------------------
+// === styles ========================================================
 
 const usePaginationInfoStyles = defineStyles((theme) => {
   return {
@@ -32,7 +32,7 @@ const usePaginationInfoStyles = defineStyles((theme) => {
   }
 })
 
-// --- components ----------------------------------------------------
+// === components ====================================================
 
 function PaginationInfo({}: PaginationInfoProps) {
   const classes = usePaginationInfoStyles()
@@ -51,6 +51,6 @@ Object.assign(PaginationInfo, {
     convertValidation(validatePaginationInfoProps))
 })
 
-// --- exports -------------------------------------------------------
+// === exports =======================================================
 
 export default PaginationInfo

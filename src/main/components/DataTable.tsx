@@ -20,11 +20,11 @@ import TableRowSelectionEvent from '../types/TableRowSelectionEvent'
 // derived imports
 const { useEffect, useState } = React
 
-// --- constants -----------------------------------------------------
+// === constants =====================================================
 
 const SELECTION_COLUMN_WIDTH = 38
 
-// --- types ---------------------------------------------------------
+// === types =========================================================
 
 type DataTableProps = {
   title?: string | null
@@ -59,13 +59,13 @@ type ColumnWidths = { selectionColumn: number; dataColumns: number[] }
 
 type DataTableClasses = ReturnType<typeof useDataTableStyles>
 
-// --- validation ----------------------------------------------------
+// === validation ====================================================
 
 const validateDataTableProps = Spec.checkProps({
   optional: {}
 })
 
-// --- styles --------------------------------------------------------
+// === styles ========================================================
 
 const useDataTableStyles = defineStyles((theme) => {
   return {
@@ -170,7 +170,7 @@ const useDataTableStyles = defineStyles((theme) => {
   }
 })
 
-// --- components ----------------------------------------------------
+// === components ====================================================
 
 function DataTable(props: DataTableProps) {
   const [actions, state] = useDataTableActions(),
@@ -471,8 +471,7 @@ function renderSelectRowCheckbox(
   )
 }
 
-// --- actions -------------------------------------------------------
-
+// === actions =======================================================
 function initDataTableState(): DataTableState {
   return {
     selectedItems: new Set<Rec>()
@@ -502,6 +501,6 @@ const useDataTableActions = defineActions(
   initDataTableState
 )
 
-// --- exports -------------------------------------------------------
+// === exports =======================================================
 
 export default DataTable

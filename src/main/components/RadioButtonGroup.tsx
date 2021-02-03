@@ -12,7 +12,7 @@ import useFormCtrl from '../hooks/useFormCtrl'
 // derived import
 const { useCallback, useEffect, useState, useRef } = React
 
-// --- types ---------------------------------------------------------
+// === types =========================================================
 
 type RadioButtonGroupProps = {
   name?: string
@@ -30,7 +30,7 @@ type Option = {
   text: string
 }
 
-// --- validation ----------------------------------------------------
+// === validation ====================================================
 
 const validateRadioButtonGroupProps = Spec.checkProps({
   optional: {
@@ -50,7 +50,7 @@ const validateOption = Spec.exact({
   text: Spec.string
 })
 
-// --- styles --------------------------------------------------------
+// === styles ========================================================
 
 const useRadioButtonGroupStyles = defineStyles((theme) => {
   return {
@@ -62,7 +62,7 @@ const useRadioButtonGroupStyles = defineStyles((theme) => {
   }
 })
 
-// --- components ----------------------------------------------------
+// === components ====================================================
 
 function RadioButtonGroup({
   name,
@@ -164,7 +164,7 @@ Object.assign(RadioButtonGroup, {
     convertValidation(validateRadioButtonGroupProps))
 })
 
-// --- misc ----------------------------------------------------------
+// === misc ==========================================================
 
 function validate(
   value: string | undefined,
@@ -181,6 +181,6 @@ function validate(
   return ret
 }
 
-// --- exports -------------------------------------------------------
+// === exports =======================================================
 
 export default RadioButtonGroup

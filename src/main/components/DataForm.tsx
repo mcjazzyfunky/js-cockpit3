@@ -8,7 +8,7 @@ import defineStyles from '../tools/defineStyles'
 import LabelPosition from '../enums/LabelPosition'
 import DefaultLabelPositionCtx from '../context/DefaultLabelPositionCtx'
 
-// --- types ---------------------------------------------------------
+// === types =========================================================
 
 type DataFormProps = {
   title?: string
@@ -16,7 +16,7 @@ type DataFormProps = {
   children?: ReactNode
 }
 
-// --- validation ----------------------------------------------------
+// === validation ====================================================
 
 const validateDataFormProps = Spec.checkProps({
   optional: {
@@ -26,7 +26,7 @@ const validateDataFormProps = Spec.checkProps({
   }
 })
 
-// --- styles --------------------------------------------------------
+// === styles ========================================================
 
 const useDataFormStyles = defineStyles((theme) => {
   return {
@@ -83,7 +83,7 @@ const useDataFormStyles = defineStyles((theme) => {
   }
 })
 
-// --- components ----------------------------------------------------
+// === components ====================================================
 
 function DataForm({ title, slotActions, children }: DataFormProps) {
   const classes = useDataFormStyles()
@@ -110,6 +110,6 @@ Object.assign(DataForm, {
     convertValidation(validateDataFormProps))
 })
 
-// --- exports -------------------------------------------------------
+// === exports =======================================================
 
 export default DataForm

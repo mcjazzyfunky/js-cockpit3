@@ -7,7 +7,7 @@ import * as Spec from 'js-spec/validators'
 import defineStyles from '../tools/defineStyles'
 import classNames from '../tools/classNames'
 
-// --- types ---------------------------------------------------------
+// === types =========================================================
 
 type SideMenuProps = {
   menu: SideMenuGroups
@@ -39,7 +39,7 @@ type SideMenuItem = {
 
 type Classes = ReturnType<typeof useSideMenuStyles>
 
-// --- validation ----------------------------------------------------
+// === validation ====================================================
 
 const validateSideMenuProps = Spec.checkProps({
   required: {
@@ -85,7 +85,7 @@ type SideMenuItem = {
   itemId?: string
 }
 */
-// --- styles --------------------------------------------------------
+// === styles ========================================================
 
 const useSideMenuStyles = defineStyles((theme) => {
   return {
@@ -162,7 +162,7 @@ const useSideMenuStyles = defineStyles((theme) => {
   }
 })
 
-// --- components ----------------------------------------------------
+// === components ====================================================
 
 function SideMenu({ menu }: SideMenuProps) {
   const classes = useSideMenuStyles()
@@ -238,6 +238,6 @@ function renderSideMenuItem(
   )
 }
 
-// --- exports -------------------------------------------------------
+// === exports =======================================================
 
 export default SideMenu

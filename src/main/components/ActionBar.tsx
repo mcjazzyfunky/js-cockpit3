@@ -8,7 +8,7 @@ import { ActionButton, DefaultButton } from '@fluentui/react'
 import defineStyles from '../tools/defineStyles'
 import { icons } from 'react-icons/lib/cjs'
 
-// --- types ---------------------------------------------------------
+// === types =========================================================
 
 type ActionBarProps = {
   actions: Action[]
@@ -20,13 +20,13 @@ type Action = {
   icon?: ReactNode
 }
 
-// --- validation ----------------------------------------------------
+// === validation ====================================================
 
 const validateActionBarProps = Spec.checkProps({
   optional: {}
 })
 
-// --- styles --------------------------------------------------------
+// === styles ========================================================
 
 const useActionBarStyles = defineStyles((theme) => {
   return {
@@ -55,7 +55,7 @@ const useActionBarStyles = defineStyles((theme) => {
   }
 })
 
-// --- components ----------------------------------------------------
+// === components ====================================================
 
 function ActionBar({ actions }: ActionBarProps) {
   const classes = useActionBarStyles()
@@ -87,6 +87,6 @@ Object.assign(ActionBar, {
     convertValidation(validateActionBarProps))
 })
 
-// --- exports -------------------------------------------------------
+// === exports =======================================================
 
 export default ActionBar

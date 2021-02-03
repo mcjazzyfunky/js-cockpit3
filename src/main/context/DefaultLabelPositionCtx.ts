@@ -5,7 +5,7 @@ import * as Spec from 'js-spec/validators'
 // internal imports
 import LabelPosition from '../enums/LabelPosition'
 
-// --- validation ----------------------------------------------------
+// === validation ====================================================
 
 const validateDefaultLabelPositionCtxProviderProps = Spec.checkProps({
   required: {
@@ -24,6 +24,6 @@ Object.assign(DefaultLabelPositionCtx.Provider, {
     convertValidation(validateDefaultLabelPositionCtxProviderProps))
 })
 
-// --- exports --------------------------------------------------------
+// === exports =======================================================-
 
 export default DefaultLabelPositionCtx

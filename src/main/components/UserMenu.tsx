@@ -9,13 +9,13 @@ import * as Spec from 'js-spec/validators'
 import defineStyles from '../tools/defineStyles'
 import useI18n from '../hooks/useI18n'
 
-// --- types ---------------------------------------------------------
+// === types =========================================================
 
 type UserMenuProps = {
   displayName?: string
 }
 
-// --- validation ----------------------------------------------------
+// === validation ====================================================
 
 const validateUserMenuProps = Spec.checkProps<UserMenuProps>({
   optional: {
@@ -23,7 +23,7 @@ const validateUserMenuProps = Spec.checkProps<UserMenuProps>({
   }
 })
 
-// --- styles --------------------------------------------------------
+// === styles ========================================================
 
 const useUserMenuStyles = defineStyles((theme) => {
   return {
@@ -73,7 +73,7 @@ const useUserMenuStyles = defineStyles((theme) => {
   }
 })
 
-// --- components ----------------------------------------------------
+// === components ====================================================
 
 function UserMenu({ displayName }: UserMenuProps) {
   const { getText } = useI18n(),
@@ -120,6 +120,6 @@ const UserIcon = React.memo(function UserIcon({
   )
 })
 
-// --- exports -------------------------------------------------------
+// === exports =======================================================
 
 export default UserMenu

@@ -7,14 +7,14 @@ import * as Spec from 'js-spec/validators'
 // internal import
 import defineStyles from '../tools/defineStyles'
 
-// --- types ---------------------------------------------------------
+// === types =========================================================
 
 type FormSectionProps = {
   title?: string
   children?: ReactNode
 }
 
-// --- validation ----------------------------------------------------
+// === validation ====================================================
 
 const validateFormSectionProps = Spec.checkProps({
   optional: {
@@ -23,7 +23,7 @@ const validateFormSectionProps = Spec.checkProps({
   }
 })
 
-// --- styles --------------------------------------------------------
+// === styles ========================================================
 
 const useFormSectionStyles = defineStyles((theme, hasTitle: boolean) => {
   return {
@@ -47,7 +47,7 @@ const useFormSectionStyles = defineStyles((theme, hasTitle: boolean) => {
   }
 })
 
-// --- components ----------------------------------------------------
+// === components ====================================================
 
 function FormSection({ title, children }: FormSectionProps) {
   const hasTitle = !!title,
@@ -71,6 +71,6 @@ Object.assign(FormSection, {
     convertValidation(validateFormSectionProps))
 })
 
-// --- exports -------------------------------------------------------
+// === exports =======================================================
 
 export default FormSection

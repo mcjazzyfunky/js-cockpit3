@@ -13,7 +13,7 @@ import useFormCtrl from '../hooks/useFormCtrl'
 // derived import
 const { useCallback, useEffect, useState, useRef } = React
 
-// --- types ---------------------------------------------------------
+// === types =========================================================
 
 type DateInputProps = {
   name?: string
@@ -23,7 +23,7 @@ type DateInputProps = {
   messageOnError?: string
 }
 
-// --- validation ----------------------------------------------------
+// === validation ====================================================
 
 const validateDateInputProps = Spec.checkProps({
   optional: {
@@ -35,7 +35,7 @@ const validateDateInputProps = Spec.checkProps({
   }
 })
 
-// --- styles --------------------------------------------------------
+// === styles ========================================================
 
 const useDateInputStyles = defineStyles((theme) => {
   return {
@@ -46,7 +46,7 @@ const useDateInputStyles = defineStyles((theme) => {
   }
 })
 
-// --- components ----------------------------------------------------
+// === components ====================================================
 
 function DateInput({
   name,
@@ -148,7 +148,7 @@ Object.assign(DateInput, {
     convertValidation(validateDateInputProps))
 })
 
-// --- misc ----------------------------------------------------------
+// === misc ==========================================================
 
 function validate(
   value: Date | null,
@@ -164,6 +164,6 @@ function validate(
   return ret
 }
 
-// --- exports -------------------------------------------------------
+// === exports =======================================================
 
 export default DateInput

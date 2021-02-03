@@ -3,14 +3,14 @@ import React, { ReactElement, ReactNode } from 'react'
 import { convertValidation, isNode } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
 
-// --- types ---------------------------------------------------------
+// === types =========================================================
 
 type TabProps = {
   title?: string
   children?: ReactNode
 }
 
-// --- validation ----------------------------------------------------
+// === validation ====================================================
 
 const validateTabProps = Spec.checkProps({
   optional: {
@@ -19,7 +19,7 @@ const validateTabProps = Spec.checkProps({
   }
 })
 
-// --- components ----------------------------------------------------
+// === components ====================================================
 
 function Tab({}: TabProps): ReactElement<any> {
   throw new Error(
@@ -35,6 +35,6 @@ Object.assign({
     convertValidation(validateTabProps))
 })
 
-// --- exports -------------------------------------------------------
+// === exports =======================================================
 
 export default Tab

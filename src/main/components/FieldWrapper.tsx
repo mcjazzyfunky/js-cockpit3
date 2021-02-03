@@ -11,7 +11,7 @@ import useDefaultLabelPosition from '../hooks/useDefaultLabelPosition'
 // derived imports
 const { Children } = React
 
-// --- types ---------------------------------------------------------
+// === types =========================================================
 
 type FieldWrapperProps = {
   label?: string
@@ -20,7 +20,7 @@ type FieldWrapperProps = {
   children?: ReactNode
 }
 
-// --- validation ----------------------------------------------------
+// === validation ====================================================
 
 const validateFieldWrapperProps = Spec.checkProps({
   optional: {
@@ -31,7 +31,7 @@ const validateFieldWrapperProps = Spec.checkProps({
   }
 })
 
-// --- styles --------------------------------------------------------
+// === styles ========================================================
 
 const useFieldWrapperStyles = defineStyles(
   (theme, required: boolean, labelAbove: boolean) => {
@@ -74,7 +74,7 @@ const useFieldWrapperStyles = defineStyles(
   }
 )
 
-// --- components ----------------------------------------------------
+// === components ====================================================
 
 function FieldWrapper({
   label,
@@ -113,6 +113,6 @@ Object.assign(FieldWrapper, {
     convertValidation(validateFieldWrapperProps))
 })
 
-// --- exports -------------------------------------------------------
+// === exports =======================================================
 
 export default FieldWrapper

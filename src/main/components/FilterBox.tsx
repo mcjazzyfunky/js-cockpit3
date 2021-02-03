@@ -12,13 +12,13 @@ import defineStyles from '../tools/defineStyles'
 import DefaultLabelPositionCtx from '../context/DefaultLabelPositionCtx'
 import LabelPosition from '../enums/LabelPosition'
 
-// --- types ---------------------------------------------------------
+// === types =========================================================
 
 type FilterBoxProps = {
   children: ReactNode
 }
 
-// --- validation ----------------------------------------------------
+// === validation ====================================================
 
 const validateFilterBoxProps = Spec.checkProps({
   optional: {
@@ -26,7 +26,7 @@ const validateFilterBoxProps = Spec.checkProps({
   }
 })
 
-// --- styles --------------------------------------------------------
+// === styles ========================================================
 
 const useFilterBoxStyles = defineStyles((theme) => {
   return {
@@ -55,7 +55,7 @@ const useFilterBoxStyles = defineStyles((theme) => {
   }
 })
 
-// --- components ----------------------------------------------------
+// === components ====================================================
 
 function FilterBox({ children }: FilterBoxProps) {
   const classes = useFilterBoxStyles()
@@ -86,6 +86,6 @@ Object.assign(FilterBox, {
     convertValidation(validateFilterBoxProps))
 })
 
-// --- exports -------------------------------------------------------
+// === exports =======================================================
 
 export default FilterBox

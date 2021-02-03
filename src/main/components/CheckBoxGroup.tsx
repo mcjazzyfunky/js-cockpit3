@@ -12,7 +12,7 @@ import useFormCtrl from '../hooks/useFormCtrl'
 // derived import
 const { useCallback, useEffect, useState, useRef } = React
 
-// --- types ---------------------------------------------------------
+// === types =========================================================
 
 type CheckBoxGroupProps = {
   name?: string
@@ -29,7 +29,7 @@ type Option = {
   text: string
 }
 
-// --- validation ----------------------------------------------------
+// === validation ====================================================
 
 const validateCheckBoxGroupProps = Spec.checkProps({
   optional: {
@@ -48,7 +48,7 @@ const validateOption = Spec.exact({
   text: Spec.string
 })
 
-// --- styles --------------------------------------------------------
+// === styles ========================================================
 
 const useCheckBoxGroupStyles = defineStyles((theme) => {
   return {
@@ -58,7 +58,7 @@ const useCheckBoxGroupStyles = defineStyles((theme) => {
   }
 })
 
-// --- component -----------------------------------------------------
+// === components ====================================================
 
 function CheckBoxGroup({
   name,
@@ -150,7 +150,7 @@ Object.assign(CheckBoxGroup, {
     convertValidation(validateCheckBoxGroupProps))
 })
 
-// --- misc ----------------------------------------------------------
+// === misc ==========================================================
 
 function validate(
   value: string,
@@ -167,6 +167,6 @@ function validate(
   return ret
 }
 
-// --- exports -------------------------------------------------------
+// === exports =======================================================
 
 export default CheckBoxGroup

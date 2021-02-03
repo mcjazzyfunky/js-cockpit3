@@ -5,6 +5,6 @@ enum LabelPosition {
   Beside = 'beside'
 }
 
-// --- exports -------------------------------------------------------
+// === exports =======================================================
 
-export default LabelPosition 
+export default LabelPosition

@@ -7,7 +7,7 @@ import { Icon, Text, TextField } from '@fluentui/react'
 // internal import
 import defineStyles from '../tools/defineStyles'
 
-// --- types ---------------------------------------------------------
+// === types =========================================================
 
 type PaginatorProps = {
   pageIndex: number
@@ -15,13 +15,13 @@ type PaginatorProps = {
   disabled: boolean
 }
 
-// --- validation ----------------------------------------------------
+// === validation ====================================================
 
 const validatePaginatorProps = Spec.checkProps({
   optional: {}
 })
 
-// --- styles --------------------------------------------------------
+// === styles ========================================================
 
 const usePaginatorStyles = defineStyles((theme) => {
   return {
@@ -70,7 +70,7 @@ const usePaginatorStyles = defineStyles((theme) => {
   }
 })
 
-// --- components ----------------------------------------------------
+// === components ====================================================
 
 function Paginator({ pageIndex, pageCount, disabled = false }: PaginatorProps) {
   const classes = usePaginatorStyles()
@@ -109,6 +109,6 @@ Object.assign(Paginator, {
     convertValidation(validatePaginatorProps))
 })
 
-// --- exports -------------------------------------------------------
+// === exports =======================================================
 
 export default Paginator

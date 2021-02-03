@@ -19,13 +19,13 @@ import Tab from './Tab'
 // derived imports
 const { Children } = React
 
-// --- types ---------------------------------------------------------
+// === types =========================================================
 
 type TabsProps = {
   children: ReactNode
 }
 
-// --- validation ----------------------------------------------------
+// === validation ====================================================
 
 const validateTabsProps = Spec.checkProps({
   optional: {
@@ -33,7 +33,7 @@ const validateTabsProps = Spec.checkProps({
   }
 })
 
-// --- styles --------------------------------------------------------
+// === styles ========================================================
 
 const useTabsStyles = defineStyles((theme) => {
   return {
@@ -41,7 +41,7 @@ const useTabsStyles = defineStyles((theme) => {
   }
 })
 
-// --- components ----------------------------------------------------
+// === components ====================================================
 
 function Tabs({ children }: TabsProps) {
   const classes = useTabsStyles()
@@ -71,6 +71,6 @@ Object.assign(Tabs, {
     convertValidation(validateTabsProps))
 })
 
-// --- exports -------------------------------------------------------
+// === exports =======================================================
 
 export default Tabs

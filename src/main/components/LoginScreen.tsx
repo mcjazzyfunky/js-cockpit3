@@ -27,7 +27,7 @@ import I18n from '../types/I18n'
 // derived imports
 const { useCallback, useState } = React
 
-// --- types ---------------------------------------------------------
+// === types =========================================================
 
 type LoginScreenProps = {
   slotHeader?: ReactNode
@@ -40,7 +40,7 @@ type LoginScreenProps = {
 
 type Classes = ReturnType<typeof useLoginScreenStyles>
 
-// --- validation ----------------------------------------------------
+// === validation ====================================================
 
 const validateLoginScreenProps = Spec.checkProps<LoginScreenProps>({
   optional: {
@@ -53,7 +53,7 @@ const validateLoginScreenProps = Spec.checkProps<LoginScreenProps>({
   }
 })
 
-// --- styles --------------------------------------------------------
+// === styles ========================================================
 
 const useLoginScreenStyles = defineStyles((_, theme: ITheme) => {
   // TODO
@@ -281,7 +281,7 @@ const useLoginScreenStyles = defineStyles((_, theme: ITheme) => {
   }
 })
 
-// --- components ----------------------------------------------------
+// === components ====================================================
 
 function LoginScreen({
   slotHeader,
@@ -494,6 +494,6 @@ function renderLoginButton(
   )
 }
 
-// --- exports -------------------------------------------------------
+// === exports =======================================================
 
 export default LoginScreen

@@ -7,14 +7,14 @@ import * as Spec from 'js-spec/validators'
 // internal import
 import defineStyles from '../tools/defineStyles'
 
-// --- types ---------------------------------------------------------
+// === types =========================================================
 
 type FieldsetProps = {
   title?: string
   children?: ReactNode
 }
 
-// --- validation ----------------------------------------------------
+// === validation ====================================================
 
 const validateFieldsetProps = Spec.checkProps({
   optional: {
@@ -23,7 +23,7 @@ const validateFieldsetProps = Spec.checkProps({
   }
 })
 
-// --- styles --------------------------------------------------------
+// === styles ========================================================
 
 const useFieldsetStyles = defineStyles((theme, hasTitle: boolean) => {
   return {
@@ -48,7 +48,7 @@ const useFieldsetStyles = defineStyles((theme, hasTitle: boolean) => {
   }
 })
 
-// --- components ----------------------------------------------------
+// === components ====================================================
 
 function Fieldset({ title, children }: FieldsetProps) {
   const hasTitle = !!title,
@@ -72,6 +72,6 @@ Object.assign(Fieldset, {
     convertValidation(validateFieldsetProps))
 })
 
-// --- exports -------------------------------------------------------
+// === exports =======================================================
 
 export default Fieldset

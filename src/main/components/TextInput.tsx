@@ -12,7 +12,7 @@ import useFormCtrl from '../hooks/useFormCtrl'
 // derived import
 const { useCallback, useEffect, useState, useRef } = React
 
-// --- types ---------------------------------------------------------
+// === types =========================================================
 
 type TextInputProps = {
   name?: string
@@ -23,7 +23,7 @@ type TextInputProps = {
   messageOnError?: string
 }
 
-// --- validation ----------------------------------------------------
+// === validation ====================================================
 
 const validateTextInputProps = Spec.checkProps({
   optional: {
@@ -36,7 +36,7 @@ const validateTextInputProps = Spec.checkProps({
   }
 })
 
-// --- styles --------------------------------------------------------
+// === styles ========================================================
 
 const useTextInputStyles = defineStyles((theme) => {
   return {
@@ -44,7 +44,7 @@ const useTextInputStyles = defineStyles((theme) => {
   }
 })
 
-// --- components ----------------------------------------------------
+// === components ====================================================
 
 function TextInput({
   name,
@@ -126,7 +126,7 @@ Object.assign(TextInput, {
     convertValidation(validateTextInputProps))
 })
 
-// --- misc ----------------------------------------------------------
+// === misc ==========================================================
 
 function validate(
   value: string,
@@ -145,6 +145,6 @@ function validate(
   return ret
 }
 
-// --- exports -------------------------------------------------------
+// === exports =======================================================
 
 export default TextInput

@@ -13,7 +13,7 @@ import useFormCtrl from '../hooks/useFormCtrl'
 // derived imports
 const { useCallback, useEffect, useRef, useState } = React
 
-// --- types ---------------------------------------------------------
+// === types =========================================================
 
 type PasswordInputProps = {
   name?: string
@@ -25,7 +25,7 @@ type PasswordInputProps = {
   messageOnError?: string
 }
 
-// --- validation ----------------------------------------------------
+// === validation ====================================================
 
 const validatePasswordInputProps = Spec.checkProps({
   optional: {
@@ -39,7 +39,7 @@ const validatePasswordInputProps = Spec.checkProps({
   }
 })
 
-// --- styles --------------------------------------------------------
+// === styles ========================================================
 
 const usePasswordInputStyles = defineStyles((theme) => {
   return {
@@ -47,7 +47,7 @@ const usePasswordInputStyles = defineStyles((theme) => {
   }
 })
 
-// --- components ----------------------------------------------------
+// === components ====================================================
 
 function PasswordInput({
   name,
@@ -136,7 +136,7 @@ Object.assign(PasswordInput, {
     convertValidation(validatePasswordInputProps))
 })
 
-// --- misc ----------------------------------------------------------
+// === misc ==========================================================
 
 function validate(
   value: string,
@@ -155,6 +155,6 @@ function validate(
   return ret
 }
 
-// --- exports -------------------------------------------------------
+// === exports =======================================================
 
 export default PasswordInput

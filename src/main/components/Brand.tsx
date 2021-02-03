@@ -7,7 +7,7 @@ import * as Spec from 'js-spec/validators'
 // internal import
 import defineStyles from '../tools/defineStyles'
 
-// --- types ---------------------------------------------------------
+// === types =========================================================
 
 type BrandProps = {
   vendor?: string
@@ -17,7 +17,7 @@ type BrandProps = {
   multicolor?: boolean
 }
 
-// --- validation ----------------------------------------------------
+// === validation ====================================================
 
 const validateBrandProps = Spec.checkProps({
   optional: {
@@ -29,7 +29,7 @@ const validateBrandProps = Spec.checkProps({
   }
 })
 
-// --- styles --------------------------------------------------------
+// === styles ========================================================
 
 const useBrandStyles = defineStyles((theme) => {
   return {
@@ -92,7 +92,7 @@ const useBrandStyles = defineStyles((theme) => {
   }
 })
 
-// --- components ----------------------------------------------------
+// === components ====================================================
 
 function Brand({ vendor, title, logo, size, multicolor = false }: BrandProps) {
   const classes = useBrandStyles()
@@ -142,6 +142,6 @@ Object.assign(Brand, {
     convertValidation(validateBrandProps))
 })
 
-// --- exports -------------------------------------------------------
+// === exports =======================================================
 
 export default Brand

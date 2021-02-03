@@ -24,7 +24,7 @@ const {
   useState
 } = React
 
-// --- types ---------------------------------------------------------
+// === types =========================================================
 
 type DataExplorerProps = {
   title?: string
@@ -60,7 +60,7 @@ type DataExplorerGeneralAction = {
 type DataExplorerActions = ReturnType<typeof useDataExplorerActions>[0]
 type DataExplorerClasses = ReturnType<typeof useDataExplorerStyles>
 
-// --- validation ----------------------------------------------------
+// === validation ====================================================
 
 const validateDataExplorerProps = Spec.checkProps({
   optional: {
@@ -69,7 +69,7 @@ const validateDataExplorerProps = Spec.checkProps({
   }
 })
 
-// --- styles --------------------------------------------------------
+// === styles ========================================================
 
 const useDataExplorerStyles = defineStyles((theme) => {
   return {
@@ -145,7 +145,7 @@ const useDataExplorerStyles = defineStyles((theme) => {
   }
 })
 
-// --- components ----------------------------------------------------
+// === components ====================================================
 
 function DataExplorer(props: DataExplorerProps) {
   const [actions, state] = useDataExplorerActions(),
@@ -371,8 +371,7 @@ function renderFooter(classes: DataExplorerClasses) {
   )
 }
 
-// --- actions -------------------------------------------------------
-
+// === actions =======================================================
 function initDataExplorerState(): DataExplorerState {
   return {}
 }
@@ -381,6 +380,6 @@ const useDataExplorerActions = defineActions((update) => {
   return {}
 }, initDataExplorerState)
 
-// --- exports -------------------------------------------------------
+// === exports =======================================================
 
 export default DataExplorer

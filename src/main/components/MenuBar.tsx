@@ -14,7 +14,7 @@ import {
 // internal import
 import defineStyles from '../tools/defineStyles'
 
-// --- types ---------------------------------------------------------
+// === types =========================================================
 
 type MenuBarProps = {
   items: (Menu | Item | Divider)[]
@@ -42,13 +42,13 @@ type Divider = {
 
 type ActionEvent = any // TODO
 
-// --- validation ----------------------------------------------------
+// === validation ====================================================
 
 const validateMenuBarProps = Spec.checkProps({
   optional: {}
 })
 
-// --- styles --------------------------------------------------------
+// === styles ========================================================
 
 const useMenuBarStyles = defineStyles((theme) => {
   return {
@@ -92,7 +92,7 @@ const useMenuBarStyles = defineStyles((theme) => {
   }
 })
 
-// --- components ----------------------------------------------------
+// === components ====================================================
 
 function MenuBar({ items, onAction }: MenuBarProps) {
   let ret = null,
@@ -141,7 +141,7 @@ Object.assign(MenuBar, {
     convertValidation(validateMenuBarProps))
 })
 
-// --- locals --------------------------------------------------------
+// === locals ========================================================
 
 //type Item = MenuBarViewProps['items'] extends (infer I)[] ? I : never
 
@@ -223,6 +223,6 @@ function getItemProps(
   return ret
 }
 
-// --- exports -------------------------------------------------------
+// === exports =======================================================
 
 export default MenuBar

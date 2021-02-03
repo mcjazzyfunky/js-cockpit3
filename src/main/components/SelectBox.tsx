@@ -12,7 +12,7 @@ import useFormCtrl from '../hooks/useFormCtrl'
 // derived import
 const { useCallback, useEffect, useState, useRef } = React
 
-// --- types ---------------------------------------------------------
+// === types =========================================================
 
 type SelectBoxProps = {
   name?: string
@@ -27,7 +27,7 @@ type SelectBoxProps = {
   }>
 }
 
-// --- validation ----------------------------------------------------
+// === validation ====================================================
 
 const validateSelectBoxProps = Spec.checkProps({
   optional: {
@@ -39,7 +39,7 @@ const validateSelectBoxProps = Spec.checkProps({
   }
 })
 
-// --- styles --------------------------------------------------------
+// === styles ========================================================
 
 const useSelectBoxStyles = defineStyles((theme) => {
   return {
@@ -47,7 +47,7 @@ const useSelectBoxStyles = defineStyles((theme) => {
   }
 })
 
-// --- components ----------------------------------------------------
+// === components ====================================================
 
 function SelectBox({
   name,
@@ -139,7 +139,7 @@ Object.assign(SelectBox, {
     convertValidation(validateSelectBoxProps))
 })
 
-// --- misc ----------------------------------------------------------
+// === misc ==========================================================
 
 function validate(
   value: null | string,
@@ -155,6 +155,6 @@ function validate(
   return ret
 }
 
-// --- exports -------------------------------------------------------
+// === exports =======================================================
 
 export default SelectBox

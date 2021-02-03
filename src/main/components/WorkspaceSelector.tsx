@@ -7,7 +7,7 @@ import * as Spec from 'js-spec/validators'
 import classNames from '../tools/classNames'
 import defineStyles from '../tools/defineStyles'
 
-// --- types ---------------------------------------------------------
+// === types =========================================================
 
 type WorkspaceSelectorProps = {
   menu: WorkspaceSelectorItems
@@ -28,7 +28,7 @@ type WorkspaceSelectorItem = {
 
 type Classes = ReturnType<typeof useWorkspaceSelectorStyles>
 
-// --- validation ----------------------------------------------------
+// === validation ====================================================
 
 const validateWorkspaceSelectorProps = Spec.checkProps({
   required: {
@@ -49,7 +49,7 @@ const validateWorkspaceSelectorItem = Spec.exact({
   description: Spec.optional(Spec.string)
 })
 
-// --- styles --------------------------------------------------------
+// === styles ========================================================
 
 const useWorkspaceSelectorStyles = defineStyles((theme) => {
   return {
@@ -90,7 +90,7 @@ const useWorkspaceSelectorStyles = defineStyles((theme) => {
   }
 })
 
-// --- components ----------------------------------------------------
+// === components ====================================================
 
 function WorkspaceSelector({ menu }: WorkspaceSelectorProps) {
   const classes = useWorkspaceSelectorStyles()
@@ -153,6 +153,6 @@ function WorkspaceSelectorIcon() {
   )
 }
 
-// --- exports -------------------------------------------------------
+// === exports =======================================================
 
 export default WorkspaceSelector

@@ -8,7 +8,7 @@ import { Fabric, Customizer, ITheme } from '@fluentui/react'
 import defineStyles from '../tools/defineStyles'
 import useTheme from '../hooks/useTheme'
 
-// --- types ---------------------------------------------------------
+// === types =========================================================
 
 type CockpitProps = {
   look?: 'default' | 'bright'
@@ -23,7 +23,7 @@ type CockpitProps = {
 
 type Classes = ReturnType<typeof useCockpitStyles>
 
-// --- validation ----------------------------------------------------
+// === validation ====================================================
 
 const validateCockpitProps = Spec.checkProps({
   optional: {
@@ -38,7 +38,7 @@ const validateCockpitProps = Spec.checkProps({
   }
 })
 
-// --- styles --------------------------------------------------------
+// === styles ========================================================
 
 const useCockpitStyles = defineStyles(
   (_, theme: ITheme, look: 'default' | 'bright') => {
@@ -121,7 +121,7 @@ const useCockpitStyles = defineStyles(
   }
 )
 
-// --- components ----------------------------------------------------
+// === components ====================================================
 
 function Cockpit({
   theme,
@@ -225,6 +225,6 @@ function renderBody(
   )
 }
 
-// --- exports -------------------------------------------------------
+// === exports =======================================================
 
 export default Cockpit

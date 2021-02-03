@@ -4,14 +4,14 @@ import { convertValidation, isNode } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
 import { Fabric, Customizer, ITheme } from '@fluentui/react'
 
-// --- types ---------------------------------------------------------
+// === types =========================================================
 
 type AppProps = {
   theme?: ITheme
   children?: ReactNode
 }
 
-// --- validation ----------------------------------------------------
+// === validation ====================================================
 
 const validateAppProps = Spec.checkProps({
   optional: {
@@ -20,7 +20,7 @@ const validateAppProps = Spec.checkProps({
   }
 })
 
-// --- components ----------------------------------------------------
+// === components ====================================================
 
 function App({ theme, children }: AppProps) {
   return !theme ? (
@@ -39,6 +39,6 @@ Object.assign(App, {
     convertValidation(validateAppProps))
 })
 
-// --- exports -------------------------------------------------------
+// === exports =======================================================
 
 export default App

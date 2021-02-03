@@ -6,14 +6,14 @@ import * as Spec from 'js-spec/validators'
 // internal import
 import defineStyles from '../tools/defineStyles'
 
-// --- types ---------------------------------------------------------
+// === types =========================================================
 
 type TextProps = {
   size?: 'small' | 'medium' | 'large'
   children?: ReactNode
 }
 
-// --- validation ----------------------------------------------------
+// === validation ====================================================
 
 const validateTextProps = Spec.checkProps({
   optional: {
@@ -22,7 +22,7 @@ const validateTextProps = Spec.checkProps({
   }
 })
 
-// --- styles --------------------------------------------------------
+// === styles ========================================================
 
 const useTextStyles = defineStyles((theme) => {
   return {
@@ -40,7 +40,7 @@ const useTextStyles = defineStyles((theme) => {
   }
 })
 
-// --- components ----------------------------------------------------
+// === components ====================================================
 
 function Text({ size = 'medium', children }: TextProps) {
   const classes = useTextStyles()
@@ -55,6 +55,6 @@ Object.assign(Text, {
     convertValidation(validateTextProps))
 })
 
-// --- exports -------------------------------------------------------
+// === exports =======================================================
 
 export default Text

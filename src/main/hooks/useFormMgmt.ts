@@ -51,7 +51,7 @@ function initFormMgmt(): [
   return [formCtrl, Form, setSubmitHandler]
 }
 
-// --- types ---------------------------------------------------------
+// === types =========================================================
 
 type FormProps = {
   className?: string
@@ -61,7 +61,7 @@ type FormProps = {
 
 type SubmitHandler = (data: Record<string, any>) => void
 
-// --- validation ----------------------------------------------------
+// === validation ====================================================
 
 const validateFormCtrlProviderProps = Spec.checkProps({
   optional: {
@@ -71,7 +71,7 @@ const validateFormCtrlProviderProps = Spec.checkProps({
   }
 })
 
-// --- misc ----------------------------------------------------------
+// === misc ==========================================================
 
 function createFormCtrl(submitHandler: SubmitHandler): FormCtrl {
   const subscriptions = new Set<any>(), // TODO
@@ -109,6 +109,6 @@ function createFormCtrl(submitHandler: SubmitHandler): FormCtrl {
   }
 }
 
-// --- exports -------------------------------------------------------
+// === exports =======================================================
 
 export default useFormMgmt
