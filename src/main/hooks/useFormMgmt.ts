@@ -1,6 +1,6 @@
 // external imports
 import React, { FunctionComponent, FormEvent, ReactNode } from 'react'
-import { component, isNode } from 'js-react-utils'
+import { convertValidation, isNode } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
 
 // internal imports
@@ -16,36 +16,37 @@ function useFormMgmt() {
   return useState(initFormMgmt)[0]
 }
 
-function initFormMgmt():
-  [FormCtrl, FunctionComponent<FormProps>, (handler: SubmitHandler) => void] {
-  
+function initFormMgmt(): [
+  FormCtrl,
+  FunctionComponent<FormProps>,
+  (handler: SubmitHandler) => void
+] {
   let submitHandler: SubmitHandler = () => {} // TODO
 
-  const
-    formCtrl = createFormCtrl(data => submitHandler(data)),
-
-    onSubmit = (ev: any) => { // TODO
+  const formCtrl = createFormCtrl((data) => submitHandler(data)),
+    onSubmit = (ev: any) => {
+      // TODO
       ev.preventDefault()
       formCtrl.submit()
     },
-
     setSubmitHandler = (handler: SubmitHandler) => {
       submitHandler = handler
-    },
+    }
 
-    Form = component<FormProps>({
-      name: 'DynamicForm',
+  function Form({ className, onInput, children }: FormProps) {
+    return h(
+      'form',
+      { className, onInput, onSubmit },
+      h(FormCtrlCtx.Provider, { value: formCtrl }, children)
+    )
+  }
 
-      ...process.env.NODE_ENV === 'development' as any
-        ? { validate: validateFormCtrlProviderProps }
-        : null,
+  Object.assign(Form, {
+    displayName: 'DynamicForm',
 
-      main({ className, onInput, children }) {
-        return (
-          h('form', { className, onInput, onSubmit },
-            h(FormCtrlCtx.Provider, { value: formCtrl }, children)))
-      }
-    })
+    ...(process.env.NODE_ENV === ('development' as string) &&
+      convertValidation(validateFormCtrlProviderProps))
+  })
 
   return [formCtrl, Form, setSubmitHandler]
 }
@@ -53,13 +54,12 @@ function initFormMgmt():
 // --- types ---------------------------------------------------------
 
 type FormProps = {
-  className?: string,
-  onInput?: (ev: FormEvent<HTMLFormElement>) => void,
+  className?: string
+  onInput?: (ev: FormEvent<HTMLFormElement>) => void
   children?: ReactNode
 }
 
-type SubmitHandler =
-  (data: Record<string, any>) => void
+type SubmitHandler = (data: Record<string, any>) => void
 
 // --- validation ----------------------------------------------------
 
@@ -74,14 +74,13 @@ const validateFormCtrlProviderProps = Spec.checkProps({
 // --- misc ----------------------------------------------------------
 
 function createFormCtrl(submitHandler: SubmitHandler): FormCtrl {
-  const
-    subscriptions = new Set<any>(), // TODO
+  const subscriptions = new Set<any>(), // TODO
     performSubmit = () => {
       let invalid = false
 
       let data: any = {}
 
-      subscriptions.forEach(requestValue => {
+      subscriptions.forEach((requestValue) => {
         const result = requestValue(true)
 
         if (!invalid) {
@@ -109,7 +108,6 @@ function createFormCtrl(submitHandler: SubmitHandler): FormCtrl {
     submit: performSubmit
   }
 }
-
 
 // --- exports -------------------------------------------------------
 
