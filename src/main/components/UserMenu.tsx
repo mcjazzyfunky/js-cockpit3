@@ -7,7 +7,7 @@ import * as Spec from 'js-spec/validators'
 
 // internal import
 import defineStyles from '../tools/defineStyles'
-import useI18n from '../hooks/useI18n'
+import useLocalizer from '../hooks/useLocalizer'
 
 // === types =========================================================
 
@@ -76,8 +76,8 @@ const useUserMenuStyles = defineStyles((theme) => {
 // === components ====================================================
 
 function UserMenu({ displayName }: UserMenuProps) {
-  const { getText } = useI18n(),
-    classes = useUserMenuStyles()
+  const { getText } = useLocalizer()
+  const classes = useUserMenuStyles()
 
   return (
     <div className={classes.root}>

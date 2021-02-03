@@ -20,9 +20,9 @@ import TextInput from './TextInput'
 import PasswordInput from './PasswordInput'
 import CheckBox from './CheckBox'
 import useFormMgmt from '../hooks/useFormMgmt'
-import useI18n from '../hooks/useI18n'
+import useLocalizer from '../hooks/useLocalizer'
 import useTheme from '../hooks/useTheme'
-import I18n from '../types/I18n'
+import Localizer from '../types/i18n/Localizer'
 
 // derived imports
 const { useCallback, useState } = React
@@ -291,27 +291,30 @@ function LoginScreen({
   performLogin,
   theme
 }: LoginScreenProps) {
-  const i18n = useI18n(),
-    [isLoading, setLoading] = useState(false),
-    [errorMsg, setErrorMsg] = useState(''),
-    defaultTheme = useTheme(),
-    classes = useLoginScreenStyles(theme || defaultTheme),
-    [_, LoginForm, setSubmitHandler] = useFormMgmt(),
-    rememberLoginLabel = i18n.getText(
-      'jsc.LoginScreen.rememberLoginLabel',
-      null,
-      'Remember login'
-    ),
-    defaultLoginErrorMsg = i18n.getText(
-      'jsc.LoginScreen.defaultLogiErrorMessage',
-      null,
-      'Could not log in'
-    ),
-    onFormInput = useCallback(() => {
-      if (errorMsg) {
-        setErrorMsg('')
-      }
-    }, [errorMsg])
+  const localizer = useLocalizer()
+  const [isLoading, setLoading] = useState(false)
+  const [errorMsg, setErrorMsg] = useState('')
+  const defaultTheme = useTheme()
+  const classes = useLoginScreenStyles(theme || defaultTheme)
+  const [_, LoginForm, setSubmitHandler] = useFormMgmt()
+
+  const rememberLoginLabel = localizer.getText(
+    'jsc.LoginScreen.rememberLoginLabel',
+    null,
+    'Remember login'
+  )
+
+  const defaultLoginErrorMsg = localizer.getText(
+    'jsc.LoginScreen.defaultLogiErrorMessage',
+    null,
+    'Could not log in'
+  )
+
+  const onFormInput = useCallback(() => {
+    if (errorMsg) {
+      setErrorMsg('')
+    }
+  }, [errorMsg])
 
   setSubmitHandler((data) => {
     if (performLogin && !isLoading) {
@@ -353,7 +356,7 @@ function LoginScreen({
           <div className={classes.column1Top}>
             {slotLoginIntro
               ? slotLoginIntro
-              : renderDefaultLoginIntro(classes, i18n)}
+              : renderDefaultLoginIntro(classes, localizer)}
           </div>
           <div className={classes.column1Bottom}>
             <LoginIcon size="70" className={classes.loginIcon} />
@@ -365,7 +368,7 @@ function LoginScreen({
           <div className={classes.column2Top}>
             {slotLoginFields
               ? slotLoginFields
-              : renderDefaultLoginFields(classes, i18n)}
+              : renderDefaultLoginFields(classes, localizer)}
           </div>
           <div className={classes.column2Bottom}>
             {errorMsg ? (
@@ -374,7 +377,7 @@ function LoginScreen({
             <div className={classes.rememberLogin}>
               <CheckBox name="rememberLogin" label={rememberLoginLabel} />
             </div>
-            {renderLoginButton(isLoading, classes, i18n)}
+            {renderLoginButton(isLoading, classes, localizer)}
             <FocusTrapZone disabled={!isLoading}>
               <button className={classes.focusTrapZoneFakeButton}></button>
             </FocusTrapZone>
@@ -417,7 +420,7 @@ function renderFooter(slotFooter: ReactNode, classes: Classes) {
   return <div className={classes.footer}>{slotFooter}</div>
 }
 
-function renderDefaultLoginIntro(classes: Classes, { getText }: I18n) {
+function renderDefaultLoginIntro(classes: Classes, { getText }: Localizer) {
   const headline = getText('jsc.LoginScreen.loginHeadline', null, 'Login'),
     text = getText(
       'jsc.LoginScreen.loginText',
@@ -433,7 +436,7 @@ function renderDefaultLoginIntro(classes: Classes, { getText }: I18n) {
   )
 }
 
-function renderDefaultLoginFields(classes: Classes, { getText }: I18n) {
+function renderDefaultLoginFields(classes: Classes, { getText }: Localizer) {
   const usernameLabel = getText('jsc.LoginScreen.username', null, 'Username'),
     passwordLabel = getText('jsc.LoginScreen.username', null, 'Password'),
     usernameErrorMsg = getText(
@@ -469,7 +472,7 @@ function renderDefaultLoginFields(classes: Classes, { getText }: I18n) {
 function renderLoginButton(
   isLoading: boolean,
   classes: Classes,
-  { getText }: I18n
+  { getText }: Localizer
 ) {
   const loginButtonLabel = getText(
       'jsc.LoginScreen.loginButtonLabel',

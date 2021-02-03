@@ -12,7 +12,7 @@ import Paginator from './Paginator'
 import PageSizeSelector from './PageSizeSelector'
 import PaginationInfo from './PaginationInfo'
 import useForceUpdate from '../hooks/useForceUpdate'
-import Rec from '../types/Rec'
+import Rec from '../types/misc/Rec'
 
 // derived imports
 const {
