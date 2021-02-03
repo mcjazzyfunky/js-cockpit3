@@ -1,23 +1,11 @@
 import React, { ReactNode } from 'react'
-import { component, isNode } from 'js-react-utils'
+import { convertValidation, isNode } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
 
 import { Text } from '@fluentui/react'
 
 // internal import
 import defineStyles from '../tools/defineStyles'
-
-// --- components ----------------------------------------------------
-
-const PaginationInfo = component<PaginationInfoProps>({
-  name: 'PaginationInfo',
-
-  ...(process.env.NODE_ENV === ('development' as any)
-    ? { validate: Spec.lazy(() => validatePaginationInfoProps) }
-    : null),
-
-  main: PaginationInfoView
-})
 
 // --- types ---------------------------------------------------------
 
@@ -33,7 +21,7 @@ const validatePaginationInfoProps = Spec.checkProps({
 
 // --- styles --------------------------------------------------------
 
-const usePaginationInfoStyles = defineStyles(theme => {
+const usePaginationInfoStyles = defineStyles((theme) => {
   return {
     root: {
       flexGrow: 1,
@@ -44,9 +32,9 @@ const usePaginationInfoStyles = defineStyles(theme => {
   }
 })
 
-// --- view ----------------------------------------------------------
+// --- components ----------------------------------------------------
 
-function PaginationInfoView({}: PaginationInfoProps) {
+function PaginationInfo({}: PaginationInfoProps) {
   const classes = usePaginationInfoStyles()
 
   return (
@@ -55,6 +43,13 @@ function PaginationInfoView({}: PaginationInfoProps) {
     </div>
   )
 }
+
+Object.assign(PaginationInfo, {
+  displayName: 'PaginationInfo',
+
+  ...(process.env.NODE_ENV === 'development' &&
+    convertValidation(validatePaginationInfoProps))
+})
 
 // --- exports -------------------------------------------------------
 

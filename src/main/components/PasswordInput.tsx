@@ -1,6 +1,6 @@
 // external imports
 import React, { FormEvent } from 'react'
-import { component, isNode } from 'js-react-utils'
+import { convertValidation, isNode } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
 
 import { TextField } from '@fluentui/react'
@@ -12,18 +12,6 @@ import useFormCtrl from '../hooks/useFormCtrl'
 
 // derived imports
 const { useCallback, useEffect, useRef, useState } = React
-
-// --- components ----------------------------------------------------
-
-const PasswordInput = component<PasswordInputProps>({
-  name: 'PasswordInput',
-
-  ...(process.env.NODE_ENV === ('development' as any)
-    ? { validate: Spec.lazy(() => validatePasswordInputProps) }
-    : null),
-
-  main: PasswordInputView
-})
 
 // --- types ---------------------------------------------------------
 
@@ -53,15 +41,15 @@ const validatePasswordInputProps = Spec.checkProps({
 
 // --- styles --------------------------------------------------------
 
-const usePasswordInputStyles = defineStyles(theme => {
+const usePasswordInputStyles = defineStyles((theme) => {
   return {
     root: {}
   }
 })
 
-// --- view ----------------------------------------------------------
+// --- components ----------------------------------------------------
 
-function PasswordInputView({
+function PasswordInput({
   name,
   label,
   disabled,
@@ -140,6 +128,13 @@ function PasswordInputView({
     </FieldWrapper>
   )
 }
+
+Object.assign(PasswordInput, {
+  displayName: 'PasswordInput',
+
+  ...(process.env.NODE_ENV === ('development' as string) &&
+    convertValidation(validatePasswordInputProps))
+})
 
 // --- misc ----------------------------------------------------------
 

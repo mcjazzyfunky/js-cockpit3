@@ -1,8 +1,7 @@
 // external imports
 import React, { FormEvent } from 'react'
-import { component, isNode } from 'js-react-utils'
+import { convertValidation, isNode } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
-
 import { Checkbox } from '@fluentui/react'
 
 // internal import
@@ -11,18 +10,6 @@ import useFormCtrl from '../hooks/useFormCtrl'
 
 // derived import
 const { useCallback, useEffect, useState, useRef } = React
-
-// --- components ----------------------------------------------------
-
-const CheckBox = component<CheckBoxProps>({
-  name: 'CheckBox',
-
-  ...(process.env.NODE_ENV === ('development' as any)
-    ? { validate: Spec.lazy(() => validateCheckBoxProps) }
-    : null),
-
-  main: CheckBoxView
-})
 
 // --- types ---------------------------------------------------------
 
@@ -49,15 +36,15 @@ const validateCheckBoxProps = Spec.checkProps({
 
 // --- styles --------------------------------------------------------
 
-const useCheckBoxStyles = defineStyles(theme => {
+const useCheckBoxStyles = defineStyles((theme) => {
   return {
     root: {}
   }
 })
 
-// --- view ----------------------------------------------------------
+// --- components ----------------------------------------------------
 
-function CheckBoxView({
+function CheckBox({
   name,
   label,
   disabled,
@@ -137,6 +124,13 @@ function CheckBoxView({
     />
   )
 }
+
+Object.assign(CheckBox, {
+  displayName: 'CheckBox',
+
+  ...(process.env.NODE_ENV === ('development' as string) &&
+    convertValidation(validateCheckBoxProps))
+})
 
 // --- misc ----------------------------------------------------------
 

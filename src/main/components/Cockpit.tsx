@@ -1,24 +1,12 @@
 // external imports
 import React, { ReactNode } from 'react'
-import { component, isNode } from 'js-react-utils'
+import { convertValidation, isNode } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
 import { Fabric, Customizer, ITheme } from '@fluentui/react'
 
-// internal import
+// internal imports
 import defineStyles from '../tools/defineStyles'
 import useTheme from '../hooks/useTheme'
-
-// --- components ----------------------------------------------------
-
-const Cockpit = component<CockpitProps>({
-  name: 'Cockpit',
-
-  ...(process.env.NODE_ENV === ('development' as any)
-    ? { validate: Spec.lazy(() => validateCockpitProps) }
-    : null),
-
-  main: CockpitView
-})
 
 // --- types ---------------------------------------------------------
 
@@ -133,9 +121,9 @@ const useCockpitStyles = defineStyles(
   }
 )
 
-// --- view ----------------------------------------------------------
+// --- components ----------------------------------------------------
 
-function CockpitView({
+function Cockpit({
   theme,
   look = 'default',
   slotBrand,
@@ -168,6 +156,13 @@ function CockpitView({
     </Customizer>
   )
 }
+
+Object.assign({
+  displayName: 'Cockpit',
+
+  ...(process.env.NODE_ENV === ('development' as string) &&
+    convertValidation(validateCockpitProps))
+})
 
 function renderHeader(
   slotBrand: ReactNode,

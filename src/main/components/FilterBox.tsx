@@ -1,6 +1,6 @@
 // external imports
 import React, { ReactNode } from 'react'
-import { component, isNode } from 'js-react-utils'
+import { convertValidation, isNode } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
 import { GoSearch as SearchIcon } from 'react-icons/go'
 import { MdFilterList as FilterIcon } from 'react-icons/md'
@@ -11,18 +11,6 @@ import { PrimaryButton } from '@fluentui/react'
 import defineStyles from '../tools/defineStyles'
 import DefaultLabelPositionCtx from '../context/DefaultLabelPositionCtx'
 import LabelPosition from '../enums/LabelPosition'
-
-// --- components ----------------------------------------------------
-
-const FilterBox = component<FilterBoxProps>({
-  name: 'FilterBox',
-
-  ...(process.env.NODE_ENV === ('development' as any)
-    ? { validate: Spec.lazy(() => validateFilterBoxProps) }
-    : null),
-
-  main: FilterBoxView
-})
 
 // --- types ---------------------------------------------------------
 
@@ -40,7 +28,7 @@ const validateFilterBoxProps = Spec.checkProps({
 
 // --- styles --------------------------------------------------------
 
-const useFilterBoxStyles = defineStyles(theme => {
+const useFilterBoxStyles = defineStyles((theme) => {
   return {
     root: {
       display: 'flex'
@@ -67,9 +55,9 @@ const useFilterBoxStyles = defineStyles(theme => {
   }
 })
 
-// --- view ----------------------------------------------------------
+// --- components ----------------------------------------------------
 
-function FilterBoxView({ children }: FilterBoxProps) {
+function FilterBox({ children }: FilterBoxProps) {
   const classes = useFilterBoxStyles()
 
   return (
@@ -90,6 +78,13 @@ function FilterBoxView({ children }: FilterBoxProps) {
     </div>
   )
 }
+
+Object.assign(FilterBox, {
+  displayName: 'FilterBox',
+
+  ...(process.env.NODE_ENV === 'development' &&
+    convertValidation(validateFilterBoxProps))
+})
 
 // --- exports -------------------------------------------------------
 

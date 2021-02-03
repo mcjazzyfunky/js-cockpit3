@@ -1,9 +1,8 @@
 // external imports
 import React, { FormEvent } from 'react'
-import { component, isNode } from 'js-react-utils'
+import { convertValidation, isNode } from 'js-react-utils'
 import { AiOutlineCalendar as CalendarIcon } from 'react-icons/ai'
 import * as Spec from 'js-spec/validators'
-
 import { Calendar, DatePicker } from '@fluentui/react'
 
 // internal import
@@ -13,18 +12,6 @@ import useFormCtrl from '../hooks/useFormCtrl'
 
 // derived import
 const { useCallback, useEffect, useState, useRef } = React
-
-// --- components ----------------------------------------------------
-
-const DateInput = component<DateInputProps>({
-  name: 'DateInput',
-
-  ...(process.env.NODE_ENV === ('development' as any)
-    ? { validate: Spec.lazy(() => validateDateInputProps) }
-    : null),
-
-  main: DateInputView
-})
 
 // --- types ---------------------------------------------------------
 
@@ -50,7 +37,7 @@ const validateDateInputProps = Spec.checkProps({
 
 // --- styles --------------------------------------------------------
 
-const useDateInputStyles = defineStyles(theme => {
+const useDateInputStyles = defineStyles((theme) => {
   return {
     root: {},
     xxx: {
@@ -59,9 +46,9 @@ const useDateInputStyles = defineStyles(theme => {
   }
 })
 
-// --- view ----------------------------------------------------------
+// --- components ----------------------------------------------------
 
-function DateInputView({
+function DateInput({
   name,
   label,
   disabled,
@@ -128,7 +115,7 @@ function DateInputView({
     <FieldWrapper label={label} required={required} error={error}>
       <DatePicker
         disabled={disabled}
-        formatDate={date => (!date ? '' : date.toISOString().substr(0, 10))}
+        formatDate={(date) => (!date ? '' : date.toISOString().substr(0, 10))}
         //error={!!error}
         onChange={onChange}
         textField={{
@@ -136,7 +123,7 @@ function DateInputView({
             iconName: 'jsc:calendar'
           }
         }}
-        calendarAs={props => {
+        calendarAs={(props) => {
           const newProps = {
             ...props,
 
@@ -153,6 +140,13 @@ function DateInputView({
     </FieldWrapper>
   )
 }
+
+Object.assign(DateInput, {
+  displayName: 'DateInput',
+
+  ...(process.env.NODE_ENV === 'development' &&
+    convertValidation(validateDateInputProps))
+})
 
 // --- misc ----------------------------------------------------------
 

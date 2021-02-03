@@ -1,6 +1,6 @@
 // external imports
 import React, { ReactNode } from 'react'
-import { component, isNode } from 'js-react-utils'
+import { convertValidation, isNode } from 'js-react-utils'
 import { IoIosUnlock as LoginIcon } from 'react-icons/io'
 import * as Spec from 'js-spec/validators'
 
@@ -26,18 +26,6 @@ import I18n from '../types/I18n'
 
 // derived imports
 const { useCallback, useState } = React
-
-// --- components ----------------------------------------------------
-
-const LoginScreen = component({
-  name: 'LoginScreen',
-
-  ...(process.env.NODE_ENV === ('development' as any) && {
-    validate: Spec.lazy(() => validateLoginScreenProps)
-  }),
-
-  main: LoginScreenView
-})
 
 // --- types ---------------------------------------------------------
 
@@ -293,9 +281,9 @@ const useLoginScreenStyles = defineStyles((_, theme: ITheme) => {
   }
 })
 
-// --- view ----------------------------------------------------------
+// --- components ----------------------------------------------------
 
-function LoginScreenView({
+function LoginScreen({
   slotHeader,
   slotFooter,
   slotLoginIntro,
@@ -325,7 +313,7 @@ function LoginScreenView({
       }
     }, [errorMsg])
 
-  setSubmitHandler(data => {
+  setSubmitHandler((data) => {
     if (performLogin && !isLoading) {
       const result = performLogin(data)
 
@@ -335,7 +323,7 @@ function LoginScreenView({
 
         result
           .then(() => {})
-          .catch(error => {
+          .catch((error) => {
             let msg = !error
               ? ''
               : typeof error === 'string'
@@ -405,6 +393,13 @@ function LoginScreenView({
     </Customizer>
   )
 }
+
+Object.assign(LoginScreen, {
+  displayName: 'LoginScreen',
+
+  ...(process.env.NODE_ENV === ('development' as string) &&
+    convertValidation(validateLoginScreenProps))
+})
 
 function renderHeader(slotHeader: ReactNode, classes: Classes) {
   if (!slotHeader) {

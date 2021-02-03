@@ -1,23 +1,11 @@
 // external imports
 import React, { ReactNode, Key } from 'react'
-import { component, isNode } from 'js-react-utils'
+import { convertValidation, isNode } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
 
 // internal import
 import classNames from '../tools/classNames'
 import defineStyles from '../tools/defineStyles'
-
-// --- components ----------------------------------------------------
-
-const WorkspaceSelector = component<WorkspaceSelectorProps>({
-  name: 'WorkspaceSelector',
-  
-  ...process.env.NODE_ENV === 'development' as any
-    ? { validate: Spec.lazy(() => validateWorkspaceSelectorProps) }
-    : null,
- 
-  main: WorkspaceSelectorView
-})
 
 // --- types ---------------------------------------------------------
 
@@ -26,15 +14,15 @@ type WorkspaceSelectorProps = {
 }
 
 type WorkspaceSelectorItems = {
-  type: 'items',
+  type: 'items'
   items: WorkspaceSelectorItem[]
-  activeItemId?: string,
+  activeItemId?: string
 }
 
 type WorkspaceSelectorItem = {
-  type: 'item',
-  itemId: string,
-  text: string,
+  type: 'item'
+  itemId: string
+  text: string
   description?: string
 }
 
@@ -63,7 +51,7 @@ const validateWorkspaceSelectorItem = Spec.exact({
 
 // --- styles --------------------------------------------------------
 
-const useWorkspaceSelectorStyles = defineStyles(theme => {
+const useWorkspaceSelectorStyles = defineStyles((theme) => {
   return {
     root: {
       whiteSpace: 'nowrap'
@@ -78,7 +66,7 @@ const useWorkspaceSelectorStyles = defineStyles(theme => {
     workspaceLink: {
       fontFamily: theme.fonts.medium.fontFamily,
       padding: '11px 10px',
-      margin: '0 2px',
+      margin: '0 2px'
     },
 
     workspaceLinkInactive: {
@@ -88,7 +76,7 @@ const useWorkspaceSelectorStyles = defineStyles(theme => {
       selectors: {
         ':hover': {
           backgroundColor: theme.palette.themeSecondary,
-          borderRadius: '1px',
+          borderRadius: '1px'
         }
       }
     },
@@ -102,11 +90,9 @@ const useWorkspaceSelectorStyles = defineStyles(theme => {
   }
 })
 
-// --- view ----------------------------------------------------------
+// --- components ----------------------------------------------------
 
-function WorkspaceSelectorView({
-  menu
-}: WorkspaceSelectorProps) {
+function WorkspaceSelector({ menu }: WorkspaceSelectorProps) {
   const classes = useWorkspaceSelectorStyles()
 
   if (!menu) {
@@ -116,15 +102,21 @@ function WorkspaceSelectorView({
   return (
     <div className={classes.root}>
       <div className={classes.menuIcon}>
-        <WorkspaceSelectorIcon/>
+        <WorkspaceSelectorIcon />
       </div>
-      {
-        menu.items.map((item, idx) =>
-          renderWorkspaceLink(item, menu.activeItemId, classes, idx))
-      }
+      {menu.items.map((item, idx) =>
+        renderWorkspaceLink(item, menu.activeItemId, classes, idx)
+      )}
     </div>
   )
 }
+
+Object.assign(WorkspaceSelector, {
+  displayName: 'WorkspaceSelector',
+
+  ...(process.env.NODE_ENV === ('development' as string) &&
+    convertValidation(validateWorkspaceSelectorProps))
+})
 
 function renderWorkspaceLink(
   item: WorkspaceSelectorItem,
@@ -132,18 +124,19 @@ function renderWorkspaceLink(
   classes: Classes,
   key: Key
 ) {
-  const
-    active = typeof activeItemId === 'string' && item.itemId === activeItemId,
-
+  const active =
+      typeof activeItemId === 'string' && item.itemId === activeItemId,
     className = classNames(
       classes.workspaceLink,
-      active ? classes.workspaceLinkActive :  classes.workspaceLinkInactive)
+      active ? classes.workspaceLinkActive : classes.workspaceLinkInactive
+    )
 
-  const link =
+  const link = (
     <a className={className} key={key}>
       {item.text}
     </a>
-  
+  )
+
   return link
 }
 
@@ -151,16 +144,15 @@ function WorkspaceSelectorIcon() {
   return (
     <svg width="12" height="12" viewBox="0 0 64 64">
       <g fill="currentColor">
-        <path d="M 0 0 L 0 26 L 26 26 L 26 0 Z"/>
-        <path d="M 0 37 L 0 63 L 26 63 L 26 37 Z"/>
-        <path d="M 37 0 L 37 26 L 63 26 L 63 0 Z"/>
-        <path d="M 37 37 L 37 63 L 63 63 L 63 37 Z"/>
+        <path d="M 0 0 L 0 26 L 26 26 L 26 0 Z" />
+        <path d="M 0 37 L 0 63 L 26 63 L 26 37 Z" />
+        <path d="M 37 0 L 37 26 L 63 26 L 63 0 Z" />
+        <path d="M 37 37 L 37 63 L 63 63 L 63 37 Z" />
       </g>
     </svg>
   )
 }
 
-
 // --- exports -------------------------------------------------------
 
-export default WorkspaceSelector 
+export default WorkspaceSelector

@@ -1,11 +1,13 @@
 // external imports
 import React, { ReactNode } from 'react'
+
 import {
-  component,
+  convertValidation,
   isNode,
   isElementOfType,
   withChildren
 } from 'js-react-utils'
+
 import * as Spec from 'js-spec/validators'
 
 import { Pivot, PivotItem } from '@fluentui/react'
@@ -16,18 +18,6 @@ import Tab from './Tab'
 
 // derived imports
 const { Children } = React
-
-// --- components ----------------------------------------------------
-
-const Tabs = component<TabsProps>({
-  name: 'Tabs',
-
-  ...(process.env.NODE_ENV === ('development' as any)
-    ? { validate: Spec.lazy(() => validateTabsProps) }
-    : null),
-
-  main: TabsView
-})
 
 // --- types ---------------------------------------------------------
 
@@ -45,15 +35,15 @@ const validateTabsProps = Spec.checkProps({
 
 // --- styles --------------------------------------------------------
 
-const useTabsStyles = defineStyles(theme => {
+const useTabsStyles = defineStyles((theme) => {
   return {
     root: {}
   }
 })
 
-// --- view ----------------------------------------------------------
+// --- components ----------------------------------------------------
 
-function TabsView({ children }: TabsProps) {
+function Tabs({ children }: TabsProps) {
   const classes = useTabsStyles()
 
   // Children.map would modify keys
@@ -73,6 +63,13 @@ function TabsView({ children }: TabsProps) {
     </div>
   )
 }
+
+Object.assign(Tabs, {
+  displayName: 'Tabs',
+
+  ...(process.env.NODE_ENV === ('development' as string) &&
+    convertValidation(validateTabsProps))
+})
 
 // --- exports -------------------------------------------------------
 

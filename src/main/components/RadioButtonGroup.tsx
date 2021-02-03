@@ -1,47 +1,34 @@
 // external imports
-import React, { FormEvent } from "react";
-import { component, isNode } from "js-react-utils";
-import * as Spec from "js-spec/validators";
-
-import { ChoiceGroup } from "@fluentui/react";
+import React, { FormEvent } from 'react'
+import { convertValidation, isNode } from 'js-react-utils'
+import * as Spec from 'js-spec/validators'
+import { ChoiceGroup } from '@fluentui/react'
 
 // internal import
-import defineStyles from "../tools/defineStyles";
-import FieldWrapper from "./FieldWrapper";
-import useFormCtrl from "../hooks/useFormCtrl";
+import defineStyles from '../tools/defineStyles'
+import FieldWrapper from './FieldWrapper'
+import useFormCtrl from '../hooks/useFormCtrl'
 
 // derived import
-const { useCallback, useEffect, useState, useRef } = React;
-
-// --- components ----------------------------------------------------
-
-const RadioButtonGroup = component<RadioButtonGroupProps>({
-  name: "RadioButtonGroup",
-
-  ...(process.env.NODE_ENV === ("development" as any)
-    ? { validate: Spec.lazy(() => validateRadioButtonGroupProps) }
-    : null),
-
-  main: RadioButtonGroupView,
-});
+const { useCallback, useEffect, useState, useRef } = React
 
 // --- types ---------------------------------------------------------
 
 type RadioButtonGroupProps = {
-  name?: string;
-  label?: string;
-  value?: string;
-  options?: Option[];
-  align?: "horizontal" | "vertical";
-  required?: boolean;
-  disabled?: boolean;
-  messageOnError?: string;
-};
+  name?: string
+  label?: string
+  value?: string
+  options?: Option[]
+  align?: 'horizontal' | 'vertical'
+  required?: boolean
+  disabled?: boolean
+  messageOnError?: string
+}
 
 type Option = {
-  value: string;
-  text: string;
-};
+  value: string
+  text: string
+}
 
 // --- validation ----------------------------------------------------
 
@@ -51,17 +38,17 @@ const validateRadioButtonGroupProps = Spec.checkProps({
     label: Spec.string,
     value: Spec.string,
     options: Spec.lazy(() => Spec.arrayOf(validateOption)),
-    align: Spec.oneOf("horizontal", "vertical"),
+    align: Spec.oneOf('horizontal', 'vertical'),
     disabled: Spec.boolean,
     required: Spec.boolean,
-    messageOnError: Spec.string,
-  },
-});
+    messageOnError: Spec.string
+  }
+})
 
 const validateOption = Spec.exact({
   value: Spec.string,
-  text: Spec.string,
-});
+  text: Spec.string
+})
 
 // --- styles --------------------------------------------------------
 
@@ -70,25 +57,25 @@ const useRadioButtonGroupStyles = defineStyles((theme) => {
     root: {},
 
     gapRight: {
-      marginRight: "10px",
-    },
-  };
-});
+      marginRight: '10px'
+    }
+  }
+})
 
-// --- view ----------------------------------------------------------
+// --- components ----------------------------------------------------
 
-function RadioButtonGroupView({
+function RadioButtonGroup({
   name,
   label,
   options,
   value,
-  align = "vertical",
+  align = 'vertical',
   disabled = false,
   required = false,
-  messageOnError,
+  messageOnError
 }: RadioButtonGroupProps) {
   const [val, setVal] = useState(value),
-    [error, setError] = useState(""),
+    [error, setError] = useState(''),
     classes = useRadioButtonGroupStyles(),
     formCtrl = useFormCtrl(),
     nameRef = useRef(name),
@@ -97,53 +84,53 @@ function RadioButtonGroupView({
     messageOnErrorRef = useRef(messageOnError),
     onInput = useCallback(
       (ev: FormEvent<HTMLInputElement>) => {
-        setVal(ev.currentTarget.value);
+        setVal(ev.currentTarget.value)
 
         if (error) {
-          setError("");
+          setError('')
         }
       },
       [error]
-    );
+    )
 
   useEffect(() => {
-    nameRef.current = name;
-    valRef.current = val;
-    requiredRef.current = required;
-    messageOnErrorRef.current = messageOnError;
-  }, [name, val, required, messageOnError]);
+    nameRef.current = name
+    valRef.current = val
+    requiredRef.current = required
+    messageOnErrorRef.current = messageOnError
+  }, [name, val, required, messageOnError])
 
-  useEffect(() => {}, [val]);
+  useEffect(() => {}, [val])
 
   useEffect(() => {
     if (formCtrl) {
       return formCtrl.registerComponent((update: boolean) => {
-        const errorMsg = validate(valRef.current, requiredRef.current);
+        const errorMsg = validate(valRef.current, requiredRef.current)
 
         if (update && errorMsg) {
-          setError(errorMsg);
+          setError(errorMsg)
         }
 
         return !errorMsg
           ? {
-              name: nameRef.current || "",
+              name: nameRef.current || '',
               valid: true,
-              value: valRef.current,
+              value: valRef.current
             }
           : {
-              name: nameRef.current || "",
-              valid: false,
-            };
-      });
+              name: nameRef.current || '',
+              valid: false
+            }
+      })
     }
-  }, [formCtrl]);
+  }, [formCtrl])
 
   const styles: any =
-    align !== "horizontal"
+    align !== 'horizontal'
       ? null
       : {
-          flexContainer: { display: "flex" },
-        };
+          flexContainer: { display: 'flex' }
+        }
 
   return (
     <FieldWrapper label={label} required={required} error={error}>
@@ -158,17 +145,24 @@ function RadioButtonGroupView({
                 key: option.value,
 
                 text:
-                  align === "horizontal"
+                  align === 'horizontal'
                     ? ((
                         <div className={classes.gapRight}>{option.text}</div>
                       ) as any)
-                    : option.text,
+                    : option.text
               }))
         }
       />
     </FieldWrapper>
-  );
+  )
 }
+
+Object.assign(RadioButtonGroup, {
+  displayName: 'RadioButtonGroup',
+
+  ...(process.env.NODE_ENV === ('development' as string) &&
+    convertValidation(validateRadioButtonGroupProps))
+})
 
 // --- misc ----------------------------------------------------------
 
@@ -178,15 +172,15 @@ function validate(
   pattern?: RegExp,
   messageOnError?: string
 ) {
-  let ret: string | null = null;
+  let ret: string | null = null
 
   if (required && !value) {
-    ret = messageOnError ? messageOnError : "This is a required field";
+    ret = messageOnError ? messageOnError : 'This is a required field'
   }
 
-  return ret;
+  return ret
 }
 
 // --- exports -------------------------------------------------------
 
-export default RadioButtonGroup;
+export default RadioButtonGroup

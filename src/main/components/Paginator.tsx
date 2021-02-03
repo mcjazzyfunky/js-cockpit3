@@ -1,23 +1,11 @@
 import React, { ReactNode } from 'react'
-import { component, isNode } from 'js-react-utils'
+import { convertValidation, isNode } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
 
 import { Icon, Text, TextField } from '@fluentui/react'
 
 // internal import
 import defineStyles from '../tools/defineStyles'
-
-// --- components ----------------------------------------------------
-
-const Paginator = component<PaginatorProps>({
-  name: 'Paginator',
-
-  ...(process.env.NODE_ENV === ('development' as any)
-    ? { validate: Spec.lazy(() => validatePaginatorProps) }
-    : null),
-
-  main: PaginatorView
-})
 
 // --- types ---------------------------------------------------------
 
@@ -35,7 +23,7 @@ const validatePaginatorProps = Spec.checkProps({
 
 // --- styles --------------------------------------------------------
 
-const usePaginatorStyles = defineStyles(theme => {
+const usePaginatorStyles = defineStyles((theme) => {
   return {
     root: {},
 
@@ -82,13 +70,9 @@ const usePaginatorStyles = defineStyles(theme => {
   }
 })
 
-// --- view ----------------------------------------------------------
+// --- components ----------------------------------------------------
 
-function PaginatorView({
-  pageIndex,
-  pageCount,
-  disabled = false
-}: PaginatorProps) {
+function Paginator({ pageIndex, pageCount, disabled = false }: PaginatorProps) {
   const classes = usePaginatorStyles()
 
   return (
@@ -117,6 +101,13 @@ function PaginatorView({
     </div>
   )
 }
+
+Object.assign(Paginator, {
+  displayName: 'Paginator',
+
+  ...(process.env.NODE_ENV === ('development' as string) &&
+    convertValidation(validatePaginatorProps))
+})
 
 // --- exports -------------------------------------------------------
 

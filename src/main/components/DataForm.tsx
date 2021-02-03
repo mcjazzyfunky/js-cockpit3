@@ -1,6 +1,6 @@
 // external imports
 import React, { ReactNode } from 'react'
-import { component, isNode } from 'js-react-utils'
+import { convertValidation, isNode } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
 
 // internal import
@@ -8,22 +8,10 @@ import defineStyles from '../tools/defineStyles'
 import LabelPosition from '../enums/LabelPosition'
 import DefaultLabelPositionCtx from '../context/DefaultLabelPositionCtx'
 
-// --- components ----------------------------------------------------
-
-const DataForm = component<DataFormProps>({
-  name: 'DataForm',
-  
-  ...process.env.NODE_ENV === 'development' as any
-    ? { validate: Spec.lazy(() => validateDataFormProps) }
-    : null,
- 
-  main: DataFormView
-})
-
 // --- types ---------------------------------------------------------
 
 type DataFormProps = {
-  title?: string,
+  title?: string
   slotActions?: ReactNode
   children?: ReactNode
 }
@@ -40,7 +28,7 @@ const validateDataFormProps = Spec.checkProps({
 
 // --- styles --------------------------------------------------------
 
-const useDataFormStyles = defineStyles(theme => {
+const useDataFormStyles = defineStyles((theme) => {
   return {
     root: {
       padding: '5px',
@@ -52,11 +40,11 @@ const useDataFormStyles = defineStyles(theme => {
             '.ms-Pivot': {
               backgroundColor: theme.palette.neutralLighter,
               marginBottom: '1em',
-              height: '34px',
+              height: '34px'
             },
 
             '.ms-Pivot *': {
-              height: '34px',
+              height: '34px'
             },
 
             '.ms-Button:hover': {
@@ -64,7 +52,7 @@ const useDataFormStyles = defineStyles(theme => {
             },
 
             '.ms-Pivot-text': {
-              marginTop: '-6px',
+              marginTop: '-6px'
             }
           }
         }
@@ -87,45 +75,40 @@ const useDataFormStyles = defineStyles(theme => {
       marginRight: '1em'
     },
 
-    actions: {
-
-    },
+    actions: {},
 
     body: {
-      padding: '5px 0px',
+      padding: '5px 0px'
     }
   }
 })
 
-// --- view ----------------------------------------------------------
+// --- components ----------------------------------------------------
 
-function DataFormView({
-  title,
-  slotActions,
-  children
-}: DataFormProps) {
+function DataForm({ title, slotActions, children }: DataFormProps) {
   const classes = useDataFormStyles()
 
   return (
     <div className={classes.root}>
       <DefaultLabelPositionCtx.Provider value={LabelPosition.Beside}>
         <div className={classes.header}>
-          <div className={classes.title}>
-              {title}
-          </div>
-          {
-            slotActions
-              ? <div className={classes.actions}>{slotActions}</div>
-              : null
-          }
+          <div className={classes.title}>{title}</div>
+          {slotActions ? (
+            <div className={classes.actions}>{slotActions}</div>
+          ) : null}
         </div>
-        <div className={classes.body}>
-          {children}
-        </div>
+        <div className={classes.body}>{children}</div>
       </DefaultLabelPositionCtx.Provider>
     </div>
   )
 }
+
+Object.assign(DataForm, {
+  displayName: 'DataForm',
+
+  ...(process.env.NODE_ENV === ('development' as string) &&
+    convertValidation(validateDataFormProps))
+})
 
 // --- exports -------------------------------------------------------
 

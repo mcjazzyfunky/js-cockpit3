@@ -1,31 +1,19 @@
 // external imports
 import React, { ReactNode } from 'react'
-import { component, isNode } from 'js-react-utils'
+import { convertValidation, isNode } from 'js-react-utils'
 import { FiLayers as DefaultLogo } from 'react-icons/fi'
 import * as Spec from 'js-spec/validators'
 
 // internal import
 import defineStyles from '../tools/defineStyles'
 
-// --- components ----------------------------------------------------
-
-const Brand = component<BrandProps>({
-  name: 'Brand',
-  
-  ...process.env.NODE_ENV === 'development' as any
-    ? { validate: Spec.lazy(() => validateBrandProps) }
-    : null,
- 
-  main: BrandView
-})
-
 // --- types ---------------------------------------------------------
 
 type BrandProps = {
-  vendor?: string,
-  title?: string,
-  logo?: ReactNode,
-  size?: 'small' | 'medium' | 'large' | 'huge',
+  vendor?: string
+  title?: string
+  logo?: ReactNode
+  size?: 'small' | 'medium' | 'large' | 'huge'
   multicolor?: boolean
 }
 
@@ -43,7 +31,7 @@ const validateBrandProps = Spec.checkProps({
 
 // --- styles --------------------------------------------------------
 
-const useBrandStyles = defineStyles(theme => {
+const useBrandStyles = defineStyles((theme) => {
   return {
     root: {
       display: 'flex',
@@ -56,14 +44,13 @@ const useBrandStyles = defineStyles(theme => {
     column1: {
       padding: '0 12px 0 0'
     },
-    
+
     column2: {
       display: 'flex',
       flexDirection: 'column'
     },
 
-    logo: {
-    },
+    logo: {},
 
     defaultLogo: {
       width: '1.6em',
@@ -80,7 +67,7 @@ const useBrandStyles = defineStyles(theme => {
       fontSize: '18px',
       margin: '3px 0 -4px 0'
     },
-  
+
     title: {
       fontFamily: theme.fonts.large.fontFamily,
       fontSize: '23px',
@@ -105,41 +92,40 @@ const useBrandStyles = defineStyles(theme => {
   }
 })
 
-// --- view ----------------------------------------------------------
+// --- components ----------------------------------------------------
 
-function BrandView({
-  vendor,
-  title,
-  logo,
-  size,
-  multicolor = false
-}: BrandProps) {
+function Brand({ vendor, title, logo, size, multicolor = false }: BrandProps) {
   const classes = useBrandStyles()
 
-  const brandLogo = logo
-    ? logo
-    : <DefaultLogo className={classes.defaultLogo}/>
+  const brandLogo = logo ? (
+    logo
+  ) : (
+    <DefaultLogo className={classes.defaultLogo} />
+  )
 
-  const column1 =
+  const column1 = (
     <div className={classes.column1}>
       <div className={multicolor ? classes.logoMulticolor : classes.logo}>
         {brandLogo}
       </div>
     </div>
+  )
 
-  const column2 =
+  const column2 = (
     <div className={classes.column2}>
-      {vendor ? <div className={classes.vendor}>{vendor}</div> : null }
+      {vendor ? <div className={classes.vendor}>{vendor}</div> : null}
       {title ? <div className={classes.title}>{title}</div> : null}
     </div>
+  )
 
-  const sizeClass = size === 'small'
-    ? classes.scaleSmall
-    : size === 'large'
-    ? classes.scaleLarge
-    : size === 'huge'
-    ? classes.scaleHuge
-    : classes.scaleMedium
+  const sizeClass =
+    size === 'small'
+      ? classes.scaleSmall
+      : size === 'large'
+      ? classes.scaleLarge
+      : size === 'huge'
+      ? classes.scaleHuge
+      : classes.scaleMedium
 
   return (
     <div className={`${classes.root} ${sizeClass}`}>
@@ -148,6 +134,13 @@ function BrandView({
     </div>
   )
 }
+
+Object.assign(Brand, {
+  displayName: 'Brand',
+
+  ...(process.env.NODE_ENV === ('development' as string) &&
+    convertValidation(validateBrandProps))
+})
 
 // --- exports -------------------------------------------------------
 

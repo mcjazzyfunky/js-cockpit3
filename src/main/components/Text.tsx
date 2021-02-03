@@ -1,27 +1,15 @@
 // external imports
 import React, { ReactNode } from 'react'
-import { component, isNode } from 'js-react-utils'
+import { convertValidation, isNode } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
 
 // internal import
 import defineStyles from '../tools/defineStyles'
 
-// --- components ----------------------------------------------------
-
-const Text = component<TextProps>({
-  name: 'Text',
-  
-  ...process.env.NODE_ENV === 'development' as any
-    ? { validate: Spec.lazy(() => validateTextProps) }
-    : null,
- 
-  main: TextView
-})
-
 // --- types ---------------------------------------------------------
 
 type TextProps = {
-  size?: 'small' | 'medium' | 'large',
+  size?: 'small' | 'medium' | 'large'
   children?: ReactNode
 }
 
@@ -36,37 +24,37 @@ const validateTextProps = Spec.checkProps({
 
 // --- styles --------------------------------------------------------
 
-const useTextStyles = defineStyles(theme => {
+const useTextStyles = defineStyles((theme) => {
   return {
     small: {
-//      ...theme.typography.font100
+      //      ...theme.typography.font100
     },
 
     medium: {
-//      ...theme.typography.font200
+      //      ...theme.typography.font200
     },
 
     large: {
-//      ...theme.typography.font400
+      //      ...theme.typography.font400
     }
   }
 })
 
-// --- view ----------------------------------------------------------
+// --- components ----------------------------------------------------
 
-function TextView({
-  size = 'medium',
-  children
-}: TextProps) {
+function Text({ size = 'medium', children }: TextProps) {
   const classes = useTextStyles()
 
-  return (
-    <span className={classes[size]}>
-      {children}
-    </span>
-  )
+  return <span className={classes[size]}>{children}</span>
 }
+
+Object.assign(Text, {
+  displayName: 'Text',
+
+  ...(process.env.NODE_ENV === ('development' as string) &&
+    convertValidation(validateTextProps))
+})
 
 // --- exports -------------------------------------------------------
 
-export default Text 
+export default Text

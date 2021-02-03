@@ -1,8 +1,7 @@
 // external imports
 import React, { FormEvent } from 'react'
-import { component, isNode } from 'js-react-utils'
+import { convertValidation, isNode } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
-
 import { Stack, Checkbox } from '@fluentui/react'
 
 // internal import
@@ -12,18 +11,6 @@ import useFormCtrl from '../hooks/useFormCtrl'
 
 // derived import
 const { useCallback, useEffect, useState, useRef } = React
-
-// --- components ----------------------------------------------------
-
-const CheckBoxGroup = component<CheckBoxGroupProps>({
-  name: 'CheckBoxGroup',
-
-  ...(process.env.NODE_ENV === ('development' as any)
-    ? { validate: Spec.lazy(() => validateCheckBoxGroupProps) }
-    : null),
-
-  main: CheckBoxGroupView
-})
 
 // --- types ---------------------------------------------------------
 
@@ -63,7 +50,7 @@ const validateOption = Spec.exact({
 
 // --- styles --------------------------------------------------------
 
-const useCheckBoxGroupStyles = defineStyles(theme => {
+const useCheckBoxGroupStyles = defineStyles((theme) => {
   return {
     root: {
       paddingTop: '3px'
@@ -71,9 +58,9 @@ const useCheckBoxGroupStyles = defineStyles(theme => {
   }
 })
 
-// --- view ----------------------------------------------------------
+// --- component -----------------------------------------------------
 
-function CheckBoxGroupView({
+function CheckBoxGroup({
   name,
   label,
   value,
@@ -139,7 +126,7 @@ function CheckBoxGroupView({
         <Stack tokens={{ childrenGap: 5 }}>
           {!options
             ? null
-            : options.map(option => {
+            : options.map((option) => {
                 return (
                   <Checkbox
                     key={option.key}
@@ -155,6 +142,13 @@ function CheckBoxGroupView({
     </FieldWrapper>
   )
 }
+
+Object.assign(CheckBoxGroup, {
+  displayName: 'CheckBoxGroup',
+
+  ...(process.env.NODE_ENV === ('development' as string) &&
+    convertValidation(validateCheckBoxGroupProps))
+})
 
 // --- misc ----------------------------------------------------------
 

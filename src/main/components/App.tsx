@@ -1,21 +1,8 @@
 // external imports
 import React, { ReactNode } from 'react'
-import { component, isNode } from 'js-react-utils'
+import { convertValidation, isNode } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
-
 import { Fabric, Customizer, ITheme } from '@fluentui/react'
-
-// --- components ----------------------------------------------------
-
-const App = component<AppProps>({
-  name: 'App',
-
-  ...(process.env.NODE_ENV === ('development' as any)
-    ? { validate: Spec.lazy(() => validateAppProps) }
-    : null),
-
-  main: AppView
-})
 
 // --- types ---------------------------------------------------------
 
@@ -33,9 +20,9 @@ const validateAppProps = Spec.checkProps({
   }
 })
 
-// --- view ----------------------------------------------------------
+// --- components ----------------------------------------------------
 
-function AppView({ theme, children }: AppProps) {
+function App({ theme, children }: AppProps) {
   return !theme ? (
     children
   ) : (
@@ -44,6 +31,13 @@ function AppView({ theme, children }: AppProps) {
     </Customizer>
   )
 }
+
+Object.assign(App, {
+  displayName: 'App',
+
+  ...(process.env.NODE_ENV === ('development' as string) &&
+    convertValidation(validateAppProps))
+})
 
 // --- exports -------------------------------------------------------
 

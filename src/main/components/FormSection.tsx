@@ -1,28 +1,16 @@
 // external imports
 import React, { ReactNode } from 'react'
-import { component, isNode } from 'js-react-utils'
+import { convertValidation, isNode } from 'js-react-utils'
 import { FiLayers as DefaultLogo } from 'react-icons/fi'
 import * as Spec from 'js-spec/validators'
 
 // internal import
 import defineStyles from '../tools/defineStyles'
 
-// --- components ----------------------------------------------------
-
-const FormSection = component<FormSectionProps>({
-  name: 'FormSection',
-  
-  ...process.env.NODE_ENV === 'development' as any
-    ? { validate: Spec.lazy(() => validateFormSectionProps) }
-    : null,
- 
-  main: FormSectionView
-})
-
 // --- types ---------------------------------------------------------
 
 type FormSectionProps = {
-  title?: string,
+  title?: string
   children?: ReactNode
 }
 
@@ -39,8 +27,7 @@ const validateFormSectionProps = Spec.checkProps({
 
 const useFormSectionStyles = defineStyles((theme, hasTitle: boolean) => {
   return {
-    root: {
-    },
+    root: {},
 
     title: {
       fontFamily: theme.fonts.small.fontFamily,
@@ -55,36 +42,34 @@ const useFormSectionStyles = defineStyles((theme, hasTitle: boolean) => {
       padding: '1em 1em',
       borderWidth: '.5px 0 0 0',
       borderStyle: 'solid',
-      borderColor: theme.palette.neutralQuaternaryAlt,
+      borderColor: theme.palette.neutralQuaternaryAlt
     }
   }
 })
 
-// --- view ----------------------------------------------------------
+// --- components ----------------------------------------------------
 
-function FormSectionView({
-  title,
-  children
-}: FormSectionProps) {
-  const
-    hasTitle = !!title,
+function FormSection({ title, children }: FormSectionProps) {
+  const hasTitle = !!title,
     classes = useFormSectionStyles(hasTitle),
-
-    titleContent = title
-      ? <div className={`${classes.title}`}>
-          {title}
-        </div>
-      : null
+    titleContent = title ? (
+      <div className={`${classes.title}`}>{title}</div>
+    ) : null
 
   return (
     <div data-component="jsc:FormSection" className={`${classes.root}`}>
       {titleContent}
-      <div className={classes.content}>
-        {children}
-      </div>
+      <div className={classes.content}>{children}</div>
     </div>
   )
 }
+
+Object.assign(FormSection, {
+  displayName: 'FormSection',
+
+  ...(process.env.NODE_ENV === ('development' as string) &&
+    convertValidation(validateFormSectionProps))
+})
 
 // --- exports -------------------------------------------------------
 

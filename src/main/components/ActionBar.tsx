@@ -1,25 +1,12 @@
 // external imports
 import React, { ReactNode } from 'react'
-import { component, isNode } from 'js-react-utils'
+import { convertValidation, isNode } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
-
 import { ActionButton, DefaultButton } from '@fluentui/react'
 
 // internal import
 import defineStyles from '../tools/defineStyles'
 import { icons } from 'react-icons/lib/cjs'
-
-// --- components ----------------------------------------------------
-
-const ActionBar = component<ActionBarProps>({
-  name: 'ActionBar',
-
-  ...(process.env.NODE_ENV === ('development' as any)
-    ? { validate: Spec.lazy(() => validateActionBarProps) }
-    : null),
-
-  main: ActionBarView
-})
 
 // --- types ---------------------------------------------------------
 
@@ -41,7 +28,7 @@ const validateActionBarProps = Spec.checkProps({
 
 // --- styles --------------------------------------------------------
 
-const useActionBarStyles = defineStyles(theme => {
+const useActionBarStyles = defineStyles((theme) => {
   return {
     root: {},
 
@@ -68,14 +55,14 @@ const useActionBarStyles = defineStyles(theme => {
   }
 })
 
-// --- view ----------------------------------------------------------
+// --- components ----------------------------------------------------
 
-function ActionBarView({ actions }: ActionBarProps) {
+function ActionBar({ actions }: ActionBarProps) {
   const classes = useActionBarStyles()
 
   return (
     <div className={classes.root}>
-      {actions.map(action => {
+      {actions.map((action) => {
         return (
           <ActionButton
             className={classes.actionButton}
@@ -92,6 +79,13 @@ function ActionBarView({ actions }: ActionBarProps) {
     </div>
   )
 }
+
+Object.assign(ActionBar, {
+  displayName: 'ActionBar',
+
+  ...(process.env.NODE_ENV === ('development' as string) &&
+    convertValidation(validateActionBarProps))
+})
 
 // --- exports -------------------------------------------------------
 

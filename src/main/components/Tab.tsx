@@ -1,27 +1,12 @@
 // external imports
-import React, { ReactNode } from 'react'
-import { component, isNode } from 'js-react-utils'
+import React, { ReactElement, ReactNode } from 'react'
+import { convertValidation, isNode } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
-
-// internal import
-import defineStyles from '../tools/defineStyles'
-
-// --- components ----------------------------------------------------
-
-const Tab = component<TabProps>({
-  name: 'Tab',
-
-  ...process.env.NODE_ENV === 'development' as any
-    ? { validate: Spec.lazy(() => validateTabProps) }
-    : null,
-
-  main: TabView
-})
 
 // --- types ---------------------------------------------------------
 
 type TabProps = {
-  title?: string,
+  title?: string
   children?: ReactNode
 }
 
@@ -34,13 +19,21 @@ const validateTabProps = Spec.checkProps({
   }
 })
 
-// --- view ----------------------------------------------------------
+// --- components ----------------------------------------------------
 
-function TabView({
-}: TabProps): ReactNode {
-  throw new Error('Components of type "Tab" can only be used as children '
-    + 'of "Tabs" components') 
+function Tab({}: TabProps): ReactElement<any> {
+  throw new Error(
+    'Components of type "Tab" can only be used as children ' +
+      'of "Tabs" components'
+  )
 }
+
+Object.assign({
+  displayName: 'Tab',
+
+  ...(process.env.NODE_ENV === ('development' as string) &&
+    convertValidation(validateTabProps))
+})
 
 // --- exports -------------------------------------------------------
 

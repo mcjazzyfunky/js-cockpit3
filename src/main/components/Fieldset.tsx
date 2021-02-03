@@ -1,28 +1,16 @@
 // external imports
 import React, { ReactNode } from 'react'
-import { component, isNode } from 'js-react-utils'
+import { convertValidation, isNode } from 'js-react-utils'
 import { FiLayers as DefaultLogo } from 'react-icons/fi'
 import * as Spec from 'js-spec/validators'
 
 // internal import
 import defineStyles from '../tools/defineStyles'
 
-// --- components ----------------------------------------------------
-
-const Fieldset = component<FieldsetProps>({
-  name: 'Fieldset',
-  
-  ...process.env.NODE_ENV === 'development' as any
-    ? { validate: Spec.lazy(() => validateFieldsetProps) }
-    : null,
- 
-  main: FieldsetView
-})
-
 // --- types ---------------------------------------------------------
 
 type FieldsetProps = {
-  title?: string,
+  title?: string
   children?: ReactNode
 }
 
@@ -60,31 +48,29 @@ const useFieldsetStyles = defineStyles((theme, hasTitle: boolean) => {
   }
 })
 
-// --- view ----------------------------------------------------------
+// --- components ----------------------------------------------------
 
-function FieldsetView({
-  title,
-  children
-}: FieldsetProps) {
-  const
-    hasTitle = !!title,
+function Fieldset({ title, children }: FieldsetProps) {
+  const hasTitle = !!title,
     classes = useFieldsetStyles(hasTitle),
-
-    titleContent = title
-      ? <div className={`${classes.title}`}>
-          {title}
-        </div>
-      : null
+    titleContent = title ? (
+      <div className={`${classes.title}`}>{title}</div>
+    ) : null
 
   return (
     <div data-component="jsc:Fieldset" className={`${classes.root}`}>
       {titleContent}
-      <div className={classes.content}>
-        {children}
-      </div>
+      <div className={classes.content}>{children}</div>
     </div>
   )
 }
+
+Object.assign(Fieldset, {
+  displayName: 'FieldSet',
+
+  ...(process.env.NODE_ENV === ('development' as string) &&
+    convertValidation(validateFieldsetProps))
+})
 
 // --- exports -------------------------------------------------------
 

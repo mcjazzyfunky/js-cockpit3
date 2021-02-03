@@ -1,8 +1,7 @@
 // external imports
 import React, { ReactElement, ReactNode, Ref } from 'react'
-import { component, isNode } from 'js-react-utils'
+import { convertValidation, isNode } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
-
 import { ActionButton } from '@fluentui/react'
 
 // internal imports
@@ -24,47 +23,6 @@ const {
   useRef,
   useState
 } = React
-
-// --- omponents -----------------------------------------------------
-
-const DataExplorer = component<DataExplorerProps>({
-  name: 'DataExplorer',
-
-  ...(process.env.NODE_ENV === ('development' as any)
-    ? { validate: Spec.lazy(() => validateDataExplorerProps) }
-    : null),
-
-  main: DataExplorerView
-})
-
-const ActionBar = forwardRef(
-  (
-    props: {
-      config: DataExplorerProps['actions']
-      actions: DataExplorerActions
-      classes: DataExplorerClasses
-      getNumSelectedRows: () => number
-    },
-    ref: any
-  ) => {
-    const forceUpdate = useForceUpdate()
-
-    useImperativeHandle(
-      ref,
-      () => ({
-        forceUpdate
-      }),
-      [forceUpdate]
-    )
-
-    return renderActionButtons(
-      props.config,
-      props.actions,
-      props.classes,
-      props.getNumSelectedRows()
-    )
-  }
-)
 
 // --- types ---------------------------------------------------------
 
@@ -113,7 +71,7 @@ const validateDataExplorerProps = Spec.checkProps({
 
 // --- styles --------------------------------------------------------
 
-const useDataExplorerStyles = defineStyles(theme => {
+const useDataExplorerStyles = defineStyles((theme) => {
   return {
     root: {
       position: 'absolute',
@@ -187,9 +145,9 @@ const useDataExplorerStyles = defineStyles(theme => {
   }
 })
 
-// --- views ---------------------------------------------------------
+// --- components ----------------------------------------------------
 
-function DataExplorerView(props: DataExplorerProps) {
+function DataExplorer(props: DataExplorerProps) {
   const [actions, state] = useDataExplorerActions(),
     classes = useDataExplorerStyles(),
     actionBarRef = useRef<{ forceUpdate: () => void }>(),
@@ -223,6 +181,42 @@ function DataExplorerView(props: DataExplorerProps) {
     </div>
   )
 }
+
+Object.assign(DataExplorer, {
+  displayName: 'DataExplorer',
+
+  ...(process.env.NODE_ENV === ('development' as string) &&
+    convertValidation(validateDataExplorerProps))
+})
+
+const ActionBar = forwardRef(
+  (
+    props: {
+      config: DataExplorerProps['actions']
+      actions: DataExplorerActions
+      classes: DataExplorerClasses
+      getNumSelectedRows: () => number
+    },
+    ref: any
+  ) => {
+    const forceUpdate = useForceUpdate()
+
+    useImperativeHandle(
+      ref,
+      () => ({
+        forceUpdate
+      }),
+      [forceUpdate]
+    )
+
+    return renderActionButtons(
+      props.config,
+      props.actions,
+      props.classes,
+      props.getNumSelectedRows()
+    )
+  }
+)
 
 function renderHeader(
   props: DataExplorerProps,
@@ -311,8 +305,8 @@ function renderBody(
         rowSelectionMode="multi"
         sortField="lastName"
         sortDirection="asc"
-        onTableRowSelection={ev => onSelectionChange(ev.selection)} // TODO!!!!
-        onTableSort={ev => console.log('table sort', ev)}
+        onTableRowSelection={(ev: any) => onSelectionChange(ev.selection)} // TODO!!!!
+        onTableSort={(ev: any) => console.log('table sort', ev)} // TODO
         columns={[
           {
             title: 'First name',
@@ -383,7 +377,7 @@ function initDataExplorerState(): DataExplorerState {
   return {}
 }
 
-const useDataExplorerActions = defineActions(update => {
+const useDataExplorerActions = defineActions((update) => {
   return {}
 }, initDataExplorerState)
 

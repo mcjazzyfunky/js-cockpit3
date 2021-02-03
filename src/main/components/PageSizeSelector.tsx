@@ -1,7 +1,6 @@
 import React, { ReactNode } from 'react'
-import { component, isNode } from 'js-react-utils'
+import { convertValidation, isNode } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
-
 import { Dropdown, Icon, Text } from '@fluentui/react'
 
 // internal import
@@ -11,34 +10,22 @@ import defineStyles from '../tools/defineStyles'
 
 const PAGE_SIZE_OPTIONS = [10, 25, 50, 100, 250, 500]
 
-// --- components ----------------------------------------------------
-
-const Paginator = component<PaginatorProps>({
-  name: 'Paginator',
-
-  ...(process.env.NODE_ENV === ('development' as any)
-    ? { validate: Spec.lazy(() => validatePaginatorProps) }
-    : null),
-
-  main: PaginatorView
-})
-
 // --- types ---------------------------------------------------------
 
-type PaginatorProps = {
+type PageSizeSelectorProps = {
   pageSize: number
   disabled: boolean
 }
 
 // --- validation ----------------------------------------------------
 
-const validatePaginatorProps = Spec.checkProps({
+const validatePageSizeSelectorProps = Spec.checkProps({
   optional: {}
 })
 
 // --- styles --------------------------------------------------------
 
-const usePaginatorStyles = defineStyles(theme => {
+const usePaginatorStyles = defineStyles((theme) => {
   return {
     root: {},
 
@@ -60,9 +47,9 @@ const usePaginatorStyles = defineStyles(theme => {
   }
 })
 
-// --- view ----------------------------------------------------------
+// --- components ----------------------------------------------------
 
-function PaginatorView({ pageSize, disabled }: PaginatorProps) {
+function PageSizeSelector({ pageSize, disabled }: PageSizeSelectorProps) {
   const classes = usePaginatorStyles()
 
   return (
@@ -74,7 +61,7 @@ function PaginatorView({ pageSize, disabled }: PaginatorProps) {
         selectedKey="50"
         className={classes.dropdown}
         onRenderCaretDown={renderChevronDownIcon}
-        options={PAGE_SIZE_OPTIONS.map(pageSize => ({
+        options={PAGE_SIZE_OPTIONS.map((pageSize) => ({
           key: String(pageSize),
           text: String(pageSize)
         }))}
@@ -83,10 +70,17 @@ function PaginatorView({ pageSize, disabled }: PaginatorProps) {
   )
 }
 
+Object.assign(PageSizeSelector, {
+  displayName: PageSizeSelector,
+
+  ...(process.env.NODE_ENV === ('development' as string) &&
+    convertValidation(validatePageSizeSelectorProps))
+})
+
 function renderChevronDownIcon() {
   return <Icon iconName="jsc:chevronDown" />
 }
 
 // --- exports -------------------------------------------------------
 
-export default Paginator
+export default PageSizeSelector

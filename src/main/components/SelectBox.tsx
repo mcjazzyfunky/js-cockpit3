@@ -1,9 +1,8 @@
 // external imports
 import React, { FormEvent } from 'react'
-import { component, isNode } from 'js-react-utils'
+import { convertValidation, isNode } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
-
-import { Dropdown } from "office-ui-fabric-react"
+import { Dropdown } from 'office-ui-fabric-react'
 
 // internal import
 import defineStyles from '../tools/defineStyles'
@@ -13,29 +12,17 @@ import useFormCtrl from '../hooks/useFormCtrl'
 // derived import
 const { useCallback, useEffect, useState, useRef } = React
 
-// --- components ----------------------------------------------------
-
-const SelectBox = component<SelectBoxProps>({
-  name: 'SelectBox',
-  
-  ...process.env.NODE_ENV === 'development' as any
-    ? { validate: Spec.lazy(() => validateSelectBoxProps) }
-    : null,
- 
-  main: SelectBoxView
-})
-
 // --- types ---------------------------------------------------------
 
 type SelectBoxProps = {
-  name?: string,
-  label?: string,
-  required?: boolean,
-  disabled?: boolean,
-  messageOnError?: string,
+  name?: string
+  label?: string
+  required?: boolean
+  disabled?: boolean
+  messageOnError?: string
 
   options?: Array<{
-    value: string,
+    value: string
     text: string
   }>
 }
@@ -54,16 +41,15 @@ const validateSelectBoxProps = Spec.checkProps({
 
 // --- styles --------------------------------------------------------
 
-const useSelectBoxStyles = defineStyles(theme => {
+const useSelectBoxStyles = defineStyles((theme) => {
   return {
-    root: {
-    },
+    root: {}
   }
 })
 
-// --- view ----------------------------------------------------------
+// --- components ----------------------------------------------------
 
-function SelectBoxView({
+function SelectBox({
   name,
   label,
   disabled,
@@ -71,8 +57,7 @@ function SelectBoxView({
   messageOnError,
   options
 }: SelectBoxProps) {
-  const
-    [value, setValue] = useState<string | null>(null),
+  const [value, setValue] = useState<string | null>(null),
     [error, setError] = useState(''),
     classes = useSelectBoxStyles(),
     formCtrl = useFormCtrl(),
@@ -80,14 +65,16 @@ function SelectBoxView({
     valueRef = useRef(value),
     requiredRef = useRef(required),
     messageOnErrorRef = useRef(messageOnError),
+    onInput = useCallback(
+      (ev: FormEvent<HTMLInputElement>) => {
+        setValue(ev.currentTarget.value)
 
-    onInput = useCallback((ev: FormEvent<HTMLInputElement>) => {
-      setValue(ev.currentTarget.value)
-
-      if (error) {
-        setError('')
-      }
-    }, [error])
+        if (error) {
+          setError('')
+        }
+      },
+      [error]
+    )
 
   useEffect(() => {
     nameRef.current = name
@@ -95,9 +82,8 @@ function SelectBoxView({
     requiredRef.current = required
     messageOnErrorRef.current = messageOnError
   }, [name, value, required, messageOnError])
-  
-  useEffect(() => {
-  }, [value])
+
+  useEffect(() => {}, [value])
 
   useEffect(() => {
     if (formCtrl) {
@@ -134,25 +120,36 @@ function SelectBoxView({
         //value={value ? [{ key: value }]: []}
         //onChange={(ev: any) => setValue(ev.value[0] && ev.value[0].key)}
         options={
-          !options ? [] : options.map(option => ({
-            key: option.value,
-            text: option.text
-          }))
+          !options
+            ? []
+            : options.map((option) => ({
+                key: option.value,
+                text: option.text
+              }))
         }
       />
     </FieldWrapper>
   )
 }
 
+Object.assign(SelectBox, {
+  displayName: 'SelectBox',
+
+  ...(process.env.NODE_ENV === ('development' as string) &&
+    convertValidation(validateSelectBoxProps))
+})
+
 // --- misc ----------------------------------------------------------
 
-function validate(value:null | string, required: boolean, messageOnError?: string) {
+function validate(
+  value: null | string,
+  required: boolean,
+  messageOnError?: string
+) {
   let ret: string | null = null
 
   if (required && !value) {
-    ret = messageOnError
-      ? messageOnError
-      : 'This is a required field' // TODO
+    ret = messageOnError ? messageOnError : 'This is a required field' // TODO
   }
 
   return ret
@@ -160,4 +157,4 @@ function validate(value:null | string, required: boolean, messageOnError?: strin
 
 // --- exports -------------------------------------------------------
 
-export default SelectBox 
+export default SelectBox

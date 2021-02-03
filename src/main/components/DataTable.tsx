@@ -1,6 +1,6 @@
 // external imports
 import React, { ReactNode } from 'react'
-import { component, isNode } from 'js-react-utils'
+import { convertValidation, isNode } from 'js-react-utils'
 import { VariableSizeGrid } from 'react-window'
 import useResizeAware from 'react-resize-aware'
 import * as Spec from 'js-spec/validators'
@@ -23,18 +23,6 @@ const { useEffect, useState } = React
 // --- constants -----------------------------------------------------
 
 const SELECTION_COLUMN_WIDTH = 38
-
-// --- components ----------------------------------------------------
-
-const DataTable = component<DataTableProps>({
-  name: 'DataTable',
-
-  ...(process.env.NODE_ENV === ('development' as any)
-    ? { validate: Spec.lazy(() => validateDataTableProps) }
-    : null),
-
-  main: DataTableView
-})
 
 // --- types ---------------------------------------------------------
 
@@ -79,7 +67,7 @@ const validateDataTableProps = Spec.checkProps({
 
 // --- styles --------------------------------------------------------
 
-const useDataTableStyles = defineStyles(theme => {
+const useDataTableStyles = defineStyles((theme) => {
   return {
     root: {
       position: 'relative',
@@ -182,9 +170,9 @@ const useDataTableStyles = defineStyles(theme => {
   }
 })
 
-// --- view ----------------------------------------------------------
+// --- components ----------------------------------------------------
 
-function DataTableView(props: DataTableProps) {
+function DataTable(props: DataTableProps) {
   const [actions, state] = useDataTableActions(),
     classes = useDataTableStyles(),
     [selectedRows] = useState(() => new Set<any>()), // TODO
@@ -226,6 +214,13 @@ function DataTableView(props: DataTableProps) {
     </div>
   )
 }
+
+Object.assign(DataTable, {
+  displayName: 'DataTable',
+
+  ...(process.env.NODE_ENV === ('development' as string) &&
+    convertValidation(validateDataTableProps))
+})
 
 function renderHead(
   props: DataTableProps,
@@ -376,7 +371,7 @@ function renderTableBody(
       rowHeight={() => 28} // TODO
       width={width}
       height={height}
-      columnWidth={idx =>
+      columnWidth={(idx) =>
         idx === 0 && hasSelectionColumn
           ? columnWidths.selectionColumn
           : columnWidths.dataColumns[idx - indexFirstDataColumn]
@@ -485,18 +480,18 @@ function initDataTableState(): DataTableState {
 }
 
 const useDataTableActions = defineActions(
-  update => ({
+  (update) => ({
     selectItems(state, items: Rec[]) {
       const selectedItems = new Set(state.selectedItems)
 
-      items.forEach(item => selectedItems.add(item))
+      items.forEach((item) => selectedItems.add(item))
       update({ selectedItems })
     },
 
     unselectItems(state, items: Rec[]) {
       const selectedItems = new Set(state.selectedItems)
 
-      items.forEach(item => selectedItems.delete(item))
+      items.forEach((item) => selectedItems.delete(item))
       update({ selectedItems })
     },
 

@@ -1,6 +1,6 @@
 // external imports
 import React, { ReactNode } from 'react'
-import { component, isNode } from 'js-react-utils'
+import { convertValidation, isNode } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
 
 import {
@@ -13,18 +13,6 @@ import {
 
 // internal import
 import defineStyles from '../tools/defineStyles'
-
-// --- components ----------------------------------------------------
-
-const MenuBar = component<MenuBarProps>({
-  name: 'MenuBar',
-
-  ...(process.env.NODE_ENV === ('development' as any)
-    ? { validate: Spec.lazy(() => validateMenuBarProps) }
-    : null),
-
-  main: MenuBarView
-})
 
 // --- types ---------------------------------------------------------
 
@@ -62,7 +50,7 @@ const validateMenuBarProps = Spec.checkProps({
 
 // --- styles --------------------------------------------------------
 
-const useMenuBarStyles = defineStyles(theme => {
+const useMenuBarStyles = defineStyles((theme) => {
   return {
     root: {
       position: 'relative',
@@ -104,16 +92,16 @@ const useMenuBarStyles = defineStyles(theme => {
   }
 })
 
-// --- view ----------------------------------------------------------
+// --- components ----------------------------------------------------
 
-function MenuBarView({ items, onAction }: MenuBarProps) {
+function MenuBar({ items, onAction }: MenuBarProps) {
   let ret = null,
     buttonAs: IComponentAs<IButtonProps>
 
   const classes = useMenuBarStyles(),
     itemCount = items.length
 
-  buttonAs = props => (
+  buttonAs = (props) => (
     <CommandBarButton
       {...props}
       menuIconProps={{
@@ -145,6 +133,13 @@ function MenuBarView({ items, onAction }: MenuBarProps) {
 
   return ret
 }
+
+Object.assign(MenuBar, {
+  displayName: 'MenuBar',
+
+  ...(process.env.NODE_ENV === ('development' as string) &&
+    convertValidation(validateMenuBarProps))
+})
 
 // --- locals --------------------------------------------------------
 

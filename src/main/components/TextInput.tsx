@@ -1,8 +1,7 @@
 // external imports
 import React, { FormEvent } from 'react'
-import { component, isNode } from 'js-react-utils'
+import { convertValidation, isNode } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
-
 import { TextField } from '@fluentui/react'
 
 // internal import
@@ -12,18 +11,6 @@ import useFormCtrl from '../hooks/useFormCtrl'
 
 // derived import
 const { useCallback, useEffect, useState, useRef } = React
-
-// --- components ----------------------------------------------------
-
-const TextInput = component({
-  name: 'TextInput',
-
-  ...(process.env.NODE_ENV === ('development' as any) && {
-    validate: Spec.lazy(() => validateTextInputProps)
-  }),
-
-  main: TextInputView
-})
 
 // --- types ---------------------------------------------------------
 
@@ -51,15 +38,15 @@ const validateTextInputProps = Spec.checkProps({
 
 // --- styles --------------------------------------------------------
 
-const useTextInputStyles = defineStyles(theme => {
+const useTextInputStyles = defineStyles((theme) => {
   return {
     root: {}
   }
 })
 
-// --- view ----------------------------------------------------------
+// --- components ----------------------------------------------------
 
-function TextInputView({
+function TextInput({
   name,
   label,
   disabled,
@@ -131,6 +118,13 @@ function TextInputView({
     </FieldWrapper>
   )
 }
+
+Object.assign(TextInput, {
+  displayName: 'TextInput',
+
+  ...(process.env.NODE_ENV === 'development' &&
+    convertValidation(validateTextInputProps))
+})
 
 // --- misc ----------------------------------------------------------
 

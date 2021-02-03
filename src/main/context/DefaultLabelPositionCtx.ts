@@ -1,16 +1,29 @@
-import { context } from 'js-react-utils'
+import { createContext } from 'react'
+import { convertValidation } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
 
 // internal imports
 import LabelPosition from '../enums/LabelPosition'
 
-// --- context -------------------------------------------------------
+// --- validation ----------------------------------------------------
 
-export default context<LabelPosition>({
-  name: 'DefaultLabelPositionCtx',
-  default: LabelPosition.Above,
-  
-  ...process.env.NODE_ENV === 'development'
-    ? { validate: Spec.oneOf(LabelPosition.Above, LabelPosition.Beside) }
-    : null
+const validateDefaultLabelPositionCtxProviderProps = Spec.checkProps({
+  required: {
+    value: Spec.oneOf(LabelPosition.Above, LabelPosition.Beside)
+  }
 })
+
+// --- contexts ------------------------------------------------------
+
+const DefaultLabelPositionCtx = createContext(LabelPosition.Above)
+
+Object.assign(DefaultLabelPositionCtx.Provider, {
+  displayName: 'DefaultLabelPositionCtx.Provider',
+
+  ...(process.env.NODE_ENV === 'development' &&
+    convertValidation(validateDefaultLabelPositionCtxProviderProps))
+})
+
+// --- exports --------------------------------------------------------
+
+export default DefaultLabelPositionCtx
