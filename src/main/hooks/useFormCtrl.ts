@@ -7,7 +7,7 @@ import FormCtx from '../context/FormCtrlCtx'
 // derived imports
 const { useContext } = React
 
-// --- hoooks --------------------------------------------------------
+// === hooks =========================================================
 
 export default function useFormCtrl() {
   return useContext(FormCtx)

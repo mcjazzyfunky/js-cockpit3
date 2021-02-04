@@ -4,50 +4,36 @@ import React from 'react'
 // derived imports
 const { useState, useRef } = React
 
-// --- functions -----------------------------------------------------
+// === functions =====================================================
 
-function defineActions<
-  S extends State,
-  M extends Actions<S>, 
-  A extends any[],
->(
+function defineActions<S extends State, M extends Actions<S>, A extends any[]>(
   initActions: ActionsInitializer<S, M>,
   initState: StateInitializer<S, A>
-): (...args: A) => [ExternalActions<M, S>, S] 
+): (...args: A) => [ExternalActions<M, S>, S]
 
 function defineActions(initActions: Function, initState?: Function): Function {
   return function useActions(/* arguments */): any {
-    const
-      args = arguments,
-      [state, setState] = useState(() => 
-        initState ? initState.apply(null, args) : args[0]),
-
+    const args = arguments,
+      [state, setState] = useState(() =>
+        initState ? initState.apply(null, args) : args[0]
+      ),
       stateRef = useRef(state),
-
       getState = () => stateRef.current,
-      
       updater = (update: any) => {
         if (typeof update === 'function') {
           setState((prevState: any) =>
-            Object.assign({}, prevState, update(prevState)))
+            Object.assign({}, prevState, update(prevState))
+          )
         } else {
-          setState((prevState: any) =>
-            Object.assign({}, prevState, update))
+          setState((prevState: any) => Object.assign({}, prevState, update))
         }
       },
-
       [actions] = useState(() => {
-        const
-          actions = initActions(
-            updater,
-            getState
-          ),
-
+        const actions = initActions(updater, getState),
           keys = Object.keys(actions)
 
         for (let i = 0; i < keys.length; ++i) {
-          const
-            key = keys[i],
+          const key = keys[i],
             f = actions[key]
 
           actions[key] = function (/* arguments */) {
@@ -70,28 +56,34 @@ function defineActions(initActions: Function, initState?: Function): Function {
   }
 }
 
-// --- locals -------------------------------------------------------
+// === locals ========================================================
 
 type State = { [key: string]: any }
-type Actions<S extends State> = { [k: string]: (state: S, ...args: any[]) => void }
+type Actions<S extends State> = {
+  [k: string]: (state: S, ...args: any[]) => void
+}
 type StateUpdate<S extends State> = Partial<S> | ((state: S) => Partial<S>)
 type StateSetter<S extends State> = (update: StateUpdate<S>) => void
 type StateGetter<S extends State> = () => S
 
-type ActionsInitializer<S extends State, M extends Actions<S>> =
-  (setState: StateSetter<S>, getState: StateGetter<S>) => M
+type ActionsInitializer<S extends State, M extends Actions<S>> = (
+  setState: StateSetter<S>,
+  getState: StateGetter<S>
+) => M
 
-type StateInitializer<S extends State, A extends any[]> =
-  (...args: A) => S
+type StateInitializer<S extends State, A extends any[]> = (...args: A) => S
 
-type ExternalActions<M extends Actions<S>, S extends State> =
- { [K in keyof M]: WithoutFirstArgument<M[K]> }
+type ExternalActions<M extends Actions<S>, S extends State> = {
+  [K in keyof M]: WithoutFirstArgument<M[K]>
+}
 
-type WithoutFirstArgument<F extends ((...args: any[]) => any)>
-  = F extends (firstArg: any, ...args: infer A) => infer R
-    ? (...args: A) => R
-    : never
+type WithoutFirstArgument<F extends (...args: any[]) => any> = F extends (
+  firstArg: any,
+  ...args: infer A
+) => infer R
+  ? (...args: A) => R
+  : never
 
-// --- exports ------------------------------------------------------
+// === exports =======================================================
 
 export default defineActions

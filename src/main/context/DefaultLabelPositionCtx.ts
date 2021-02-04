@@ -13,7 +13,7 @@ const validateDefaultLabelPositionCtxProviderProps = Spec.checkProps({
   }
 })
 
-// --- contexts ------------------------------------------------------
+// === contexts ======================================================
 
 const DefaultLabelPositionCtx = createContext(LabelPosition.Above)
 

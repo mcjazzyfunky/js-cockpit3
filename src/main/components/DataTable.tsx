@@ -12,10 +12,10 @@ import { Checkbox, Icon } from '@fluentui/react'
 import defineStyles from '../tools/defineStyles'
 import classNames from '../tools/classNames'
 import defineActions from '../tools/defineActions'
-import EventHandler from '../types/EventHandler'
-import Rec from '../types/Rec'
-import TableSortEvent from '../types/TableSortEvent'
-import TableRowSelectionEvent from '../types/TableRowSelectionEvent'
+import EventHandler from '../types/events/EventHandler'
+import Rec from '../types/data/Rec'
+import TableSortEvent from '../types/events/TableSortEvent'
+import TableRowSelectionEvent from '../types/events/TableRowSelectionEvent'
 
 // derived imports
 const { useEffect, useState } = React

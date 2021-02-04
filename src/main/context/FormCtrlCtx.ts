@@ -2,11 +2,11 @@
 import React from 'react'
 
 // internal imports
-import FormCtrl from '../types/FormCtrl'
+import FormCtrl from '../types/ctrls/FormCtrl'
 
 // derived imports
 const { createContext } = React
 
-// --- context -------------------------------------------------------
+// === contexts ======================================================
 
 export default createContext<FormCtrl | null>(null)

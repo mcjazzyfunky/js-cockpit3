@@ -4,7 +4,7 @@ import { createTheme } from '@fluentui/react'
 // internal import
 import { DEFAULT_FONT_FAMILY, DEFAULT_FONT_WEIGHT } from './theme-constants'
 
-// --- theme ---------------------------------------------------------
+// === theme =========================================================
 
 export default createTheme({
   defaultFontStyle: {

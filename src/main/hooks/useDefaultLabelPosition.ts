@@ -7,7 +7,7 @@ import DefaultLabelPositionCtx from '../context/DefaultLabelPositionCtx'
 // derived imports
 const { useContext } = React
 
-// --- hooks ---------------------------------------------------------
+// === hooks =========================================================
 
 export default function useDefaultLabelPosition() {
   return useContext(DefaultLabelPositionCtx)

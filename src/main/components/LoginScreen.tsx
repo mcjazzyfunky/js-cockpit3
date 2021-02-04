@@ -21,7 +21,6 @@ import PasswordInput from './PasswordInput'
 import CheckBox from './CheckBox'
 import useFormMgmt from '../hooks/useFormMgmt'
 import useLocalizer from '../hooks/useLocalizer'
-import useTheme from '../hooks/useTheme'
 import Localizer from '../types/i18n/Localizer'
 
 // derived imports
@@ -55,7 +54,9 @@ const validateLoginScreenProps = Spec.checkProps<LoginScreenProps>({
 
 // === styles ========================================================
 
-const useLoginScreenStyles = defineStyles((_, theme: ITheme) => {
+const useLoginScreenStyles = defineStyles((defaultTheme, theme?: ITheme) => {
+  theme = theme || defaultTheme
+
   // TODO
   return {
     root: {
@@ -294,18 +295,17 @@ function LoginScreen({
   const localizer = useLocalizer()
   const [isLoading, setLoading] = useState(false)
   const [errorMsg, setErrorMsg] = useState('')
-  const defaultTheme = useTheme()
-  const classes = useLoginScreenStyles(theme || defaultTheme)
+  const classes = useLoginScreenStyles(theme)
   const [_, LoginForm, setSubmitHandler] = useFormMgmt()
 
   const rememberLoginLabel = localizer.getText(
-    'jsc.LoginScreen.rememberLoginLabel',
+    'jsc.loginScreen.rememberLoginLabel',
     null,
     'Remember login'
   )
 
   const defaultLoginErrorMsg = localizer.getText(
-    'jsc.LoginScreen.defaultLogiErrorMessage',
+    'jsc.loginScreen.defaultLogiErrorMessage',
     null,
     'Could not log in'
   )
@@ -421,9 +421,9 @@ function renderFooter(slotFooter: ReactNode, classes: Classes) {
 }
 
 function renderDefaultLoginIntro(classes: Classes, { getText }: Localizer) {
-  const headline = getText('jsc.LoginScreen.loginHeadline', null, 'Login'),
+  const headline = getText('jsc.loginScreen.loginHeadline', null, 'Login'),
     text = getText(
-      'jsc.LoginScreen.loginText',
+      'jsc.loginScreen.loginText',
       null,
       'Please enter your personal credentials to log in'
     )
@@ -437,18 +437,20 @@ function renderDefaultLoginIntro(classes: Classes, { getText }: Localizer) {
 }
 
 function renderDefaultLoginFields(classes: Classes, { getText }: Localizer) {
-  const usernameLabel = getText('jsc.LoginScreen.username', null, 'Username'),
-    passwordLabel = getText('jsc.LoginScreen.username', null, 'Password'),
-    usernameErrorMsg = getText(
-      'jsc.LoginScreen.usernameErrorMessage',
-      null,
-      'Please enter a username'
-    ),
-    passwordErrorMsg = getText(
-      'jsc.LoginScreen.passwordErrorMessage',
-      null,
-      'Please enter a password'
-    )
+  const usernameLabel = getText('jsc.loginScreen.username', null, 'Username')
+  const passwordLabel = getText('jsc.loginScreen.password', null, 'Password')
+
+  const usernameErrorMsg = getText(
+    'jsc.loginScreen.usernameErrorMessage',
+    null,
+    'Please enter a username'
+  )
+
+  const passwordErrorMsg = getText(
+    'jsc.loginScreen.passwordErrorMessage',
+    null,
+    'Please enter a password'
+  )
 
   return (
     <>
@@ -475,19 +477,22 @@ function renderLoginButton(
   { getText }: Localizer
 ) {
   const loginButtonLabel = getText(
-      'jsc.LoginScreen.loginButtonLabel',
-      null,
-      'Log in'
-    ),
-    loginButtonLoadingLabel = getText(
-      'jsc.LoginScreen.loginButtonLoginLabel',
-      null,
-      'Logging in..'
-    ),
-    loginButtonText = isLoading ? loginButtonLoadingLabel : loginButtonLabel,
-    spinner = isLoading ? (
-      <Spinner size={SpinnerSize.small} className={classes.spinner} />
-    ) : null
+    'jsc.loginScreen.loginButtonLabel',
+    null,
+    'Log in'
+  )
+
+  const loginButtonLoadingLabel = getText(
+    'jsc.loginScreen.loginButtonLoginLabel',
+    null,
+    'Logging in..'
+  )
+
+  const loginButtonText = isLoading ? loginButtonLoadingLabel : loginButtonLabel
+
+  const spinner = isLoading ? (
+    <Spinner size={SpinnerSize.small} className={classes.spinner} />
+  ) : null
 
   return (
     <PrimaryButton type="submit" className={classes.loginButton}>

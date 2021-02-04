@@ -5,12 +5,12 @@ import * as Spec from 'js-spec/validators'
 
 // internal imports
 import FormCtrlCtx from '../context/FormCtrlCtx'
-import FormCtrl from '../types/FormCtrl'
+import FormCtrl from '../types/ctrls/FormCtrl'
 
 // derived imports
 const { createElement: h, useState } = React
 
-// --- hooks ---------------------------------------------------------
+// === hooks =========================================================
 
 function useFormMgmt() {
   return useState(initFormMgmt)[0]

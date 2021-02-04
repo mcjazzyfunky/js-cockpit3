@@ -1,12 +1,12 @@
 import Localizer from '../types/i18n/Localizer'
 
-// --- hooks ---------------------------------------------------------
+// === hooks =========================================================
 
 function useLocalizer(): Localizer {
   return defaultLocalizer
 }
 
-// --- data ----------------------------------------------------------
+// === data ==========================================================
 
 const defaultLocalizer: Localizer = Object.freeze({
   getText(path, substitutions, defaultText) {

@@ -50,7 +50,7 @@ export { default as TealTheme } from './themes/TealTheme'
 // types
 export { default as Localizer } from './types/i18n/Localizer'
 
-// --- register general icons ----------------------------------------
+// === register general icons ========================================
 
 import React from 'react'
 import { registerIcons } from '@fluentui/react'

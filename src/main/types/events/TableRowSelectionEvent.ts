@@ -1,7 +1,7 @@
-import Rec from './Rec'
+import Rec from '../data/Rec'
 
 type TableRowSelectionEvent = {
-  type: 'tableRowSelection',
+  type: 'tableRowSelection'
   selection: Set<Rec>
 }
 
