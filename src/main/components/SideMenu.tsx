@@ -2,10 +2,10 @@
 import React, { Key } from 'react'
 import { convertValidation } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
+import { css } from '@fluentui/react'
 
 // internal import
 import defineStyles from '../tools/defineStyles'
-import classNames from '../tools/classNames'
 
 // === types =========================================================
 
@@ -188,7 +188,7 @@ function renderSideMenuGroup(
   key: Key,
   classes: Classes
 ) {
-  const classTitle = classNames(
+  const classTitle = css(
     classes.groupTitle,
     level === 0 ? classes.groupTitleLevel0 : classes.groupTitleLevel1
   )
@@ -221,7 +221,7 @@ function renderSideMenuItem(
   key: Key,
   classes: Classes
 ) {
-  const className = classNames(
+  const className = css(
     classes.item,
     level === 0 ? classes.itemLevel0 : classes.itemLevel1,
     typeof activeItemId === 'string' &&

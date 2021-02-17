@@ -2,9 +2,9 @@
 import React, { ReactNode, Key } from 'react'
 import { convertValidation, isNode } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
+import { css } from '@fluentui/react'
 
 // internal import
-import classNames from '../tools/classNames'
 import defineStyles from '../tools/defineStyles'
 
 // === types =========================================================
@@ -126,7 +126,7 @@ function renderWorkspaceLink(
 ) {
   const active =
       typeof activeItemId === 'string' && item.itemId === activeItemId,
-    className = classNames(
+    className = css(
       classes.workspaceLink,
       active ? classes.workspaceLinkActive : classes.workspaceLinkInactive
     )

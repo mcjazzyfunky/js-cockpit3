@@ -6,11 +6,10 @@ import useResizeAware from 'react-resize-aware'
 import * as Spec from 'js-spec/validators'
 import Color from 'color'
 
-import { Checkbox, Icon } from '@fluentui/react'
+import { css, Checkbox, Icon } from '@fluentui/react'
 
 // internal imports
 import defineStyles from '../tools/defineStyles'
-import classNames from '../tools/classNames'
 import defineActions from '../tools/defineActions'
 import EventHandler from '../types/events/EventHandler'
 import Rec from '../types/data/Rec'
@@ -278,7 +277,7 @@ function renderTableHeadCell(
     isSortable = props.columns[columnIdx].sortable && !!column.field,
     isSorted = !!props.sortField && props.sortField === column.field,
     width = !columnWidths ? '' : columnWidths.dataColumns[columnIdx],
-    className = classNames(
+    className = css(
       classes.tableHeadCell,
       isSortable ? classes.tableHeadCellSortable : null
     ),
@@ -381,7 +380,7 @@ function renderTableBody(
         const item = props.data[rowIndex],
           isSelectedRow = state.selectedItems.has(item),
           isEvenRow = rowIndex % 2 === 1,
-          className = classNames(
+          className = css(
             classes.tableBodyCell,
             !isSelectedRow && !isEvenRow ? classes.unselectedOddRow : '',
             !isSelectedRow && isEvenRow ? classes.unselectedEvenRow : '',
@@ -400,7 +399,7 @@ function renderTableBody(
         return hasSelectionColumn && columnIndex === 0 ? (
           <div
             style={style}
-            className={classNames(className, classes.rowSelectionCell)}
+            className={css(className, classes.rowSelectionCell)}
           >
             {renderSelectRowCheckbox(props, state, actions, classes, rowIndex)}
           </div>

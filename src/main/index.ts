@@ -31,7 +31,6 @@ export { default as useLocalizer } from './hooks/useLocalizer'
 export { default as useTheme } from './hooks/useTheme'
 
 // tools
-export { default as classNames } from './tools/classNames'
 export { default as defineStyles } from './tools/defineStyles'
 
 // enums
