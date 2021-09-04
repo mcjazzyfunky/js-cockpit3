@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react'
-import { convertValidation, isNode } from 'js-react-utils'
+import { addComponentMeta, isNode } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
 import { Dropdown, Icon, Text } from '@fluentui/react'
 
@@ -70,11 +70,12 @@ function PageSizeSelector({ pageSize, disabled }: PageSizeSelectorProps) {
   )
 }
 
-Object.assign(PageSizeSelector, {
-  displayName: PageSizeSelector,
+addComponentMeta(PageSizeSelector, {
+  name: 'PageSizeSelector',
 
-  ...(process.env.NODE_ENV === ('development' as string) &&
-    convertValidation(validatePageSizeSelectorProps))
+  validation:
+    process.env.NODE_ENV === ('development' as string) &&
+    validatePageSizeSelectorProps
 })
 
 function renderChevronDownIcon() {

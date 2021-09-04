@@ -1,6 +1,6 @@
 // external imports
 import React, { ReactNode } from 'react'
-import { convertValidation, isNode } from 'js-react-utils'
+import { addComponentMeta, isNode } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
 import { GoSearch as SearchIcon } from 'react-icons/go'
 import { MdFilterList as FilterIcon } from 'react-icons/md'
@@ -79,11 +79,11 @@ function FilterBox({ children }: FilterBoxProps) {
   )
 }
 
-Object.assign(FilterBox, {
-  displayName: 'FilterBox',
+addComponentMeta(FilterBox, {
+  name: 'FilterBox',
 
-  ...(process.env.NODE_ENV === 'development' &&
-    convertValidation(validateFilterBoxProps))
+  validation:
+    process.env.NODE_ENV === ('development' as string) && validateFilterBoxProps
 })
 
 // === exports =======================================================

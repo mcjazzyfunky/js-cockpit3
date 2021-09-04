@@ -1,6 +1,6 @@
 // external imports
 import React, { ReactNode } from 'react'
-import { convertValidation, isNode } from 'js-react-utils'
+import { addComponentMeta, isNode } from 'js-react-utils'
 import { FiLayers as DefaultLogo } from 'react-icons/fi'
 import * as Spec from 'js-spec/validators'
 
@@ -64,11 +64,12 @@ function FormSection({ title, children }: FormSectionProps) {
   )
 }
 
-Object.assign(FormSection, {
-  displayName: 'FormSection',
+addComponentMeta(FormSection, {
+  name: 'FormSection',
 
-  ...(process.env.NODE_ENV === ('development' as string) &&
-    convertValidation(validateFormSectionProps))
+  validation:
+    process.env.NODE_ENV === ('development' as string) &&
+    validateFormSectionProps
 })
 
 // === exports =======================================================

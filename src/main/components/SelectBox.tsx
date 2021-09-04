@@ -1,8 +1,8 @@
 // external imports
 import React, { FormEvent } from 'react'
-import { convertValidation, isNode } from 'js-react-utils'
+import { addComponentMeta, isNode } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
-import { Dropdown } from 'office-ui-fabric-react'
+import { Dropdown } from '@fluentui/react'
 
 // internal import
 import defineStyles from '../tools/defineStyles'
@@ -132,11 +132,11 @@ function SelectBox({
   )
 }
 
-Object.assign(SelectBox, {
-  displayName: 'SelectBox',
+addComponentMeta(SelectBox, {
+  name: 'SelectBox',
 
-  ...(process.env.NODE_ENV === ('development' as string) &&
-    convertValidation(validateSelectBoxProps))
+  validation:
+    process.env.NODE_ENV === ('development' as string) && validateSelectBoxProps
 })
 
 // === misc ==========================================================

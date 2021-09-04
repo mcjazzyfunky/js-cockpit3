@@ -2,7 +2,7 @@
 import React, { ReactNode } from 'react'
 
 import {
-  convertValidation,
+  addComponentMeta,
   isNode,
   isElementOfType,
   withChildren
@@ -64,11 +64,11 @@ function Tabs({ children }: TabsProps) {
   )
 }
 
-Object.assign(Tabs, {
-  displayName: 'Tabs',
+addComponentMeta(Tabs, {
+  name: 'Tabs',
 
-  ...(process.env.NODE_ENV === ('development' as string) &&
-    convertValidation(validateTabsProps))
+  validation:
+    process.env.NODE_ENV === ('development' as string) && validateTabsProps
 })
 
 // === exports =======================================================

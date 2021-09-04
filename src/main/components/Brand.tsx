@@ -1,6 +1,6 @@
 // external imports
 import React, { ReactNode } from 'react'
-import { convertValidation, isNode } from 'js-react-utils'
+import { addComponentMeta, isNode } from 'js-react-utils'
 import { FiLayers as DefaultLogo } from 'react-icons/fi'
 import * as Spec from 'js-spec/validators'
 
@@ -135,11 +135,11 @@ function Brand({ vendor, title, logo, size, multicolor = false }: BrandProps) {
   )
 }
 
-Object.assign(Brand, {
-  displayName: 'Brand',
+addComponentMeta(Brand, {
+  name: 'Brand',
 
-  ...(process.env.NODE_ENV === ('development' as string) &&
-    convertValidation(validateBrandProps))
+  validation:
+    process.env.NODE_ENV === ('development' as string) && validateBrandProps
 })
 
 // === exports =======================================================

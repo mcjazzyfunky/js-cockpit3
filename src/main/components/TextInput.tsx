@@ -1,6 +1,6 @@
 // external imports
 import React, { FormEvent } from 'react'
-import { convertValidation, isNode } from 'js-react-utils'
+import { addComponentMeta, isNode } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
 import { TextField } from '@fluentui/react'
 
@@ -119,11 +119,11 @@ function TextInput({
   )
 }
 
-Object.assign(TextInput, {
-  displayName: 'TextInput',
+addComponentMeta(TextInput, {
+  name: 'TextInput',
 
-  ...(process.env.NODE_ENV === 'development' &&
-    convertValidation(validateTextInputProps))
+  validation:
+    process.env.NODE_ENV === ('development' as string) && validateTextInputProps
 })
 
 // === misc ==========================================================

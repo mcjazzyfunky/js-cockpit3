@@ -1,6 +1,6 @@
 // external imports
 import React, { ReactNode, Key } from 'react'
-import { convertValidation, isNode } from 'js-react-utils'
+import { addComponentMeta, isNode } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
 import { css } from '@fluentui/react'
 
@@ -111,11 +111,12 @@ function WorkspaceSelector({ menu }: WorkspaceSelectorProps) {
   )
 }
 
-Object.assign(WorkspaceSelector, {
-  displayName: 'WorkspaceSelector',
+addComponentMeta(WorkspaceSelector, {
+  name: 'WorkspaceSelector',
 
-  ...(process.env.NODE_ENV === ('development' as string) &&
-    convertValidation(validateWorkspaceSelectorProps))
+  validation:
+    process.env.NODE_ENV === ('development' as string) &&
+    validateWorkspaceSelectorProps
 })
 
 function renderWorkspaceLink(

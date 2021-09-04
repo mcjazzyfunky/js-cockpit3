@@ -1,6 +1,6 @@
 // external imports
 import React, { ReactNode } from 'react'
-import { convertValidation, isNode } from 'js-react-utils'
+import { addComponentMeta, isNode } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
 
 // internal import
@@ -48,11 +48,11 @@ function Text({ size = 'medium', children }: TextProps) {
   return <span className={classes[size]}>{children}</span>
 }
 
-Object.assign(Text, {
-  displayName: 'Text',
+addComponentMeta(Text, {
+  name: 'Text',
 
-  ...(process.env.NODE_ENV === ('development' as string) &&
-    convertValidation(validateTextProps))
+  validation:
+    process.env.NODE_ENV === ('development' as string) && validateTextProps
 })
 
 // === exports =======================================================

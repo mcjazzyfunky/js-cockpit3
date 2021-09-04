@@ -1,6 +1,6 @@
 // external imports
 import React, { ReactElement, ReactNode, Ref } from 'react'
-import { convertValidation, isNode } from 'js-react-utils'
+import { addComponentMeta, isNode } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
 import { ActionButton } from '@fluentui/react'
 
@@ -182,11 +182,12 @@ function DataExplorer(props: DataExplorerProps) {
   )
 }
 
-Object.assign(DataExplorer, {
-  displayName: 'DataExplorer',
+addComponentMeta(DataExplorer, {
+  name: 'DataExplorer',
 
-  ...(process.env.NODE_ENV === ('development' as string) &&
-    convertValidation(validateDataExplorerProps))
+  validation:
+    process.env.NODE_ENV === ('development' as string) &&
+    validateDataExplorerProps
 })
 
 const ActionBar = forwardRef(

@@ -1,6 +1,6 @@
 // external imports
 import React, { ReactNode } from 'react'
-import { convertValidation, isNode } from 'js-react-utils'
+import { addComponentMeta, isNode } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
 
 import {
@@ -134,11 +134,11 @@ function MenuBar({ items, onAction }: MenuBarProps) {
   return ret
 }
 
-Object.assign(MenuBar, {
-  displayName: 'MenuBar',
+addComponentMeta(MenuBar, {
+  name: 'MenuBar',
 
-  ...(process.env.NODE_ENV === ('development' as string) &&
-    convertValidation(validateMenuBarProps))
+  validation:
+    process.env.NODE_ENV === ('development' as string) && validateMenuBarProps
 })
 
 // === locals ========================================================

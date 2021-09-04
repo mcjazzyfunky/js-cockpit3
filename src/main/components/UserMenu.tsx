@@ -1,6 +1,6 @@
 // external imports
 import React from 'react'
-import { convertValidation } from 'js-react-utils'
+import { addComponentMeta } from 'js-react-utils'
 import { TooltipHost } from '@fluentui/react'
 import { MdPowerSettingsNew as LogoutIcon } from 'react-icons/md'
 import * as Spec from 'js-spec/validators'
@@ -92,11 +92,11 @@ function UserMenu({ displayName }: UserMenuProps) {
   )
 }
 
-Object.assign(UserMenu, {
-  displayName: 'UserMenu',
+addComponentMeta(UserMenu, {
+  name: 'UserMenu',
 
-  ...(process.env.NODE_ENV === 'development' &&
-    convertValidation(validateUserMenuProps))
+  validation:
+    process.env.NODE_ENV === ('development' as string) && validateUserMenuProps
 })
 
 const UserIcon = React.memo(function UserIcon({

@@ -1,6 +1,6 @@
 // external imports
 import React, { FormEvent } from 'react'
-import { convertValidation, isNode } from 'js-react-utils'
+import { addComponentMeta, isNode } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
 import { ChoiceGroup } from '@fluentui/react'
 
@@ -157,11 +157,12 @@ function RadioButtonGroup({
   )
 }
 
-Object.assign(RadioButtonGroup, {
-  displayName: 'RadioButtonGroup',
+addComponentMeta(RadioButtonGroup, {
+  name: 'RadioButtonGroup',
 
-  ...(process.env.NODE_ENV === ('development' as string) &&
-    convertValidation(validateRadioButtonGroupProps))
+  validation:
+    process.env.NODE_ENV === ('development' as string) &&
+    validateRadioButtonGroupProps
 })
 
 // === misc ==========================================================

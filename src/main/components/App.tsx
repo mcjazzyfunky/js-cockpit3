@@ -1,6 +1,6 @@
 // external imports
 import React, { ReactNode } from 'react'
-import { convertValidation, isNode } from 'js-react-utils'
+import { addComponentMeta, isNode } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
 import { Fabric, Customizer, ITheme } from '@fluentui/react'
 
@@ -32,11 +32,11 @@ function App({ theme, children }: AppProps) {
   )
 }
 
-Object.assign(App, {
-  displayName: 'App',
+addComponentMeta(App, {
+  name: 'App',
 
-  ...(process.env.NODE_ENV === ('development' as string) &&
-    convertValidation(validateAppProps))
+  validation:
+    process.env.NODE_ENV === ('development' as string) && validateAppProps
 })
 
 // === exports =======================================================

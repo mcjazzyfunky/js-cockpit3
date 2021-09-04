@@ -1,6 +1,6 @@
 // external imports
 import React, { ReactNode } from 'react'
-import { convertValidation, isNode } from 'js-react-utils'
+import { addComponentMeta, isNode } from 'js-react-utils'
 import { IoIosUnlock as LoginIcon } from 'react-icons/io'
 import * as Spec from 'js-spec/validators'
 
@@ -397,11 +397,12 @@ function LoginScreen({
   )
 }
 
-Object.assign(LoginScreen, {
-  displayName: 'LoginScreen',
+addComponentMeta(LoginScreen, {
+  name: 'LoginScreen',
 
-  ...(process.env.NODE_ENV === ('development' as string) &&
-    convertValidation(validateLoginScreenProps))
+  validation:
+    process.env.NODE_ENV === ('development' as string) &&
+    validateLoginScreenProps
 })
 
 function renderHeader(slotHeader: ReactNode, classes: Classes) {

@@ -1,6 +1,6 @@
 // external imports
 import React, { ReactNode } from 'react'
-import { convertValidation, isNode } from 'js-react-utils'
+import { addComponentMeta, isNode } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
 import { ActionButton, DefaultButton } from '@fluentui/react'
 
@@ -80,11 +80,11 @@ function ActionBar({ actions }: ActionBarProps) {
   )
 }
 
-Object.assign(ActionBar, {
-  displayName: 'ActionBar',
+addComponentMeta(ActionBar, {
+  name: 'ActionBar',
 
-  ...(process.env.NODE_ENV === ('development' as string) &&
-    convertValidation(validateActionBarProps))
+  validation:
+    process.env.NODE_ENV === ('development' as string) && validateActionBarProps
 })
 
 // === exports =======================================================

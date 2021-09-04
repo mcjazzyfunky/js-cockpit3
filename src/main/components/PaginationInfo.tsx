@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react'
-import { convertValidation, isNode } from 'js-react-utils'
+import { addComponentMeta, isNode } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
 
 import { Text } from '@fluentui/react'
@@ -44,11 +44,12 @@ function PaginationInfo({}: PaginationInfoProps) {
   )
 }
 
-Object.assign(PaginationInfo, {
-  displayName: 'PaginationInfo',
+addComponentMeta(PaginationInfo, {
+  name: 'PaginationInfo',
 
-  ...(process.env.NODE_ENV === 'development' &&
-    convertValidation(validatePaginationInfoProps))
+  validation:
+    process.env.NODE_ENV === ('development' as string) &&
+    validatePaginationInfoProps
 })
 
 // === exports =======================================================

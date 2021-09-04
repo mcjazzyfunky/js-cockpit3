@@ -1,6 +1,6 @@
 // external imports
 import React, { ReactNode } from 'react'
-import { convertValidation, isNode, withChildren } from 'js-react-utils'
+import { addComponentMeta, isNode, withChildren } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
 
 // internal import
@@ -106,11 +106,12 @@ function FieldWrapper({
   )
 }
 
-Object.assign(FieldWrapper, {
-  displayName: 'FieldWrapper',
+addComponentMeta(FieldWrapper, {
+  name: 'FieldWrapper',
 
-  ...(process.env.NODE_ENV === ('development' as string) &&
-    convertValidation(validateFieldWrapperProps))
+  validation:
+    process.env.NODE_ENV === ('development' as string) &&
+    validateFieldWrapperProps
 })
 
 // === exports =======================================================

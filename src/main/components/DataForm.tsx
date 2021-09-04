@@ -1,6 +1,6 @@
 // external imports
 import React, { ReactNode } from 'react'
-import { convertValidation, isNode } from 'js-react-utils'
+import { addComponentMeta, isNode } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
 
 // internal import
@@ -103,11 +103,11 @@ function DataForm({ title, slotActions, children }: DataFormProps) {
   )
 }
 
-Object.assign(DataForm, {
-  displayName: 'DataForm',
+addComponentMeta(DataForm, {
+  name: 'DataForm',
 
-  ...(process.env.NODE_ENV === ('development' as string) &&
-    convertValidation(validateDataFormProps))
+  validation:
+    process.env.NODE_ENV === ('development' as string) && validateDataFormProps
 })
 
 // === exports =======================================================

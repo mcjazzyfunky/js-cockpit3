@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react'
-import { convertValidation, isNode } from 'js-react-utils'
+import { addComponentMeta, isNode } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
 
 import { Icon, Text, TextField } from '@fluentui/react'
@@ -102,11 +102,11 @@ function Paginator({ pageIndex, pageCount, disabled = false }: PaginatorProps) {
   )
 }
 
-Object.assign(Paginator, {
-  displayName: 'Paginator',
+addComponentMeta(Paginator, {
+  name: 'Paginator',
 
-  ...(process.env.NODE_ENV === ('development' as string) &&
-    convertValidation(validatePaginatorProps))
+  validation:
+    process.env.NODE_ENV === ('development' as string) && validatePaginatorProps
 })
 
 // === exports =======================================================

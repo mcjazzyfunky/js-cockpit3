@@ -1,6 +1,6 @@
 // external imports
 import React, { Key } from 'react'
-import { convertValidation } from 'js-react-utils'
+import { addComponentMeta } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
 import { css } from '@fluentui/react'
 
@@ -207,11 +207,11 @@ function renderSideMenuGroup(
   )
 }
 
-Object.assign(SideMenu, {
-  displayName: 'SideMenu',
+addComponentMeta(SideMenu, {
+  name: 'SideMenu',
 
-  ...(process.env.NODE_ENV === ('development' as string) &&
-    convertValidation(validateSideMenuProps))
+  validation:
+    process.env.NODE_ENV === ('development' as string) && validateSideMenuProps
 })
 
 function renderSideMenuItem(

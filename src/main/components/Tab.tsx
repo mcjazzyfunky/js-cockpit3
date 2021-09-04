@@ -1,6 +1,6 @@
 // external imports
 import React, { ReactElement, ReactNode } from 'react'
-import { convertValidation, isNode } from 'js-react-utils'
+import { addComponentMeta, isNode } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
 
 // === types =========================================================
@@ -28,11 +28,11 @@ function Tab({}: TabProps): ReactElement<any> {
   )
 }
 
-Object.assign({
-  displayName: 'Tab',
+addComponentMeta(Tab, {
+  name: 'Tab',
 
-  ...(process.env.NODE_ENV === ('development' as string) &&
-    convertValidation(validateTabProps))
+  validation:
+    process.env.NODE_ENV === ('development' as string) && validateTabProps
 })
 
 // === exports =======================================================

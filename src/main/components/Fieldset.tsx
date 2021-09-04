@@ -1,6 +1,6 @@
 // external imports
 import React, { ReactNode } from 'react'
-import { convertValidation, isNode } from 'js-react-utils'
+import { addComponentMeta, isNode } from 'js-react-utils'
 import { FiLayers as DefaultLogo } from 'react-icons/fi'
 import * as Spec from 'js-spec/validators'
 
@@ -65,11 +65,11 @@ function Fieldset({ title, children }: FieldsetProps) {
   )
 }
 
-Object.assign(Fieldset, {
-  displayName: 'FieldSet',
+addComponentMeta(Fieldset, {
+  name: 'Fieldset',
 
-  ...(process.env.NODE_ENV === ('development' as string) &&
-    convertValidation(validateFieldsetProps))
+  validation:
+    process.env.NODE_ENV === ('development' as string) && validateFieldsetProps
 })
 
 // === exports =======================================================

@@ -1,6 +1,6 @@
 // external imports
 import React, { FunctionComponent, FormEvent, ReactNode } from 'react'
-import { convertValidation, isNode } from 'js-react-utils'
+import { addComponentMeta, isNode } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
 
 // internal imports
@@ -41,11 +41,12 @@ function initFormMgmt(): [
     )
   }
 
-  Object.assign(Form, {
-    displayName: 'DynamicForm',
+  addComponentMeta(Form, {
+    name: 'DynamicForm',
 
-    ...(process.env.NODE_ENV === ('development' as string) &&
-      convertValidation(validateFormCtrlProviderProps))
+    validation:
+      process.env.NODE_ENV === ('development' as string) &&
+      validateFormCtrlProviderProps
   })
 
   return [formCtrl, Form, setSubmitHandler]

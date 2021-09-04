@@ -1,6 +1,6 @@
 // external imports
 import React, { FormEvent } from 'react'
-import { convertValidation, isNode } from 'js-react-utils'
+import { addComponentMeta, isNode } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
 import { Stack, Checkbox } from '@fluentui/react'
 
@@ -143,11 +143,12 @@ function CheckBoxGroup({
   )
 }
 
-Object.assign(CheckBoxGroup, {
-  displayName: 'CheckBoxGroup',
+addComponentMeta(CheckBoxGroup, {
+  name: 'CheckBoxGroup',
 
-  ...(process.env.NODE_ENV === ('development' as string) &&
-    convertValidation(validateCheckBoxGroupProps))
+  validation:
+    process.env.NODE_ENV === ('development' as string) &&
+    validateCheckBoxGroupProps
 })
 
 // === misc ==========================================================

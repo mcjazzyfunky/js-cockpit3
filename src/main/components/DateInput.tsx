@@ -1,6 +1,6 @@
 // external imports
 import React, { FormEvent } from 'react'
-import { convertValidation, isNode } from 'js-react-utils'
+import { addComponentMeta, isNode } from 'js-react-utils'
 import { AiOutlineCalendar as CalendarIcon } from 'react-icons/ai'
 import * as Spec from 'js-spec/validators'
 import { Calendar, DatePicker } from '@fluentui/react'
@@ -141,11 +141,11 @@ function DateInput({
   )
 }
 
-Object.assign(DateInput, {
-  displayName: 'DateInput',
+addComponentMeta(DateInput, {
+  name: 'DateInput',
 
-  ...(process.env.NODE_ENV === 'development' &&
-    convertValidation(validateDateInputProps))
+  validation:
+    process.env.NODE_ENV === ('development' as string) && validateDateInputProps
 })
 
 // === misc ==========================================================

@@ -1,6 +1,6 @@
 // external imports
 import React, { ReactNode } from 'react'
-import { convertValidation, isNode } from 'js-react-utils'
+import { addComponentMeta, isNode } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
 import { Fabric, Customizer, ITheme } from '@fluentui/react'
 
@@ -157,11 +157,11 @@ function Cockpit({
   )
 }
 
-Object.assign({
-  displayName: 'Cockpit',
+addComponentMeta(Cockpit, {
+  name: 'Cockpit',
 
-  ...(process.env.NODE_ENV === ('development' as string) &&
-    convertValidation(validateCockpitProps))
+  validation:
+    process.env.NODE_ENV === ('development' as string) && validateCockpitProps
 })
 
 function renderHeader(

@@ -1,5 +1,5 @@
 import { createContext } from 'react'
-import { convertValidation } from 'js-react-utils'
+import { addComponentMeta } from 'js-react-utils'
 import * as Spec from 'js-spec/validators'
 
 // internal imports
@@ -17,11 +17,12 @@ const validateDefaultLabelPositionCtxProviderProps = Spec.checkProps({
 
 const DefaultLabelPositionCtx = createContext(LabelPosition.Above)
 
-Object.assign(DefaultLabelPositionCtx.Provider, {
-  displayName: 'DefaultLabelPositionCtx.Provider',
+addComponentMeta(DefaultLabelPositionCtx.Provider, {
+  name: 'DefaultLabelPositionCtx.Provider',
 
-  ...(process.env.NODE_ENV === 'development' &&
-    convertValidation(validateDefaultLabelPositionCtxProviderProps))
+  validation:
+    process.env.NODE_ENV === ('development' as string) &&
+    validateDefaultLabelPositionCtxProviderProps
 })
 
 // === exports =======================================================-

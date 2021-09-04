@@ -1,6 +1,6 @@
 // external imports
 import React, { ReactNode } from 'react'
-import { convertValidation, isNode } from 'js-react-utils'
+import { addComponentMeta, isNode } from 'js-react-utils'
 import { VariableSizeGrid } from 'react-window'
 import useResizeAware from 'react-resize-aware'
 import * as Spec from 'js-spec/validators'
@@ -214,11 +214,11 @@ function DataTable(props: DataTableProps) {
   )
 }
 
-Object.assign(DataTable, {
-  displayName: 'DataTable',
+addComponentMeta(DataTable, {
+  name: 'DataTable',
 
-  ...(process.env.NODE_ENV === ('development' as string) &&
-    convertValidation(validateDataTableProps))
+  validation:
+    process.env.NODE_ENV === ('development' as string) && validateDataTableProps
 })
 
 function renderHead(
